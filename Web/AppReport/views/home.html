@@ -1,0 +1,53 @@
+﻿<section>
+    <a href="#/requestDefineStep">تعریف مراحل</a>
+    <a href="#/requestStep">کارتابل</a>
+    <a class="btn btn-success" data-bind="click: get"></a>
+    <div  
+        class="ui-corner-all section-main pull-right"
+        style="padding: 2em;padding-bottom: 1em;background-color: white;width: 400px;margin-left: 1em">
+        <a  data-bind="click: loadTotalRequests"
+            class="pointer" title="بازیابی">
+            <i class="icon-refresh"></i>
+        </a>
+        <table class="table table-hover" >
+            <tbody data-bind="foreach: totalRequests">
+                <tr class="pointer"
+                    data-bind="click: $root.goToConfirm">
+                    <td>
+                        <a class=" ui-corner-all">
+                            <i data-bind="css: $root.getRequestTotal(Name())"></i>
+                        </a>
+                    </td>
+                    <td data-bind="text: Title"></td>
+                    <td style="text-align: left">
+                        <span class="badge badge-success" data-bind="text: Count, visible: Count() != 0"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    
+    
+    
+    <!--<div data-bind='template: { name: "sectionTmp", foreach: sections }'></div>-->
+       
+    <style>
+        .wrapper {
+            border-style: dashed ;
+            border-width: thin;
+            border-color: #008000;
+        }
+    </style>
+    <script id="sectionTmp" type="text/html">
+        <div style="padding: 2em;"
+            data-bind="css: { 'wrapper': expanded() && Children().any() }" >
+        <span data-bind="text:$index"></span>
+        <a class="btn btn-primary" data-bind="click: $root.loadChildren">
+            <i class="icon-plus icon-white"></i>
+        </a>
+        <span data-bind='text: Title'></span>
+        <div  data-bind='template: { name: "sectionTmp", foreach: Children },visible: expanded()'>
+        </div>
+    </script>
+</section>

@@ -1,0 +1,45 @@
+﻿
+<thead>
+    <tr>
+        <th>شامل خرید ؟</th>
+        <th>مسافر</th>
+        <th>تاریخ رفت</th>
+        <th>تاریخ برگشت</th>
+        <th>مبدا</th>
+        <th>مقصد</th>
+    </tr>
+
+</thead>
+                          
+<tbody data-bind="foreach: RequestDetailTickets">
+    <tr>
+        <td>
+            <button data-bind="checkboxImage: { checked: IsOrder }" ></button>
+        </td>
+        <td>
+            <span>
+                <span data-bind="with: Passenger">
+                    <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+                </span>
+            </span>
+        </td>
+        <td>
+           <span data-bind="text: GoOnDate"></span>
+        </td>
+        <td>
+           <span data-bind="text: ReturnDate"></span>
+        </td>
+        <td>
+           <span data-bind="text: Origin"></span>
+        </td>
+        <td>
+           <span data-bind="text: Destination"></span>
+        </td>
+    </tr>
+</tbody>
+
+
+
+
+
+

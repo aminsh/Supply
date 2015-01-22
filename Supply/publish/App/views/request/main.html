@@ -1,0 +1,167 @@
+﻿<style>
+    section {
+        padding: 2em
+    }
+
+    .wrapper {
+        background-color: white;
+        margin-top: 2em
+    }
+
+    .panel-header {
+        color: white;
+        padding: 10px;
+        overflow-y: auto;
+    }
+
+    .panel-body {
+        border-top: 1px solid #E2DEDE;
+        padding: 2em;
+        padding-top: 0.5em
+        /*overflow-y: auto;*/
+    }
+
+    .panel-footer {
+        border-top: 1px solid #E2DEDE;
+        padding: 15px;
+        overflow-y: auto;
+    }
+
+    .gray {
+        background-color: #778899; 
+    }
+
+    .yellow {
+        background-color: #ffd700; 
+    }
+
+    .span12 {
+        float: right;
+    }
+
+    .view-box .span4 div,
+    .view-box .span3 div,
+    .view-box .span12 div,
+    .view-box .span9 div {
+        margin-top: 2em;
+        text-align: center;
+        background-color: lavender;
+        padding-bottom: 5px
+    }
+
+    .view-box label {
+        text-align: center;
+        padding: 0;
+        padding-bottom: 5px;
+        padding-top: 5px;
+        width: 100%;
+        background-color: #999999;
+        color: white;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    
+    .view-single label {
+        text-align: right;
+        width: 120px    
+    }
+
+    .toolbox a {
+        margin-left: 0.5em
+    }
+
+    td.more-info:hover {
+        background-color: transparent;
+    }
+
+    .dropdown-menu {
+        right: 0
+    }
+</style>
+<section>
+    
+    <div style="display: inline-block;width: 100%;position: fixed;top: 0;
+                                      background-color: #EFEFEF;box-shadow: 0px 2px 10px #888888; -webkit-box-shadow: 0px 2px 10px #888888;
+                                      padding-top: 6em;padding-right: 10em;padding-bottom: 2em;left: 0;right: 0;z-index: 1">
+        <h2 class="page-title" data-bind="text: title"></h2>
+       
+        <div data-bind="if: viewController.currentView().name === 'list'">
+            <div class="btn-group">
+                <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    <i class="icon-plus icon-white"></i>
+                    جدید 
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" data-bind="foreach: requestTypes">
+                    <li>
+                        <a data-bind="click: $root.add">
+                            <span data-bind="text: title"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        
+        
+        
+        <div data-bind="if: viewController.currentView().name === 'read'">
+            <a class="btn btn-inverse" data-bind="click: returnToList">
+                <i class="icon-arrow-right icon-white"></i>
+                بازگشت به لیست
+            </a>
+            &nbsp;
+            <a class="btn btn-success"
+               data-bind="click: readToEdit">
+                <i class="icon-edit icon-white"></i>
+                ویرایش
+            </a>
+        </div>
+
+        <div data-bind="if: viewController.currentView().name === 'edit'">
+            <a class="btn btn-inverse" data-bind="click: returnToList">
+                <i class="icon-arrow-right icon-white"></i>
+                بازگشت به لیست
+            </a>
+            &nbsp;
+            <span data-bind="if: current()">
+                <a class="btn btn-success"
+                   data-bind="click: returnToRead, css: { disabled: current().entityAspect.entityState.isAdded() }">
+                    <i class="icon-play-circle icon-white"></i>
+                    بازگشت به نمایش
+                </a>
+            </span>
+            &nbsp;
+            <a class="btn btn-info"
+               data-bind="click: save, css: { disabled: !hasChanges()}">
+                <i class="icon-save"></i>
+                ذخیره
+            </a>
+            &nbsp;
+            <a class="btn" data-bind="click: cancel, css: { disabled: !hasChanges() }">  
+                <i class="icon-repeat"></i>
+                انصراف
+            </a>
+        </div>
+    </div>
+
+    
+    <div style="margin-top: 100px">
+        <div data-bind="if: viewController.currentView().name === 'list'">
+            <!--ko compose: {view: 'request/templates/list'} --><!--/ko-->
+        </div>
+
+        <div data-bind="if: viewController.currentView().name === 'read'">
+            <div data-bind="with: current">
+                <!--ko compose: {view: 'request/templates/read'} --><!--/ko-->
+            </div>
+        </div>
+
+        <div data-bind="if: viewController.currentView().name === 'edit'">
+          
+            <div data-bind="with: current">
+                <!--ko compose: {view: 'request/templates/edit'} --><!--/ko-->
+            </div>
+        </div>
+    </div>
+</section>

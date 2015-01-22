@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link type="text/css" href="../Content/jquery-ui-1.8.14.css" rel="stylesheet" />
+    <link href="../Content/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
+    
+    <!--<script src="../Scripts/jquery-1.9.1.js"></script>-->
+    <script src="../Scripts/jquery-1.6.2.min.js"></script>
+	<script type="text/javascript" src="../Scripts/jquery.ui.core.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.ui.datepicker-cc.js"></script>
+    <script type="text/javascript" src="../Scripts/calendar.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.ui.datepicker-cc-ar.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.ui.datepicker-cc-fa.js"></script>
+    <script src="../Scripts/helper/helper.date.js"></script>
+    <script src="../Scripts/helper/helper.array.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+        $(function () {
+            //$('#txtDate').datepicker({
+            //    changeMonth: true,
+            //    changeYear: true,
+            //    showButtonPanel: true,
+            //    dateFormat: 'yy/mm/dd'
+            //});
+
+            $('#btn').click(function() {
+                //var today = new Date();
+
+                //alert(today.toPersian());
+                      
+                //var persian = jd_to_persian(gregorian_to_jd(2013, 5, 7));
+                //alert(persian[0] + "/" + persian[1] + "/" + persian[2]);
+
+                var p = "1392/2/19";
+                //alert(persianToDate(p));
+                alert(helper.date.persianToDate(p));
+            });
+            
+           
+        });
+    </script>
+    <input type="text" id="txtDate"/>
+    <button id="btn">Click</button>
+    
+</body>
+</html>

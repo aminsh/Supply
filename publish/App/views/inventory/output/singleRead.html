@@ -1,0 +1,85 @@
+﻿<div>
+    <span class="badge pointer red" data-bind="click: changeShowMaster" 
+        style="padding-top: 0.5em;padding-bottom: 0.5em;padding-left: 1em;padding-right: 1em;width: 100%">
+        <i class="icon-white" data-bind="css: { 'icon-plus': !canShowMaster(), 'icon-minus': canShowMaster() }"></i>
+        بخش درخواست
+    </span>
+    <div class="labelBold ui-corner-all" data-bind="with: current, visible: canShowMaster()" style="background-color: rgb(250, 214, 216); padding: 2em">
+        <div class="row" style="font-weight: bold">
+            صادر شده توسط 
+            <span data-bind="text: CreatedByUser().FirstName() + ' ' + CreatedByUser().LastName()"></span>
+            در تاریخ
+            <span data-bind="text: CreatedOnDate()"></span>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="span3" style="width: 100px">
+                <div>
+                    <label>شماره : </label>
+                    <span data-bind="text: No"></span>
+                </div>
+            </div>
+            
+            <div class="span3" style="width: 100px">
+                <div>
+                    <label>تاریخ : </label>
+                    <span data-bind="text: Date"></span>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div>
+                <div class="span3">
+                    <div data-bind="with: Section">
+                        <label>قسمت : </label>
+                        <span data-bind="text: Title"></span>
+                    </div>
+                </div>
+                <div class="span3">
+                    <div data-bind="with: Person">
+                        <label>تحویل گیرنده : </label>
+                        <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr/>
+    </div>
+    <span class="badge badge-success pointer" data-bind="click: changeShowDetail" 
+          style="padding-top: 0.5em;padding-bottom: 0.5em;padding-left: 1em;padding-right: 1em;width: 100%">
+        <i class="icon-white" data-bind="css: { 'icon-plus': !canShowDetail(), 'icon-minus': canShowDetail() }"></i>
+        بخش کالا
+    </span>
+
+    <div class="view-single ui-corner-all" data-bind="with: current, visible: canShowDetail()" 
+        style="background-color: rgb(234, 255, 234); padding: 2em">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>کالا</th>
+                    <th>تعداد</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: OutputDetails">
+                <tr>
+                    <td data-bind="text: Row"></td>
+                    <td data-bind="with: ItemGood">
+                        <span data-bind="text: Title"></span>
+                    </td>
+                    <td data-bind="text: Qty">
+                        <span data-bind="text: Qty"></span>
+                        <span data-bind="with: ItemGood">
+                            <span data-bind="with: Scale">
+                                <span data-bind="text: Title"></span>
+                            </span>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+    </div>
+</div>

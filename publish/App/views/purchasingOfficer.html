@@ -1,0 +1,45 @@
+﻿<section>
+    <h2 class="page-title" data-bind="text: title"></h2>
+    
+    <!--ko compose: {view: 'layout/standardButtons'} --><!--/ko-->
+
+    <a class="btn btn-primary" data-bind="click: add">
+        <i class="icon-plus icon-white"></i>
+        جدید
+    </a>
+
+    <table class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>پرسنل</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: purchasingOfficers">
+            <tr>
+                <td>
+                     <input  data-bind="combo: { modelProp: Employee, valueProp: EmployeeID, displayProp: 'FirstName,LastName', allData: true }"/>
+                </td>
+                <td>
+                    <a class="btn btn-danger" href="#" data-bind="click: $parent.remove"><i class="icon-trash icon-white"></i> حذف </a> 
+                </td>
+            </tr>
+            <tr data-bind="visible: $root.hasChanges() && $data.errors.count()" style="background-color: #FFFFB9">
+                <td colspan="5">
+                    <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->    
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" >
+                    <div data-bind="with: purchasingOfficerpager">
+                        <!--ko compose: {view: 'layout/pager'} --><!--/ko-->
+                    </div>
+                    
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+   
+</section>

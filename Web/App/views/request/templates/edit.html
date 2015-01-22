@@ -1,0 +1,373 @@
+﻿ <div class="wrapper shadow">
+     <div data-bind="click: $root.changeShowMaster"  
+         class="panel-header ui-corner-top bold gray pointer">
+            <i class="icon-white" data-bind="css: { 'icon-plus': !$root.canShowMaster(), 'icon-minus': $root.canShowMaster() }"></i>
+            بخش درخواست
+        </div>
+     <div class="panel-body"
+          data-bind="visible: $root.canShowMaster()">
+            <div class="view-box">
+                <div class="row">
+                    <div class="span12" data-bind="if: !entityAspect.entityState.isAdded()">
+                        <label>
+                            ایجاد شده توسط 
+                            <span data-bind="text: CreatedByUser().FirstName() + ' ' + CreatedByUser().LastName()"></span>
+                            در تاریخ
+                            <span data-bind="text: CreatedOnDate"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span3">
+                        <div>
+                            <label>شماره درخواست متقاضی</label>
+                            <span data-bind="text: ID"></span>
+                        </div>
+                    </div>
+                    <div class="span3" data-bind="visible: $data.hasOwnProperty('RequestGoodNo')">
+                        <div data-bind="if: $data.hasOwnProperty('RequestGoodNo')">
+                            <label>درخواست انبار</label>
+                            <span data-bind="text: RequestGoodNo"></span>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <div>
+                            <label>شماره درخواست  خرید</label>
+                            <span data-bind="text: OrderNo"></span>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <div>
+                            <label>تاریخ</label>
+                            <input type="text" data-bind="value: Date"/>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <div>
+                            <label>نامه (ها)</label>
+                            <button  class="btn-toggle ui-corner-all " data-bind="click: $root.openLetter">
+                                <i class="icon-envelope"></i> 
+                                نامه
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span4">
+                        <div>
+                            <label>قسمت</label>
+                            <input data-bind="combo: { modelProp: Section, valueProp: SectionID, displayProp: 'Title', allData: true }"/>
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <div>
+                            <label>مصرف کننده</label>
+                            <input data-bind="combo: { modelProp: ConsumerSection, valueProp: ConsumerSectionID, displayProp: 'Title', allData: true }"/>
+                        </div>
+
+                    </div>
+                    <div class="span4">
+                        <div>
+                            <label>درخواست دهنده</label>
+                            <input  data-bind="combo: { modelProp: Person, valueProp: PersonID, displayProp: 'FirstName,LastName', allData: true }"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span4">
+                        <div>
+                            <label>کارپرداز</label>
+                            <span data-bind="with: PurchasingOfficer">
+                                <span data-bind="text: Title"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <div>
+                            <label>تاریخ ارائه به کارپرداز</label>
+                            <span data-bind="text: OrderDate"></span>
+                        </div>
+
+                    </div>
+                    <div class="span4">
+                        <div>
+                            <label>فوری ؟</label>
+                            <button data-bind="checkboxImage: { checked: IsFast }"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--<div class="span3">
+                        <div>
+                            <label>وضعیت</label>
+                            <input data-bind="enumCombo: { Type: 'RequestStatus', value: Status }" style="width: 120px"/>
+                        </div>
+                    </div>-->
+                    <div class="span3">
+                        <div>
+                            <label>روش خرید</label>
+                            <input data-bind="enumCombo: { Type: 'PurchaseMethod', value: PurchaseMethod }" style="width: 120px"/>
+                        </div>
+                    </div>
+                    <div class="span3" data-bind="with: UserDefinedCategory">
+                        <div >
+                            <label>دسته بندی</label>
+                            <span data-bind="text: Title"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span12">
+                        <div>
+                            <label>توضیحات</label>
+                            <textarea data-bind="value: Des" style="width: 90%"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div data-bind="visible: $root.hasChanges() && $data.hasValidationErrors()" class="row"  style="background-color: #FFFFB9;width: 100%">
+                    <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+ <div class="wrapper shadow">
+     <div data-bind="click: $root.changeShowDetail" 
+          class="panel-header ui-corner-top bold green pointer">
+         <i class="icon-white" data-bind="css: { 'icon-plus': !$root.canShowDetail(), 'icon-minus': $root.canShowDetail() }"></i>
+         بخش
+         <span data-bind="text: ['Good', 'Food'].contains(RequestType()) ? 'کالا' : ''"></span>
+         <span data-bind="text: ['Service', 'Service'].contains(RequestType()) ? 'خدمات' : ''"></span>
+         <span data-bind="text: RequestType() === 'Ticket' ? 'بلیط' : ''"></span>
+     </div>
+
+     <div class="panel-body" data-bind="visible: $root.canShowDetail()">
+         <div style="padding-top: 1em;padding-bottom: 1em">
+             <div class="pull-right">
+                       <a class="btn btn-primary"
+                          data-bind="click: $root.addDetail">
+                           <i class="icon-plus icon-white"></i>
+                           جدید
+                       </a>
+                   </div>
+             <div class="pull-left">
+                 <button data-bind="checkboxImage: { checked: $root.canShowCurrentDetailFull }"></button>
+                 نمایش کامل اطلاعات
+             </div>
+         </div>
+         <table class="table table-hover" data-bind="visible: $data['RequestDetail' + RequestType() + 's'].any()">
+             <thead>
+                 <tr>
+                     <th>ردیف</th>
+                     <th data-bind="visible: ['Good', 'Food'].contains(RequestType())">کالا</th>
+                     <th data-bind="visible: RequestType() === 'Service'">خدمات</th>
+                     <th data-bind="visible: ['Good', 'Food','Service','Vehicle'].contains(RequestType())">تعداد</th>
+                     <th data-bind="visible: ['Good', 'Food', 'Service', 'Vehicle'].contains(RequestType())">قیمت واحد</th>
+                     <th data-bind="visible: ['Good', 'Food', 'Service', 'Vehicle'].contains(RequestType())">قیمت کل</th>
+                     <th data-bind="visible: RequestType() === 'Ticket'">مسافر</th>
+                     <th data-bind="visible: RequestType() === 'Ticket'">تاریخ رفت</th>
+                     <th data-bind="visible: RequestType() === 'Ticket'">تاریخ برگشت</th>
+                     <th data-bind="visible: RequestType() === 'Ticket'">قیمت رفت</th>
+                     <th data-bind="visible: RequestType() === 'Ticket'">قیمت برگشت</th>
+                     <th>تاریخ انجام</th>
+                     <th data-bind="visible: RequestType() === 'Good'">رسید</th>
+                     <th></th>
+                 </tr>
+             </thead>
+             <tbody data-bind="foreach: $data['RequestDetail' + RequestType() + 's']">
+                 <tr class="pointer"
+                     data-bind="click: $root.selectDetail,
+    css: { info: $data == $root.currentDetail(), error: IsCancel(), success: !isNullOrEmpty(DoneDate()) }">
+                     <td data-bind="text: Row"></td>
+                     <td data-bind="visible: ['Good', 'Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+                         <span data-bind="if: ['Good', 'Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+                             <span data-bind="if: $parent.RequestType() === 'Good'">
+                                 <input  data-bind="combo: { modelProp: ItemGood, valueProp: ItemGoodID, displayProp: 'No,Title', allData: true, expands: ['Scale'], callbackAfterUpdate: $root.callbackAfterItemUpdate }"/>
+                             </span>
+                             <span data-bind="if: $parent.RequestType() === 'Service'">
+                                 <input  data-bind="combo: { modelProp: ItemService, valueProp: ItemServiceID, displayProp: 'Title', allData: true, expands: ['Scale'], callbackAfterUpdate: $root.callbackAfterItemUpdate }"/>
+                             </span>
+                             <span data-bind="if: $parent.RequestType() === 'Food'">
+                                 <input  data-bind="combo: { modelProp: ItemFood, valueProp: ItemFoodID, displayProp: 'Title', allData: true, expands: ['Scale'], callbackAfterUpdate: $root.callbackAfterItemUpdate }"/>
+                             </span>
+                             <span data-bind="if: $parent.RequestType() === 'Vehicle'">
+                                 <input  data-bind="combo: { modelProp: ItemVehicle, valueProp: ItemVehicleID, displayProp: 'Title', allData: true, expands: ['Scale'], callbackAfterUpdate: $root.callbackAfterItemUpdate }"/>
+                             </span>
+                         </span>
+                     </td>
+                     <td data-bind="visible: ['Good', 'Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+                         <span data-bind="if: ['Good', 'Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+                             <input type="text" data-bind="value: Qty" data-converter="value: float" style="width: 50px"/>
+                             <span data-bind="if: $parent.RequestType() === 'Good'">
+                                 <span data-bind="with: ItemGood">
+                                     <span data-bind="with: Scale">
+                                         <span data-bind="text: Title"></span>
+                                     </span>
+                                 </span>
+                             </span>
+                             <span data-bind="if: ['Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+                                 <span data-bind="with: Scale">
+                                     <span data-bind="text: Title"></span>
+                                 </span>
+                             </span>
+                         </span>
+                     </td>
+                     <td data-bind="visible: ['Good', 'Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+                         <span data-bind="if: ['Good', 'Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+                             <input type="text" data-bind="value: UnitPrice" style="width: 100px"/>
+                         </span>
+                     </td>
+                     <td data-bind="visible: ['Good', 'Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+                         <span data-bind="if: ['Good', 'Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+                             <span data-bind="text: TotalPrice" data-converter="text: float"></span>
+                         </span>
+                     </td>
+                     <td data-bind="visible: $parent.RequestType() === 'Ticket'">
+                         <span data-bind="if: $parent.RequestType() === 'Ticket'">
+                             <input style="width: 150px" 
+                                    data-bind="combo: { modelProp: Passenger, displayProp: 'FirstName,LastName', valueProp: PassengerID, allData: true }"/>
+                         </span>
+                     </td>
+                     <td data-bind="visible: $parent.RequestType() === 'Ticket'">
+                         <span data-bind="if: $parent.RequestType() === 'Ticket'">
+                             <input type="text" data-bind="value: GoOnDate"/>
+                         </span>
+                     </td>
+                     <td data-bind="visible: $parent.RequestType() === 'Ticket'">
+                         <span data-bind="if: $parent.RequestType() === 'Ticket'">
+                             <input type="text" data-bind="value: ReturnDate"/>
+                         </span>
+                     </td>
+                     <td data-bind="visible: $parent.RequestType() === 'Ticket'">
+                         <span data-bind="if: $parent.RequestType() === 'Ticket'">
+                             <input type="text" data-bind="value: GoOnPrice" data-converter="value: float" style="width: 120px"/>
+                         </span>
+                            
+                     </td>
+                     <td data-bind="visible: $parent.RequestType() === 'Ticket'">
+                         <span data-bind="if: $parent.RequestType() === 'Ticket'">
+                             <input type="text" data-bind="value: ReturnPrice" data-converter="value: float" style="width: 120px"/>
+                         </span>
+                            
+                     </td>
+                     <td>
+                         <input type="text" data-bind="value: DoneDate"/>
+                     </td>
+                     <td>
+                         <span class="toolbox">
+                             <a class="btn btn-success" title="هزینه های موثر" data-bind="click: $root.openEffectiveCostDetail, clickBubble: false">
+                                 <i class="icon-plus-sign icon-white"></i>
+                             </a>
+                             <span data-bind="if: $parent.RequestType() === 'Service'">
+                                 <a class=" btn btn-info" title="ریز هزینه ها" 
+                                    data-bind="click: $root.openSmallCost, clickBubble: false">
+                                     <i class="icon-th-list icon-white"></i>
+                                 </a>
+                             </span>
+                             <span data-bind="if: isNullOrEmpty(DoneDate())">
+                                 <a class="btn btn-danger" data-bind="click: $root.removeDetail, clickBubble: false, css: { disabled: IsCancel() }" title="حذف / لغو">
+                                     <i class="icon-trash icon-white"></i>
+                                 </a>
+                             </span>
+                         </span>
+
+                     </td>
+
+                 </tr>
+                 <tr>
+                     <td class="more-info"
+                         data-bind="fadeVisible: $data == $root.currentDetail() && $root.canShowCurrentDetailFull(),
+    attr: { colspan: $parent.RequestType() === 'Ticket' ? 8 : 7 }">
+                         <div class="ui-corner-all view-single" style="padding: 2em;border: 3px #c4e3f3 solid">
+                             <div class="row" data-bind="if: $parent.RequestType() === 'Ticket'">
+                                 <div class="span5">
+                                     <div>
+                                         <label>مبدا : </label>
+                                         <input type="text" data-bind="value: Origin" style="width: 150px"/>
+                                     </div>
+                                 </div>
+                                 <div class="span5">
+                                     <div>
+                                         <label>مقصد : </label>
+                                         <input type="text" data-bind="value: Destination" style="width: 150px"/>
+                                     </div>
+                                 </div>
+                                 <div class="span5">
+                                     <div>
+                                         <label>شماره بلیط : </label>
+                                         <input type="text" data-bind="value: TicketNo" style="width: 120px"/>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="row">
+                                 <div class="span5">
+                                     <div>
+                                         <label class="pull-right">فروشنده :</label>
+                                         <input class="pull-right"  data-bind="combo: { modelProp: Seller, valueProp: SellerID, displayProp: 'Title', allData: true }"/>
+                                     </div>
+                                 </div>
+                                 <div class="span5">
+                                     <div>
+                                         <label>توضیحات : </label>
+                                         <textarea data-bind="value: Des"></textarea>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="row" data-bind="if: ['Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+                                 <div class="span5">
+                                     <div>
+                                         <label class="pull-right">واحد اندازه گیری : </label>
+                                         <input class="pull-right"  data-bind="combo: { modelProp: Scale, valueProp: ScaleID, displayProp: 'Title', allData: true }" style="width: 150px"/>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="row" data-bind="if: $parent.RequestType() === 'Vehicle'">
+                                 <div class="span5">
+                                     <div>
+                                         <label class="pull-right">راننده : </label>
+                                         <input class="pull-right"  data-bind="combo: { modelProp: Driver, valueProp: DriverID, displayProp: 'Title', allData: true }"/>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </td> 
+                 </tr>
+                 <tr>
+                     <td style="background-color: #FFFFB9" 
+                         data-bind="visible: $root.hasChanges && $data.hasValidationErrors(), attr: { colspan: $parent.RequestType() === 'Ticket' ? 8 : 7}">
+                         <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+                     </td>
+                 </tr>
+             </tbody>
+             <tfoot>
+                 <tr data-bind="visible: ['Good', 'Food', 'Service', 'Vehicle'].contains(RequestType())">
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                     <td data-bind="if: ['Good', 'Food', 'Service', 'Vehicle'].contains(RequestType())">
+                         <span data-bind="text: TotalPrice" data-converter="text: float"></span>
+                     </td>
+                     <td></td>
+                     <td></td>
+                 </tr>
+             </tfoot>
+         </table>
+         <div data-bind="visible: !$data['RequestDetail' + RequestType() + 's'].any()">
+             اطلاعاتی جهت نمایش وجود ندارد
+         </div>
+     </div>
+    </div>
+    
+<div class="wrapper shadow">
+    <div class="panel-header ui-corner-top bold yellow pointer"
+         data-bind="click: $root.changeShowFinance">
+        <i class="icon-white" data-bind="css: { 'icon-plus': !$root.canShowFinance(), 'icon-minus': $root.canShowFinance() }"></i>
+        بخش مالی
+    </div>
+    <div class="panel-body"
+         data-bind="visible: $root.canShowFinance()">
+        این بخش هنوز پیاده سازی نشده
+    </div>
+</div>

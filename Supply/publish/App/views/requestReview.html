@@ -1,0 +1,90 @@
+﻿<section>
+    <h2 class="page-title" data-bind="text: title"></h2>
+    <br/>
+    <ul data-bind="foreach: columns">
+        <li style="display: inline">
+            <input type="checkbox" data-bind="checked: isActive"/>
+            <span data-bind="text: title"></span>
+        </li>
+    </ul>
+   
+    <div data-bind="foreach: columns">
+        <a class="btn btn-info" data-bind="click: $root.selectColumn">
+            <span data-bind="text: title,visible: !isActive"></span>
+        </a>
+        &nbsp;
+    </div>
+    <br/>
+    <a class="btn btn-primary btn-large" data-bind="click: runQuery">
+        <i class="icon-play-circle icon-white"></i>
+        <span>اجرا</span>
+    </a>
+    <br/>
+    <a class="btn btn-primary" data-bind="visible: anySelected,click: clearSelect">حذف انتخاب جاری</a>
+
+    <a class="btn btn-inverse" data-bind="visible: currentHasSection">
+        <i class="icon-arrow-up icon-white"></i>
+        <span>قسمت حرکت بالا</span>
+    </a>
+
+    <a class="btn btn-inverse" data-bind="visible: currentHasSection">
+        <i class="icon-arrow-down icon-white"></i>
+        <span>قسمت حرکت پایین</span>
+    </a>
+    
+    <a class="btn btn-success" data-bind="visible: currentHasItemGood">
+        <i class="icon-arrow-up icon-white"></i>
+        <span>کالا حرکت بالا</span>
+    </a>
+
+    <a class="btn btn-success" data-bind="visible: currentHasItemGood">
+        <i class="icon-arrow-down icon-white"></i>
+        <span>کالا حرکت پایین</span>
+    </a>
+
+
+
+
+    
+
+   
+
+    <table class="table table-hover">
+        <thead>
+            <tr data-bind="foreach: displayColumns">
+                <th data-bind="text: title"></th>
+                <!--<th>کالا</th>
+                <th>معاونت / قسمت</th>
+                <th>درخواست دهنده</th>
+                <th>تعداد</th>
+                <th>مبلغ کل</th>-->
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: requests">
+            <tr data-bind="css: { info: isSelected }, click: $root.select, foreach: $root.displayColumns" style="cursor: pointer">
+                <td data-bind="
+    text: typeof $parent[$data.name] == 'object'
+    ? $parent[$data.name].hasOwnProperty('FullPathText')
+        ? $parent[$data.name].FullPathText.replaceAll('.','/')
+        : $parent[$data.name].Title
+    : $parent[$data.name]"></td>
+               
+            </tr>
+        </tbody>
+         <tfoot >
+             <tr data-bind="foreach: displayColumns">
+                 <td data-bind="text: $root.hasOwnProperty('sum'+name) ? $root['sum'+name] : ''"></td>
+             </tr>
+             <tr>
+                 <td data-bind="attr: { colspan: displayColumns.count() }" >
+                     <div data-bind="with: pager">
+                         <div >
+                             
+                         </div>
+                     </div>
+
+                 </td>
+             </tr>    
+         </tfoot>
+    </table>
+</section>

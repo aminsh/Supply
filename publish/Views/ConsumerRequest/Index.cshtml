@@ -1,0 +1,996 @@
+﻿@using System.Web
+@using System.Web.Optimization
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>درخواست واحد متقاضی</title>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        @* for no-cache *@
+        <meta http-equiv="no-cache">
+        <meta http-equiv="Expires" content="-1">
+        <meta http-equiv="Cache-Control" content="no-cache">
+
+        @Styles.Render("~/Content/css")
+        <script type="text/javascript">
+            if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+                var msViewportStyle = document.createElement("style");
+                var mq = "@@-ms-viewport{width:auto!important}";
+                msViewportStyle.appendChild(document.createTextNode(mq));
+                document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+            }
+
+        </script>
+
+
+
+    </head>
+    
+
+    <body>
+        @Html.Partial("_header")
+        @Scripts.Render("~/scripts/vendor")
+        <script src="~/Scripts/bootbox.js"></script>
+        @if (@User.Identity.IsAuthenticated)
+        {
+            <style>
+            html {
+                background: url(/Content/images/bg.jpg);
+            }
+            body {
+                padding: 0 auto;
+                max-width: 100%;
+                /*background: url(/Content/images/bg.jpg);*/
+            }
+
+            .btn {
+                font-family: tahoma
+            }
+
+            .modal-footer .btn{
+                width: 100px;
+                height: 30px;
+                margin-left: 5px
+            }
+
+            
+            h2.page-title {
+                font-size: 25px
+            }
+            .custom-combobox {
+                width: 90%
+            }
+            .tile {
+                width: 300px;
+                height: 150px;
+            }
+
+            .view-single label {
+                display: inline-block;
+                width: 100px;
+                height: 20px;
+                padding-left: 10px;
+                text-align: right;
+                font-style: normal;
+                font-weight: bold;
+            }
+
+            .section-main {
+                background-color: #EFEFEF;
+            }
+            .section-header {
+                border-bottom: 1px solid #E2DEDE;
+                padding: 15px;
+                overflow-y: auto;
+            }
+            .section-footer {
+                border-top: 1px solid #E2DEDE;
+                padding: 15px;
+                overflow-y: auto;
+            }
+
+            .section-body {
+                padding: 15px;
+                overflow-y: auto;
+            }
+            .main {
+                margin-top: 50px;
+            }
+
+            #selectRequest,
+            #requstEntry,
+            #trackRequest,
+            #successResult {
+                display: none
+            }
+
+        </style>
+            <script>
+                $(function () {
+                    toastr.options.positionClass = 'toast-bottom-left';
+                    toastr.options.backgroundpositionClass = 'toast-bottom-left';
+
+                    function messageBox(message, callback) {
+                        bootbox.confirm(message, callback);
+                    }
+
+                    var context = helper.datacontext;
+                    
+                    helper.ajax.getCurrentUser(function(user) {
+                        helper.defaults.setCurrentUser(user);
+
+                        if (isNullOrEmpty(user.EmployeeID)) {
+                            vm.canShowSectionPanel(true);
+                            return;
+                        }
+                            
+                        
+                        var q = context.query('Employees')
+                            .where('ID', '==', user.EmployeeID);
+
+                        var navigarions = [
+                            "Section",
+                            "Section.Parent"
+                        ];
+
+                        q = q.expand(navigarions);
+
+                        context.executeQuery(q)
+                            .then(function(data) {
+                                var results = data.results;
+                                vm.section(results[0].Section());
+                                vm.person(results[0]);
+                            });
+                    });
+                    var vm = {
+                        title: ko.observable('درخواست واحد متقاضی'),
+                        canShowSectionPanel: ko.observable(true),
+                        section: ko.observable(),
+                        consumerSection: ko.observable(),
+                        person: ko.observable(),
+                        context: helper.datacontext,
+                        requests: ko.observableArray(),
+                        current: ko.observable(),
+                        currentSection: '#section',
+                        currentRequestType: ko.observable(),
+                        requestType: ko.observableArray(),
+                        color: ['purple', 'green', 'red', 'orange', 'blue']
+                    };
+               
+
+                    vm.init = function() {
+                        helper.ajax.get('getEnum', 'RequestType',
+                            function(data) {
+                                var i = 0;
+                                data.foreach(function(item) {
+                                    var obj = { Name: item.Name, DisplayName: item.DisplayName, color: vm.color[i] };
+                                    vm.requestType.push(obj);
+                                    i++;
+                                });
+                            });
+
+                    }();
+
+                    vm.selectColor = function(i) {
+                        return vm.color[i];
+                    };
+
+                    vm.selectRequestType = function(item) {
+                        var entityName = 'Request' + item.Name;
+                        vm.currentRequestType(item.Name);
+
+                        var newEntity = vm.context.addEntity(entityName, {
+                            Date: new Date,
+                            Section: vm.section(),
+                            SectionID: vm.section().ID(),
+                            Status: 'Created',
+                            PurchaseMethod: 'Small'
+                        });
+
+                        if (!isNullOrEmpty(vm.consumerSection())) {
+                            newEntity.ConsumerSection(vm.consumerSection());
+                            newEntity.ConsumerSectionID(vm.consumerSection().ID());
+                        }
+                        
+                        if (!isNullOrEmpty(vm.person())) {
+                            newEntity.Person(vm.person());
+                            newEntity.PersonID(vm.person().ID());
+                        }
+                        
+                        vm.letter.init(newEntity);
+                        vm.current(newEntity);
+
+                       if (item.Name == 'Food') {
+                           vm.fastEntry.init(newEntity);
+                       } else {
+                           vm.add();
+                       }
+                        
+                        vm.changeView('#requstEntry');
+                    };
+
+
+                    vm.add = function() {
+                        var requestType = vm.currentRequestType();
+                        var entityName = 'RequestDetail' + requestType;
+
+                        var initData = {
+                            NeedQty: 1,
+                            PurchaseSize: 'Small',
+                            ItemDescription: null,
+                            ScaleDescription: 'عدد',
+                            ScaleID: 1
+                        };
+                        
+                        if (requestType === 'Good') {
+                            initData.ItemGoodID = 0;
+                        }
+                        
+                        if (requestType === 'Service') {
+                            initData.ItemServiceID = 0;
+                        }
+                        
+                        if (requestType === 'Ticket') {
+                            initData.ItemTicketID = 1;
+                            initData.Passenger = null;
+                            initData.PassengerID = null;
+                            initData.GoOnDate = null;
+                            initData.ReturnDate = null;
+                            initData.ItemDescription = '---';
+                        }
+                        var newEntity = vm.context.addEntity(entityName, initData);
+                        
+                        newEntity['Request' + requestType](vm.current());
+                        newEntity['Request' + requestType + 'ID'](vm.current().ID());
+                    };
+
+                    vm.remove = function(item) {
+                        if (item.entityAspect.entityState != 'Added')
+                            return;
+                        var requestType = vm.currentRequestType();
+
+                        item['Request' + requestType](undefined);
+                        item['Request' + requestType + 'ID'](undefined);
+                    };
+
+                    vm.save = function() {
+                        if (vm.context.hasChanges()) {
+                            vm.context.manager.saveChanges()
+                                .then(function() {
+                                    vm.changeView('#successResult');
+                                });
+                        }
+                    };
+                    vm.cancel = function(success) {
+                        if (vm.context.hasChanges()) {
+                            messageBox("آیا مایل به لغو درخواست جاری هستید ؟", function(result) {
+                                if (result) {
+                                    vm.context.cancelChanges();
+                                    vm.current(null);
+                                    vm.requests.removeAll();                     
+                                    if (success != undefined)
+                                        success();
+                                }
+                            });
+                        }
+                        vm.current(null);
+                    };
+
+                    vm.changeView = function(targetView) {
+                        $(vm.currentSection).hide("slide", function() {
+                            $(targetView).show("slide");
+                        });
+                        vm.currentSection = targetView;
+                    };
+
+
+                    vm.returnToMain = function() {
+                        if (vm.context.hasChanges()) {
+                            messageBox("آیا مایل به لغو درخواست جاری هستید ؟", function(result) {
+                                if (result) {
+                                    vm.context.cancelChanges();
+                                    vm.current(null);
+                                    vm.changeView('#section');
+                                }
+                            });
+                        } else {
+                            vm.current(null);
+                            vm.changeView('#section');
+                        }
+                            
+                    };
+
+                    vm.loadRequests = function() {
+                        var q = vm.context.query('RequestGoods');
+                        var navigarions = [
+                            "RequestDetailGoods"
+                        ];
+
+                        q = q.expand(navigarions);
+                        q = q.where('SectionID', '==', vm.section().ID());
+                        vm.context.executeQuery(q).then(function(data) {
+                            vm.requests(data.results);
+                        });
+                    };
+                    vm.trackRequest = function() {
+                        if (isNullOrEmpty(vm.section())) {
+                            helper.note.warning('قسمت را انتخاب کنید');
+                            return;
+                        }
+                        vm.loadRequests();
+                        vm.changeView('#trackRequest');
+                    };
+
+                    vm.newRequest = function() {
+                        if (isNullOrEmpty(vm.section())) {
+                            helper.note.warning('قسمت را انتخاب کنید');
+                            return;
+                        }
+                        if (vm.context.hasChanges()) {
+                            messageBox("آیا مایل به لغو درخواست جاری هستید ؟", function(result) {
+                                if (result) {
+                                    vm.context.cancelChanges();
+                                    vm.current(null);
+                                    vm.changeView('#selectRequest');
+                                }
+                            });
+                        } else {
+                            vm.current(null);
+                            vm.changeView('#selectRequest');
+                        }
+                           
+                    };
+
+                    vm.noImp = function() {
+                        helper.note.warning('این بخش هنوز پیاده سازی نشده ');
+                    };
+
+                    vm.changeShowStatus = function(item) {
+                        item.ShowDetail(!item.ShowDetail());
+                    };
+                    
+                    vm.fastEntry = {
+                        list: ko.observableArray(),
+                        items: ko.observableArray(),
+                        offers: ko.observableArray(),
+                        itemSearch: ko.observable(),
+                        section: ko.observable(),
+                        parent: null,
+                        canFastEntryOpen: ko.observable(false)
+                    };
+
+                    var fastEntry = vm.fastEntry;
+                    
+                    vm.fastEntry.init = function (item) {
+                        if (item == vm.fastEntry.parent && fastEntry.canFastEntryOpen()) {
+                            vm.fastEntry.canFastEntryOpen(false);
+                            return;
+                        }
+                        vm.fastEntry.parent = item;
+                       
+                        vm.fastEntry.itemSearch(null);
+                        vm.fastEntry.canFastEntryOpen(true);
+                        var q = context.query('ItemFoodsAdv').toType('ItemFood');
+                        q = q.withParameters({ date: moment().format("YYYY/MM/DD"), term: 'empty' });
+                        //q = q.take(10);
+                        fastEntry.items.removeAll();
+                        context.executeQuery(q).then(function (data) {
+                            //fastEntry.offers(data.results);
+                            
+                            var results = data.results;
+                            results.foreach(function (offer) {
+                                if (fastEntry.items().any(function (f) {
+                                    return f == offer;
+                                }))
+                                    return;
+                                offer.type = ko.observable('offer');
+                                fastEntry.items.push(offer);
+                            });
+                        });
+                    };
+
+                    vm.fastEntry.load = function () {
+                        var q = context.query('ItemFoods');
+                        //var p1 = breeze.Predicate.create("ItemFoodType", "==", 'Food');
+                        //var p2 = breeze.Predicate.create("Title", "contains", fastEntry.itemSearch());
+                        q = q.where("Title", "contains", vm.fastEntry.itemSearch());
+                        //var pred = breeze.Predicate.and([p1, p2]);
+
+                        //q = q.where(pred);
+                        q = q.take(10);
+
+                        fastEntry.items.removeAll();
+                        context.executeQuery(q)
+                            .then(function(data) {
+                                var results = data.results;
+                                results.foreach(function(item) {
+                                    item.type = ko.observable('item');
+                                    fastEntry.items.push(item);
+                                });
+                                
+                            });
+                        //fastEntry.items.executeQuery(context, q);
+
+                        q = context.query('ItemFoodsAdv').toType('ItemFood');
+                        q = q.withParameters({ date: moment().format("YYYY/MM/DD"), term: fastEntry.itemSearch() });
+
+                        context.executeQuery(q).then(function (data) {
+                            var results = data.results;
+                            results.foreach(function (item) {
+                                if (fastEntry.items().any(function(f) {
+                                    return f == item;
+                                }))
+                                    return;
+                                item.type = ko.observable('offer');
+                                fastEntry.items.push(item);
+                            });
+                            
+                            //fastEntry.offers(data.results);
+                        }).fail(function (error) {
+                            alert(error);
+                        });
+                    };
+
+                    vm.fastEntry.addToRequestDetail = function (item) {
+                        var rds = fastEntry.parent.RequestDetailFoods().first(function (p) {
+                            return p.ItemFood() == item;
+                        });
+                        if (rds != null) {
+                            rds.Qty(rds.Qty() + 1);
+                            return;
+                        }
+
+                        var newEntity = context.addEntity('RequestDetailFood',
+                            {
+                                DoneDate: null,
+                                ItemFood: item,
+                                ItemFoodID: item.ID(),
+                                UnitPrice: item.Price() == undefined ? 0 : item.Price(),
+                                Scale: item.Scale() == undefined ? null : item.Scale(),
+                                ScaleID: item.Scale() == undefined ? null : item.Scale().ID(),
+                                NeedQty: 1,
+                                Qty: 1,
+                                Seller: null,
+                                SellerID: null,
+                                RequestFood: fastEntry.parent,
+                                RequestFoodID: fastEntry.parent.ID(),
+                                PurchaseSize: 0,
+                                ScaleDescription: 'عدد',
+                                ItemDescription: '---',
+                            });
+
+                        var sq = 0;
+                        fastEntry.parent.RequestDetailFoods.foreach(function (rds) {
+                            sq += 1;
+                            rds.Row(sq);
+                        });
+                    };
+
+                    vm.fastEntry.add = function (item) {
+                        var rd = fastEntry.list().first(function (itemFood) {
+                            return itemFood.item == item;
+                        });
+
+                        if (rd != null) {
+                            rd.qty(rd.qty() + 1);
+                            return;
+                        }
+
+                        var row = {
+                            item: item,
+                            unitPrice: ko.observable(item.Price() == undefined ? 1 : item.Price()),
+                            qty: ko.observable(1)
+                        };
+                        fastEntry.list.push(row);
+                    };
+
+                    vm.fastEntry.remove = function (item) {
+                        item.RequestFood(null);
+
+                        if (item.entityAspect.entityState == 'Added')
+                            item.entityAspect.rejectChanges();
+
+                        item.entityAspect.setDeleted();
+
+                        selectedRequestFoodDetail(null);
+                    };
+
+                    vm.letter = {
+                        isLetterOpen: ko.observable(false)
+                    };
+
+                    vm.letter.init = function (master) {
+                        vm.letter.master = ko.observable(master);
+                        vm.letter.masterName = master.entityType.shortName; //like RequestGood 
+                        vm.letter.requestType = this.masterName.replaceAll('Request', '').replaceAll('Detail', '');
+                        vm.letter.list = master['LetterRequest' + this.requestType + 's'];
+                        vm.letter.isLetterOpen(false);
+                    };
+                    
+                    vm.letter.add = function() {
+                        var initValue = {
+                            Date: new Date,
+                            No: null,
+                            PerformerSection: null,
+                            PerformerSectionID: null
+                        };
+
+                        initValue[this.masterName + 'ID'] = this.master().ID();
+                        initValue[this.masterName] = this.master();
+                        var entityName = 'LetterRequest'
+                            + this.requestType;
+                        var newEntity = context.addEntity(entityName, initValue);
+                    };
+                    
+                    vm.letter.remove = function (item) {
+                        item[vm.letter.masterName](null);
+                        item[vm.letter.masterName + 'ID'](null);
+
+                        item.entityAspect.setDeleted();
+                    };
+
+                    vm.letter.changeShowLetter = function () {
+                        vm.letter.isLetterOpen(!vm.letter.isLetterOpen());
+                    };
+                    
+                    ko.applyBindings(vm);
+                });
+            </script>
+            <div style="margin-top: 5%; padding-left: 5%; padding-right: 5%">
+                <h2 class="page-title font-white" data-bind="text: title,visible: !section()" ></h2>
+                <span data-bind="with: section">
+                    <span data-bind="with: Parent">
+                        <h2 class="page-title font-white" data-bind="text: Title" ></h2>
+                    </span>
+                    <h2 class="page-title font-white" data-bind="text: Title" ></h2>
+                    <span class="page-title font-white" data-bind="with: $parent.person">
+                        <h2 class="page-title font-white" data-bind="text: FirstName() + ' ' + LastName()" ></h2>
+                    </span>
+                </span>
+            
+                <div class="main" >
+                    <div id="section"  class="section-main ui-corner-all">
+                        <div class="section-header ui-corner-top" data-bind="if: canShowSectionPanel()">
+                            <div style="width: 30%" class="span3">
+                                <label>واحد سازمانی را وارد کنید </label>
+                                <input   
+                                    data-bind="combo: { modelProp: section, displayProp: 'Title', allData: false, entityName: 'Section', pluralEntityName: 'Sections' }" 
+                                    />
+                                <label>واحد مصرف کننده را وارد کنید </label>
+                                <input   
+                                    data-bind="combo: { modelProp: consumerSection, displayProp: 'Title', allData: false, entityName: 'Section', pluralEntityName: 'Sections' }" 
+                                    />
+                                <label>نام درخواست دهنده را وارد کنید </label>
+                                <input   
+                                    data-bind="combo: { modelProp: person, displayProp: 'FirstName,LastName', allData: false, entityName: 'Person', pluralEntityName: 'People' }" 
+                                    />
+                            </div>
+                            <div class="span6">
+                                <div class="alert alert-info">
+                                    <span style="font-weight: bold">کاربر گرامی</span>
+                                    <p>
+                                        مشخص کردن واحد سازمانی برای پیگیری درخواست شما الزامی میباشد .
+                                    </p>
+                                    <p>
+                                        درصورت وارد کردن شخص درخواست دهنده در قسمت پایین نیاز به وارد کردن واحد  سازمانی نمیباشد و سیستم بصورت خودکار واحد سازمانی (معاونت و قسمت مربوطه) را تشخیص میدهد.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-body ">
+                            <div style="margin-top: 5em; margin-left: 3em; margin-right: 3em">
+                                <a class="tile purple" data-bind="click: newRequest">
+                                    <img  src="../../Content/images/new.png"/>
+                                    <span>درخواست جدید</span>
+                                </a>
+                                <a class="tile green" data-bind="click: trackRequest">
+                                    <img  src="../../Content/images/Follow.png"/>
+                                    <span>پیگیری درخواست</span>
+                                </a>
+                                <a class="tile red" data-bind="click: noImp">
+                                    <img  src="../../Content/images/data-delete.png"/>
+                                    <span>درخواست ابطال</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="section-footer ui-corner-bottom"></div>
+                    </div>
+                    <div id="selectRequest" class="section-main ui-corner-all">
+                        <div class="section-header">
+                        
+                        </div>
+                        <div class="section-body">
+                            <div class="section-body">
+                                <div data-bind="foreach: requestType" style="margin-top: 3em; margin-left: 3em; margin-right: 3em">
+                                    <a class="tile" data-bind="click: $parent.selectRequestType, css: { 'purple': Name == 'Good', 'green': Name == 'Service', 'red': Name == 'Food', 'orange': Name == 'Vehicle', 'blue': Name == 'Ticket' }" >
+                                        <img  data-bind="attr: { src: '../../../Content/images/' + Name + '.png' }"/>
+                                        <span data-bind="text: DisplayName"></span>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="section-footer">
+                            <a class="btn btn-inverse pull-right" data-bind="click: returnToMain" >
+                                <i class="icon-arrow-right icon-white"></i>
+                                بازگشت به منوی اصلی
+                            </a>
+                        </div>
+
+                    </div>
+                    <div id="requstEntry" class="section-main ui-corner-all" >
+                        <div class="section-header">
+                            <div style="margin-bottom: 2em">
+                                <a class="btn btn-primary" data-bind="click: add">
+                                    <i class="icon-white icon-plus"></i>
+                                    جدید
+                                </a>
+
+                                &nbsp;
+                                <a class="btn btn-success" data-bind="click: save">
+                                    <i class="icon-white icon-save"></i>
+                                    ذخیره
+                                </a>
+                                 &nbsp;
+                                <button  class="btn-toggle ui-corner-top " data-bind="css: { 'ui-corner-bottom': !$root.letter.isLetterOpen() }, click: $root.letter.changeShowLetter">
+                                    <i data-bind="css: { 'icon-envelope': !$root.letter.isLetterOpen(), 'icon-remove-circle': $root.letter.isLetterOpen() }"></i> 
+                                    <span data-bind="    text: !$root.letter.isLetterOpen() ? ' نامه ' : ' بستن '"></span>
+                                </button>
+
+                                <div class="ui-corner-all popupx" 
+                                     data-bind="with: current, visible: $root.letter.isLetterOpen()">
+                                    <div data-bind="template: { name: 'letterTmp', data: $parent.letter }"></div>
+                                </div>
+
+                            </div>
+                            <span style="font-weight: bold; font-size: 11px; color: #888888">
+                                درخواست : 
+                            </span>
+                            
+                           
+                            
+                        </div>
+                        <div class="section-body" data-bind="with: current" style="padding: 2em">
+                            <div data-bind="if: $parent.currentRequestType() === 'Good', visible: $parent.currentRequestType() === 'Good'" 
+                                 style="width: 95%">
+                                <div data-bind="foreach: RequestDetailGoods">
+                                    <div class="row view-list">
+                                        <div class="span4">
+                                            <div>
+                                                <label>شرح کالا : </label>
+                                                <input type="text"  data-bind="autocomplete: { modelProp: ItemDescription, displayProp: 'Title', pluralEntityName: 'ItemGoods' }" style="width: 70%"/>
+                                            </div>
+                                        </div>
+                                        <div class="span3">
+                                            <div>
+                                                <label>مقدار مورد نیاز : </label>
+                                                <input type="text" data-bind="value: NeedQty" data-converter="value: float" style="width: 70px"/>
+                                            </div>
+                                            <div>
+                                                <label>واحد :</label>
+                                                <input type="text" data-bind="autocomplete: { modelProp: ScaleDescription, displayProp: 'Title', pluralEntityName: 'Scales' } "
+                                                       style="width: 100px" />
+                                            </div>
+                                        </div>
+                                        <div class="span2">
+                                            <a class="btn btn-danger" data-bind="click: $root.remove">
+                                                <i class="icon-white icon-trash"></i>
+                                                حذف
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div data-bind="if: $data.hasValidationErrors()" class="row">
+                                            <div class="alert alert-danger" >
+                                                <span class="icon-warning-sign" ></span>
+                                                <strong class="bold">لطفا خطا (ها) را تصحیح کنید</strong>
+                                                <div data-bind="foreach: $data.errors" style="margin-top: 1em">
+                                                    <p>
+                                                        <span data-bind="text: errorMessage"></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div data-bind="if: $parent.currentRequestType() === 'Ticket', visible: $parent.currentRequestType() === 'Ticket'"
+                             style="width: 95%">
+                            <div data-bind="foreach: RequestDetailTickets">
+                                <div class="row view-list">
+                                    <div class="span4">
+                                        <div>
+                                            <label>نام مسافر : </label>
+                                            <input   
+                                                data-bind="combo: { modelProp: Passenger, valueProp: PassengerID, displayProp: 'FirstName,LastName', allData: false, entityName: 'Person', pluralEntityName: 'People' }" 
+                                                />
+
+                                        </div>
+                                    </div>
+                                    <div class="span2">
+                                        <div>
+                                            <label>مقصد :</label>
+                                            <input type="text" data-bind="value: Destination" style="width: 120px"/>
+                                        </div>
+                                    </div>
+                                    <div class="span3">
+                                        <div>
+                                            <label>تاریخ رفت :</label>
+                                            <input type="text" data-bind="value: GoOnDate" />
+                                        </div>
+                                        <div>
+                                            <label>تاریخ برگشت :</label>
+                                            <input type="text" data-bind="value: ReturnDate" />
+                                        </div>
+                                    </div>
+                                    <div class="span2">
+                                        <a class="btn btn-danger" data-bind="click: $root.remove">
+                                            <i class="icon-white icon-trash"></i>
+                                            حذف
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div data-bind="if: $data.hasValidationErrors()" class="row">
+                                        <div class="alert alert-danger" >
+                                            <span class="icon-warning-sign" ></span>
+                                            <strong class="bold">لطفا خطا (ها) را تصحیح کنید</strong>
+                                            <div data-bind="foreach: $data.errors" style="margin-top: 1em">
+                                                <p>
+                                                    <span data-bind="text: errorMessage"></span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <div data-bind="if: $parent.currentRequestType() === 'Service', visible: $parent.currentRequestType() === 'Service'" 
+                                 style="width: 95%">
+                                <div data-bind="foreach: RequestDetailServices">
+                                    <div class="row view-list">
+                                        <div class="span4">
+                                            <div style="direction: rtl">
+                                                <label>شرح خدمات  : </label>
+                                                <textarea data-bind="autocomplete: { modelProp: ItemDescription, displayProp: 'Title', pluralEntityName: 'ItemServices' }" style="width: 70%;height: 50px"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="span3">
+                                            <div>
+                                                <label>مقدار مورد نیاز : </label>
+                                                <input type="text" data-bind="value: NeedQty" data-converter="value: float" style="width: 70px"/>
+                                            </div>
+                                            <div>
+                                                <label>واحد :</label>
+                                                <input type="text" data-bind="autocomplete: { modelProp: ScaleDescription, displayProp: 'Title', pluralEntityName: 'Scales' } "
+                                                       style="width: 100px" />
+                                            </div>
+                                        </div>
+                                        <div class="span2">
+                                            <a class="btn btn-danger" data-bind="click: $root.remove">
+                                                <i class="icon-white icon-trash"></i>
+                                                حذف
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div data-bind="if: $data.hasValidationErrors()" class="row">
+                                            <div class="alert alert-danger" >
+                                                <span class="icon-warning-sign" ></span>
+                                                <strong class="bold">لطفا خطا (ها) را تصحیح کنید</strong>
+                                                <div data-bind="foreach: $data.errors" style="margin-top: 1em">
+                                                    <p>
+                                                        <span data-bind="text: errorMessage"></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            @Html.Partial("_Food")
+                        </div> 
+                        <div class="section-footer">
+                        <a class="btn btn-inverse pull-right" data-bind="click: returnToMain" 
+                           style="margin-left: 1em">
+                            <i class="icon-arrow-right icon-white"></i>
+                            بازگشت به منوی اصلی
+                        </a>
+                        <a class="btn btn-inverse pull-right" data-bind="click: newRequest" >
+                            <i class="icon-arrow-right icon-white"></i>
+                            بازگشت به منوی قبل
+                        </a>
+                    </div>           
+                    </div>
+                    <div id="successResult" class="section-main ui-corner-all">
+                        <div class="section-header"></div>
+                        <div class="section-body">
+                            <div class="alert alert-success">
+                                درخواست شما با شماره 
+                                <span data-bind="with: current">
+                                    <span class="bold"
+                                    data-bind="text: ID"></span>
+                                </span>
+                                در سیستم ثبت شد
+                            </div>
+                        </div>
+                        <div class="section-footer">
+                            <a class="btn btn-inverse pull-right" data-bind="click: returnToMain" 
+                               style="margin-left: 1em">
+                                <i class="icon-arrow-right icon-white"></i>
+                                بازگشت به منوی اصلی
+                            </a>
+                            <a class="btn btn-inverse pull-right" data-bind="click: newRequest" >
+                                <i class="icon-arrow-right icon-white"></i>
+                                بازگشت به منوی قبل
+                            </a>
+
+                        </div>
+                    </div>
+                    <div id="trackRequest" class="section-main ui-corner-all">
+                        <div class="section-header">
+                            <a class="btn btn-primary" href="#" data-bind="click: loadRequests" style="margin-left: 0.5em; margin-top: 2em">
+                                <i class="icon-refresh icon-white"></i> بازیابی 
+                            </a>
+                        </div>
+                        <div class="section-body"  style="padding: 2em">
+                        
+                            <div class="view-single visible-desktop ui-corner-all" style="width: 100%; background-color: #8DC1FA; margin-top: 50px" >
+                                <table class="table" data-bind="if: requests().any()">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>شماره</th>
+                                            <th>تاریخ</th>
+                                            <th>وضعیت درخواست</th>
+                                            <th>کارشناس مربوطه</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach: requests">
+                                        <tr class="bold">
+                                            <td>
+                                                <div class="good" style="width: 32px; height: 32px"></div>
+                                                <a class="pointer" 
+                                                   title="جزئیات درخواست"
+                                                   data-bind="click: $parent.changeShowStatus, css: { 'icon-plus': !ShowDetail(), 'icon-minus': ShowDetail() }"></a>
+                         
+                                            </td>
+                                            <td>
+                                                <span data-bind="text: ID"></span>
+                                            </td>
+                                            <td>
+                                                <span data-bind="text: Date"></span>
+                                            </td>
+                                            <td>
+                                                <span data-bind="enumDisplay: { value: Status }"></span>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr data-bind="if: ShowDetail()">
+                                            <td colspan="8">
+                                                <div class="ui-corner-all" style="background-color: #D5E9FD; padding: 1em;">
+                                                    <table class="table" style="background-color: transparent"
+                                                        >
+                                                        <thead>
+                                                            <tr>
+                                                                <th>شرح کالا</th>
+                                                                <th>مقدار مورد نیاز</th>
+                                                                <th>مقدار مورد تایید</th>
+                                                            </tr>
+                                                        </thead>
+                               
+                                                        <tbody data-bind="foreach: RequestDetailGoods">
+                                                            <tr>
+                                                                <td>
+                                                                    <span data-bind="text: ItemDescription"></span>
+                                                                </td>
+                                                                <td>
+                                                                    <span data-bind="text: NeedQty"></span>
+                                                                    <span data-bind="text: ScaleDescription"></span>
+                                                                </td>
+                                                                <td>
+                                                                    <span data-bind="text: AcceptQty, visible: $parent.Status() != 'Created'"></span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+               
+                                    </tfoot>
+                                </table>
+                            </div>
+                         
+                        </div>
+                        <div class="section-footer">
+                            <a class="btn btn-inverse pull-right" data-bind="click: returnToMain" 
+                               style="margin-left: 1em">
+                                <i class="icon-arrow-right icon-white"></i>
+                                بازگشت به منوی اصلی
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                    
+
+            </div>
+        }
+        else
+        {
+            @Html.Partial("_Login")
+        }
+    </body>
+</html>
+<script type="text/html" id="letterTmp">
+    <a class="btn btn-primary btn-small" href="#" data-bind="click: add.bind($data, $parent)">
+        <i class="icon-plus icon-white"></i> جدید 
+    </a>
+    <br/>
+    <div style="overflow-y: auto;max-height: 300px;padding-left: 1em;padding-right: 1em">
+        <table class="table table-hover table-condensed" 
+               data-bind="visible: list.any()">
+            <thead>
+                <tr>
+                    <th>شماره</th>
+                    <th>تاریخ</th>
+                    <th>اقدام کننده</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: list">
+                <tr>
+                    <td>
+                        <input type="text" data-bind="value: No" style="width: 120px"/>
+                    </td>
+                    <td>
+                        <input type="text" data-bind="value: Date" data-converter="value: persianDate" style="width: 50px" />
+                    </td>
+                    <td>
+                        <input  data-bind="combo: { modelProp: PerformerSection, valueProp: PerformerSectionID, displayProp: 'Title', allData: false }"/>
+                    </td>
+                    <td>
+                        <a  class="pointer"
+                            href="#" 
+                            data-bind="click: $parent.remove"
+                            title="حذف">
+                            <i class="icon-trash"></i>  
+                        </a>
+                        
+                      
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5"  data-bind="visible: hasValidationErrors()">
+                        <div data-bind="if: hasValidationErrors()">
+                            <div class="alert alert-danger" >
+                                <span class="icon-warning-sign" ></span>
+                                <strong class="bold">لطفا خطا (ها) را تصحیح کنید</strong>
+                                <div data-bind="foreach: errors" style="margin-top: 1em">
+                                    <p>
+                                        <span data-bind="text: errorMessage"></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+</script>

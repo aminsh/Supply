@@ -1,0 +1,16 @@
+D:\Project\SPA\Supply\BussinessLogic\bin\Release\BussinessLogic.dll
+D:\Project\SPA\Supply\BussinessLogic\bin\Release\BussinessLogic.pdb
+D:\Project\SPA\Supply\BussinessLogic\bin\Release\DataAccess.dll
+D:\Project\SPA\Supply\BussinessLogic\bin\Release\EntityFramework.dll
+D:\Project\SPA\Supply\BussinessLogic\bin\Release\Helper.dll
+D:\Project\SPA\Supply\BussinessLogic\bin\Release\Model.dll
+D:\Project\SPA\Supply\BussinessLogic\bin\Release\Helper.pdb
+D:\Project\SPA\Supply\BussinessLogic\bin\Release\DataAccess.pdb
+D:\Project\SPA\Supply\BussinessLogic\bin\Release\Model.pdb
+D:\Project\SPA\Supply\BussinessLogic\obj\Release\BussinessLogic.csprojResolveAssemblyReference.cache
+D:\Project\SPA\Supply\BussinessLogic\obj\Release\BussinessLogic.dll
+D:\Project\SPA\Supply\BussinessLogic\obj\Release\BussinessLogic.pdb
+D:\Project\SPA\Supply\BussinessLogic\bin\Release\EntityFramework.xml
+D:\Project\SPA\Supply\BussinessLogic\bin\Release\StructureMap.dll
+D:\Project\SPA\Supply\BussinessLogic\bin\Release\StructureMap.pdb
+D:\Project\SPA\Supply\BussinessLogic\bin\Release\StructureMap.xml

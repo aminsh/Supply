@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="../Scripts/jquery-1.9.1.js"></script>
+    <script src="../Scripts/knockout-2.2.1.debug.js"></script>
+    <script src="../Scripts/calendar.js"></script>
+    <script src="../Scripts/jquery.ui.datepicker-cc.js"></script>
+    <script src="../Scripts/jquery.ui.datepicker-cc-fa.js"></script>
+    <script src="../Scripts/helper/helper.ko.js"></script>
+    <script src="../Scripts/helper/helper.date.js"></script>
+    
+</head>
+<body>
+    <script>
+        $(function() {
+            ko.bindingHandlers['value'] = {
+                'init': function (element, valueAccessor, allBindingsAccessor) {
+                    var eventName = allBindingsAccessor()["valueUpdate"] || "change";
+
+                    var handleEventAsynchronously = false;
+                    if ((ko.utils.Xa || ko.utils.stringStartsWith)(eventName, "after")) {
+                        handleEventAsynchronously = true;
+                        eventName = eventName.substring("after".length);
+                    }
+                    var runEventHandler = handleEventAsynchronously ? function (handler) { setTimeout(handler, 0) }
+                                                                    : function (handler) { handler() };
+
+                    ko.utils.registerEventHandler(element, eventName, function () {
+                        runEventHandler(function () {
+                            var modelValue = valueAccessor();
+                            var elementValue = ko.selectExtensions.readValue(element);
+
+                            var converter;
+                            eval("converter = {" + (element.getAttribute("data-converter") || "") + "}");
+                            if (converter && converter.value) elementValue = converter.value.value(elementValue.toString());
+
+
+                            if (ko.isWriteableObservable(modelValue)) {
+                                modelValue(elementValue);
+                            } else {
+                                var allBindings = allBindingsAccessor();
+                                if (allBindings['_ko_property_writers'] && allBindings['_ko_property_writers']['value'])
+                                    allBindings['_ko_property_writers']['value'](elementValue);
+                            }
+                        });
+                    });
+                },
+                'update': function (element, valueAccessor) {
+                    var newValue = ko.utils.unwrapObservable(valueAccessor());
+                    var elementValue = ko.selectExtensions.readValue(element);
+                    var valueHasChanged = (newValue !== elementValue);
+
+                    // JavaScript's 0 == "" behavious is unfortunate here as it prevents writing 0 to an empty text box (loose equality suggests the values are the same). 
+                    // We don't want to do a strict equality comparison as that is more confusing for developers in certain cases, so we specifically special case 0 != "" here.
+                    if ((newValue === 0) && (elementValue !== 0) && (elementValue !== "0"))
+                        valueHasChanged = true;
+
+                    if (valueHasChanged) {
+
+                        var converter;
+                        eval("converter = {" + (element.getAttribute("data-converter") || "") + "}");
+                        if (converter && converter.value) newValue = converter.value.display(newValue);
+
+                        var applyValueAction = function () { ko.selectExtensions.writeValue(element, newValue); };
+                        applyValueAction();
+
+                        // Workaround for IE6 bug: It won't reliably apply values to SELECT nodes during the same execution thread
+                        // right after you've changed the set of OPTION nodes on it. So for that node type, we'll schedule a second thread
+                        // to apply the value as well.
+                        var alsoApplyAsynchronously = element.tagName == "SELECT";
+                        if (alsoApplyAsynchronously)
+                            setTimeout(applyValueAction, 0);
+                    }
+
+                    // For SELECT nodes, you're not allowed to have a model value that disagrees with the UI selection, so if there is a
+                    // difference, treat it as a change that should be written back to the model
+                    if (element.tagName == "SELECT") {
+                        elementValue = ko.selectExtensions.readValue(element);
+                        if (elementValue !== newValue)
+                            ko.utils.triggerEvent(element, "change");
+                    }
+                }
+            };
+            ko.bindingHandlers['text'] = {
+                'update': function (element, valueAccessor) {
+                    var value = ko.utils.unwrapObservable(valueAccessor());
+                    if ((value === null) || (value === undefined))
+                        value = "";
+
+                    var converter;
+                    eval("converter = {" + (element.getAttribute("data-converter") || "") + "}");
+                    if (converter && converter.text) value = converter.text.display(value);
+
+
+                    typeof element.innerText == "string" ? element.innerText = value
+                                                         : element.textContent = value;
+                }
+            };
+
+            window.moneyConverter = function () {
+                return {
+                    display: function (value) {
+                        toks = (value || 0).toFixed(2).replace('-', '').split('.');
+                        var display = '$' + $.map(toks[0].split('').reverse(), function (elm, i) {
+                            return [(i % 3 == 0 && i > 0 ? ',' : ''), elm];
+                        }).reverse().join('') + '.' + toks[1];
+
+                        return value < 0 ? '(' + display + ')' : display;
+                    },
+                    value: function (value) {
+                        return parseFloat(value.replace(/[^0-9.-]/, ''));
+                    }
+                };
+            }();
+
+            window.persianDate = function() {
+                return {
+                    display: function(value) {
+                        return value.toPersian();
+                    },
+                    value: function(value) {
+                        var d = value.split('/');
+                        d[0] = Number(d[0]);
+                        d[1] = Number(d[1]);
+                        d[2] = Number(d[2]);
+                        var adjustDay = 0;
+                        if (d[1] < 0) {
+                            adjustDay = leap_persian(d[0] - 1) ? 30 : 29;
+                            d[1]++;
+                        }
+                        var gregorian = jd_to_gregorian(persian_to_jd(d[0], d[1] + 1, d[2]) - adjustDay);
+                        gregorian[1]--;
+                        ;
+                        return  new Date(gregorian[0] + "/" + gregorian[1] + "/" + gregorian[2]);
+                    }                        
+                };
+            }();
+
+            //Not part of the custom binding, just wiring the viewModel up to the bindings.
+            var viewModel = {
+                Cash: ko.observable(-1234.56),
+                Check: ko.observable(200000),
+                currentDate:ko.observable(new Date()),
+                showJSON: function () {
+                    alert(ko.toJSON(viewModel));
+                }
+            };
+
+            viewModel.Total = ko.dependentObservable(function () {
+                return viewModel.Cash() + viewModel.Check();
+            });
+
+            ko.applyBindings(viewModel);
+
+            $('#btn').click(function() {
+                var d = '1392/02/18'.split('/');
+                d[0] = Number(d[0]);
+                d[1] = Number(d[1]);
+                d[2] = Number(d[2]);
+                var adjustDay = 0;
+                if (d[1] < 0) {
+                    adjustDay = leap_persian(d[0] - 1) ? 30 : 29;
+                    d[1]++;
+                }
+                var gregorian = jd_to_gregorian(persian_to_jd(d[0], d[1] + 1, d[2]) - adjustDay);
+                gregorian[1]--;
+                 ;
+                var g = new Date(gregorian[0]+ "/" +gregorian[1]+ "/" + gregorian[2]);
+                alert(g);
+            });
+        });
+    </script>
+     <header class='ui-widget-header'>
+            <h1>Give me all of your money</h1>
+        </header>
+        <div class='ui-widget-content'>
+            <p>
+                <label>How much in Cash?</label><input data-bind="value: Cash" data-converter="value: moneyConverter"/>
+            </p>
+            <p>
+                <label>How much in Checks?</label><input data-bind="value: Check"  data-converter="value: moneyConverter"/>
+            </p>    
+            <p>
+                <label>Total:</label><span data-bind="text: Total"  data-converter="text: moneyConverter"/>
+            </p>   
+            <p>
+                <button data-bind="click: showJSON">Show View Model JSON</button></p>
+            <p>
+                <input type="text" data-bind="value: currentDate" data-converter="value: persianDate" style="width: 300px"/>
+                <span data-bind="text: currentDate"></span>
+            </p>
+        </div>
+     
+    <input type="button" id="btn" value="Click to convert date"/>
+</body>
+</html>

@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <!--<script src="../Scripts/bootstrap.js"></script>-->
+    <script src="../Scripts/jquery-1.9.1.js"></script>
+    <script src="../Scripts/knockout-2.2.1.debug.js"></script>
+
+    <link href="../Content/bootstrap.css" rel="stylesheet" />
+    <style type="text/css">
+        .auto-style1 {
+            width: 100%;
+        }
+    </style>
+</head>
+<body >
+    <script>
+        $(function() {
+
+            var vm = {
+                pages: ko.observableArray([
+                    { page: "Prev",text: "قبلی"  },
+                    { page: "1", text: "1" },
+                    { page: "2", text: "2" },
+                    { page: "3", text: "3" },
+                    { page: "4", text: "4" },
+                    { page: "5", text: "5" },
+                    { page: "6", text: "6" },
+                    { page: "7", text: "7" },
+                    { page: "8", text: "8" },
+                    { page: "9", text: "9" },
+                    { page: "10"  ,text: "10"  },
+                    { page: "Next",text: "بعدی"  }
+                ]),
+                currentPage: ko.observable(1),
+                setCurrentPage: function (item) {
+                    if (item.page == 'Prev')
+                        if (vm.currentPage() != 1) {
+                            vm.currentPage(vm.currentPage() - 1);
+                            return;
+                        }
+                    if (item.page == 'Next') {
+                        vm.currentPage(vm.currentPage() + 1);
+                        return;
+                    }
+                            
+                    vm.currentPage(item.page);
+                }
+            };
+
+            ko.applyBindings(vm);
+        });
+    </script>
+    
+    <div class="pagination">
+        <ul>
+            <li><a href="#">Prev</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">Next</a></li>
+        </ul>
+        
+        <div class="pagination">
+            <ul>
+                <li class="disabled"><a href="#">&laquo;</a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+            </ul>
+        </div>
+
+        <h1>Dynamic pager</h1>
+        
+       
+
+    <div class="pagination pagination-centered">
+        <ul data-bind="foreach: pages">
+            <li data-bind="css: { active: page == $parent.currentPage(), disabled: page == 'Prev' && $parent.currentPage() == 1 }">
+                <a href="#" data-bind="text: text, click: $parent.setCurrentPage"></a>
+            </li>
+            
+        </ul>
+        <ul>
+            <li>
+                <select style="width: 70px">
+                    <option>10</option>
+                    <option>20</option>
+                    <option>50</option>
+                    <option>100</option>
+                </select>
+            </li>
+        </ul>
+             
+    </div>
+   
+    </div>
+    <table class="auto-style1">
+        <tr>
+            <td colspan="3">&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+</body>
+</html>

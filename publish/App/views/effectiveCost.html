@@ -1,0 +1,40 @@
+﻿<div data-bind="dialog: { isOpen: isEffectiveCostsOpen, title: 'هزینه های موثر', minWidth: 500, modal: true, at: 'center center', my: 'center center' }">
+    <a class="btn btn-primary btn-small font-white" href="#" data-bind="click: add"><i class="icon-plus icon-white"></i> جدید </a>
+    <br/>
+    <div data-bind="if: currentMaster()">
+        <table class="table table-hover table-condensed">
+                  <thead>
+                      <tr>
+                          <th>نوع هزینه</th>
+                          <th>هزینه</th>
+                          <th></th>
+                      </tr>
+                  </thead>
+                  <tbody data-bind="foreach: currentMaster()[getListName()]">
+                      <tr>
+                          <td>
+                              <input style="width: 100px" 
+                                     data-bind="combo: { modelProp: CostType, displayProp: 'Title', valueProp: CostTypeID, allData: true }"/>
+                          </td>
+                          <td><input type="text" data-bind="value: Cost" style="width: 100px" data-converter="value: float"/></td>
+                          <td>
+                              <a class="btn btn-danger btn-small font-white" href="#" data-bind="click: $parent.remove"><i class="icon-trash icon-white"></i> حذف </a>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td colspan="3" style="background-color: #FFFFB9" data-bind="visible: $root.hasChanges && $data.hasValidationErrors()">
+                              <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+                          </td>
+                      </tr>
+                  </tbody>
+                  <tfoot>
+                      <tr>
+                          <td><h6>جمع هزینه : </h6></td>
+                          <td><span data-bind="text: currentMaster()['Sum' + getListName()]" data-converter="text: float"></span></td>
+                          <td></td>
+                          <td></td>
+                      </tr>
+                  </tfoot>
+              </table>
+    </div>
+</div>

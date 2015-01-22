@@ -1,0 +1,74 @@
+﻿<section>
+    <div class="right-side" dir="rtl">
+        <form class="" dir="rtl">
+            <input type="button" value="go" class="search-go img-rounded" />
+            <input type="text" class="search search-bar form-control" placeholder="جستجو..." >
+        </form>
+        <div class="clearfix"></div>
+        <div class="right-current img-rounded text-right" dir="rtl">
+            <span class="h4">دوره جاری: 
+                <span data-bind="text: helper.defaults.currentPeriodTitle"></span>
+            </span>
+            <span class="h4">انبار فعال: 
+                <!--<span data-bind="text: helper.defaults.currentPeriodTitle"></span>-->
+            </span>
+        </div>       
+		<div class="right-profile img-rounded" data-bind="with: currentUser">
+        	<img alt="profile-img" src="Content/images/anonymousUser.jpg" class="user-img img-circle"/>
+            <span class="h3" data-bind="text: FullName"></span>
+            <span class="h4"> زمان ورود: </span>
+            <span class="h4">آخرین ورود: </span>
+        </div>
+        <div class="right-date img-rounded">
+        	<img alt="date-time" src="Content/images/date-time.png" style="width:80px; height:80px">
+        	<span class="h3"> امروز</span>
+            <h4 data-bind="text: (new Date).toPersian()"></h4>
+            <!--<h5>15:00:00</h5>-->
+        </div>
+    </div>
+    
+    <div id="main">
+        <ul class="main-top list-unstyled list-inline text-right">
+            <li class="img-rounded">
+                <a href="#/inventory/inventory" class="sale text-center img-rounded">رسید/ حواله</a>
+            </li>
+            <li class="img-rounded">
+                <a href="#/request/main" class="order text-center img-rounded">درخواست خرید</a>
+            </li>
+        </ul>
+
+        <div class="main-bottom">
+            <section class="panel">
+                <span class="badge badge-success">جدید</span>
+                <span class="badge badge-warning">در جریان</span>
+
+                <table class="table table-hover" >
+                    <tbody data-bind="foreach: totalRequests">
+                        <tr class="pointer"
+                            data-bind="click: $root.goToConfirm">
+                            <td>
+                                <a class=" ui-corner-all">
+                                    <i data-bind="css: $root.getRequestTotal(Name())"></i>
+                                </a>
+                            </td>
+                            <td data-bind="text: Title"></td>
+                            <td style="text-align: left;width: 20px">
+                                <span class="badge badge-success" data-bind="text: NewCount, visible: NewCount() != 0"></span>
+                            </td>
+                            <td style="text-align: left;width: 20px">
+                                <span class="badge badge-warning" data-bind="text: InProgCount, visible: InProgCount() != 0"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </section>
+        </div>
+        <div class="clearfix"></div>
+        
+
+    </div>
+    
+    
+
+</section>

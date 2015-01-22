@@ -1,0 +1,62 @@
+﻿<section>
+    <h2 class="page-title" data-bind="text: title"></h2>
+    
+    <!--ko compose: {view: 'layout/standardButtons'} --><!--/ko-->
+
+    <a class="btn btn-primary" data-bind="click: add">
+        <i class="icon-plus icon-white"></i>
+        جدید
+    </a>
+
+    <table class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <th><b>شناسه</b></th>
+                <th><b>شماره</b></th>
+                <th><b>عنوان</b></th>
+                <th><b>نوع وسیله نقلیه</b></th>
+                <th><b>راننده</b></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: vehicles">
+            <tr>
+                <td data-bind="text: ID"></td>
+                <td><input type="text" data-bind="value: No" /></td>
+                <td><input type="text" data-bind="value: Title" required /></td>
+                <td >
+                    
+                    <input style="width: 100px"  data-bind="combo: { modelProp: VehicleType, displayProp: 'Title', valueProp: VehicleTypeID, allData: true, }"/>
+                   
+                </td>
+                <td >
+                    <input   
+                        data-bind="combo: { modelProp: Driver, displayProp: 'Title', valueProp: DriverID, allData: true }"/>
+                    
+                </td>
+                <td >
+                    <div class="btn-group-vertical">
+                        <a class="btn btn-danger" href="#" data-bind="click: $parent.remove"><i class="icon-trash icon-white"></i> حذف </a> 
+                    </div>
+                </td>
+            </tr>
+             <tr data-bind="visible: $root.hasChanges() && $data.hasValidationErrors()" style="background-color: #FFFFB9">
+                <td colspan="6">
+                    <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+                     
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6" >
+                    <div data-bind="with: vehiclepager">
+                        <!--ko compose: {view: 'layout/pager'} --><!--/ko-->
+                    </div>
+                    
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+   
+</section>

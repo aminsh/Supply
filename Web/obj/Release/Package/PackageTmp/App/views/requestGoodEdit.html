@@ -1,0 +1,453 @@
+﻿mode<section>
+    <h2 class="page-title" data-bind="text: title"></h2>
+    <br/>
+
+    <a class="btn btn-inverse" href="#" data-bind="click: goBack"><i class="icon-arrow-right icon-white"></i> بازگشت </a>
+
+    <br/>
+    <!--ko compose: {view: 'layout/standardButtons'} --><!--/ko-->
+    <br/>
+
+    <div data-bind="foreach: viewController.viewTypes" style="margin-bottom: 5em">
+        <button 
+            data-bind="attr: { title: title },
+        css: { 'view-icon-icon': name === 'icon', 'view-list-icon': name === 'list', 'view-detail-icon': name === 'detail' },
+    click: $root.viewController.selectView">
+           
+        </button>
+        
+    </div>
+   
+    <div data-bind="with: requestGood, visible: viewController.currentView().name ==='detail'" class="row view-single">
+        <div class="row">
+            <div class="span3">
+                <div>
+                    <span> شناسه : </span>
+                    <span data-bind="text: ID"></span>
+                </div>
+                <div>
+                    <span>وضعیت : </span>
+                    <span data-bind="enumDisplay: { value: Status }" />
+                </div>
+                <div>
+                    <span>  شماره دستی : </span>
+                    <span data-bind="text: No"></span>
+                </div>
+                <div>
+                    <span> تاریخ درخواست : </span>
+                    <span  data-bind="text: Date" />
+                </div>
+                <div>
+                    <span> روش خرید : </span>
+                    <span  data-bind="enumDisplay: { value: PurchaseMethod }"></span>
+                </div>
+            </div>
+            <div class="span4">
+                <div data-bind="if: StockDeliveryLocation() != null">
+                    <span>انبار : </span>
+                    <span data-bind="text: StockDeliveryLocation().Title()"></span>
+                </div>
+                <div data-bind="if: Section() != null">
+                    <span>قسمت : </span>
+                    <span data-bind="text: Section().FullPathText()"></span>
+                </div>
+                <div data-bind="if: Person() != null">
+                    <span>درخواست دهنده : </span>
+                    <span data-bind="text: Person().FirstName() + ' ' + Person().LastName()"></span>
+                </div>
+                <div data-bind="if: PurchasingOfficer() != null">
+                    <span>کارپرداز : </span>
+                    <span data-bind="text: PurchasingOfficer().Title()"></span>
+                </div>
+            </div>
+            <div class="span3" >
+                <span>نامه (ها) : </span>
+                <div data-bind="visible: !LetterRequestGoods.count()">
+                    ندارد
+                </div>
+                <ul data-bind="foreach: LetterRequestGoods, visible: LetterRequestGoods.count()">
+                    
+                    <li>
+                        <span data-bind="text: No"></span>
+                        &nbsp; &lArr; &nbsp;
+                        <span data-bind="text: Date" ></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+           
+        </div>
+       
+    </div>
+    
+    <!--view icon -->
+    <div class="row view-single" data-bind="with: requestGood, visible: viewController.currentView().name ==='icon'">
+        <div class="row">
+            <div class="span9">
+                <div>
+                    <span style="font-weight: bold;font-size: 14px; color: #0000ff;">شماره درخواست</span>
+                    <span style="font-weight: bold;font-size: 14px; color: #0000ff;" data-bind="text: ID"></span>
+                    <br/><br/>
+                    <label>وضعیت</label>
+                    <input data-bind="enumCombo: { Type: 'RequestStatus', value: Status }" style="width: 100%"/>
+                    <br/><br/>
+                    <input type="checkbox" data-bind="checked: HasOrder"/><span>  سفارش  </span>
+                    <input type="checkbox" data-bind="checked: HasPreInvoice"/><span>  پیش فاکتور  </span>
+                    <input type="checkbox" data-bind="checked: HasPurchaseOrder"/><span>  دستور خرید  </span>
+                    <br/><br/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span3">
+                      <div>
+                          <div>
+                              <label>شماره دستی</label>
+                              <input type="text" data-bind="value: No" style="width: 100px" />
+                          </div>
+                          <div>
+                              <label>تاریخ درخواست</label>
+                              <input type="text" data-bind="value: Date" data-converter="value: persianDate"/>
+                          </div>
+               
+                          <br/>
+                          <button  class="btn-toggle ui-corner-top " data-bind="css: { 'ui-corner-bottom': !$root.letter.isLetterOpen() }, click: $root.letter.openLetter">
+                              <i data-bind="css: { 'icon-envelope': !$root.letter.isLetterOpen(), 'icon-remove-circle': $root.letter.isLetterOpen() }"></i> <span data-bind="    text: !$root.letter.isLetterOpen() ? ' نامه ' : ' بستن '"></span>
+                          </button>
+               
+                          <div>
+                              <div class="ui-corner-bottom ui-corner-left popupx" data-bind="with: $root.letter, visible: $root.letter.isLetterOpen()" style="width: 400px">
+                                  <!--ko compose: {view: 'requestGood/letterGood'} --><!--/ko-->
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+            <div class="span4">
+                <div>
+                    <div>
+                        <label>انبار</label>
+                        <input style="width: 100px"  
+                               data-bind="combo: { modelProp: StockDeliveryLocation, datacontext: $root.context, displayProp: 'Title', valueProp: StockDeliveryLocationID, allData: true, pruralEntityName: 'Stocks' }"/>
+                    </div>
+                    <div>
+                        <label>قسمت</label>
+                        <input style="width: 100px"  
+                               data-bind="combo: { modelProp: Section, datacontext: $root.context, displayProp: 'Title', valueProp: SectionID, allData: true, pruralEntityName: 'Sections' }"/>
+                    </div>
+                    <div>
+                        <label>درخواست کننده</label>
+                        <input style="width: 100px"  
+                               data-bind="combo: { modelProp: Person, datacontext: $root.context, displayProp: 'FirstName,LastName', valueProp: PersonID, allData: true, pruralEntityName: 'People' }"/>
+                    </div>
+                </div>
+            </div>
+            <div class="span4">
+                <div data-bind="visible: HasOrder()">
+                    <!--<label style="width: 100px">تاریخ سفارش</label>
+                        <input type="text" data-bind="value: OrderDate" data-converter="value: persianDate"/>-->
+                     
+                    <label>روش خرید</label>
+                    <input 
+                        data-bind="enumCombo: { Type: 'PurchaseMethod', value: PurchaseMethod }"/>
+                       
+                    <label>کارپرداز</label>
+                    <input style="width: 100px"  
+                           data-bind="combo: { modelProp: PurchasingOfficer, datacontext: $root.context, displayProp: 'Title', valueProp: PurchasingOfficerID, allData: true, pruralEntityName: 'PurchasingOfficers' }"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <label>توضیحات </label>
+                <textarea data-bind="value: Des" style="width: 50%"></textarea>
+            </div>
+        </div>
+       
+    </div>
+
+    <div data-bind="with: requestGood">
+
+        <div data-bind="visible: $root.hasChanges() && $data.hasValidationErrors()" class="row"  style="background-color: #FFFFB9">
+            <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+        </div>
+        <br />
+        <br/>
+        <br/>
+        <a class="btn btn-primary" href="#" data-bind="click: $root.addDetail, visible: $root.viewController.currentView().name === 'icon' || $root.viewController.currentView().name === 'list'">
+            <i class="icon-plus icon-white"></i> جدید 
+        </a>
+        &nbsp;
+        <a class="btn" data-bind="visible: $root.selectedRequestGoodDetail(), click: $root.calc.init">
+            <i class="icon-list-alt"></i>
+            محاسبه گر
+        </a>
+        <table class="table table-hover table-condensed" data-bind="visible: $root.viewController.currentView().name === 'list'">
+        <thead>
+            <tr>
+                    <th>شناسه</th>
+                    <th>لغو شده ؟</th>
+                    <th>ردیف</th>
+                    <th>کالا</th>
+                    <th>تعداد/مقدار</th>
+                    <th>تاریخ انجام</th>
+                    <th></th>
+                </tr> 
+        </thead>
+        <tbody data-bind="foreach: RequestDetailGoods">
+            <tr data-bind="css: { info: $data == $root.selectedRequestGoodDetail() }, click: $root.selectRequestGoodDetail " style="cursor: pointer">
+                <td data-bind="text: ID" ></td>
+                    <td><input type="checkbox" data-bind="checked: IsCancel" required style="width: 100px"/></td>
+                    <td data-bind="text: Row" ></td>
+                    <td>  
+                        <input style="width: 100px"  
+                               data-bind="combo: { modelProp: ItemGood, displayProp: 'No,Title', valueProp: ItemGoodID, allData: true, expands: ['Scale']}"/>
+                        <br/>
+                    </td>
+        
+                <td>
+                    <input type="text" data-bind="value: Qty" style="width: 100px"/>
+                    <span data-bind="if: ItemGood()">
+                        <span data-bind="text: ItemGood().Scale().Title"></span>
+                    </span>
+                </td>
+                    <td><input type="text" data-bind="value: DoneDate" /></td>
+                    <td>
+                        <a class="btn btn-danger" href="#" data-bind="click: $root.removeDetail"><i class="icon-trash icon-white"></i> حذف </a> 
+                    </td>
+                
+            </tr>
+            <tr>
+                <td colspan="7" style="background-color: #FFFFB9" data-bind="visible: $root.hasChanges() && $data.hasValidationErrors()">
+                    <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+                </td>
+            </tr>
+            
+        </tbody>
+        <tfoot>
+            
+        </tfoot>
+    </table>
+        <br/><br/>
+        
+
+        
+        <div data-bind="foreach: RequestDetailGoods, visible: $root.viewController.currentView().name === 'icon'">
+            <div class="view-list row" data-bind="css: { selectedRow: $data == $root.selectedRequestGoodDetail() }, click: $root.selectRequestGoodDetail " >
+                <div class="span2">
+                    <div>
+                        <label style="width: 50px">شناسه</label>
+                        <span data-bind="text: ID"></span>  
+                    </div>
+                    <br/>
+                    <div>
+                        <input type="checkbox" data-bind="checked: IsCancel" /><span> لغو شده ؟ </span>
+                    </div>
+                    <p>
+                        <br/>
+                        <label>تاریخ انجام</label>
+                        <input type="text" data-bind="value: DoneDate" />
+                    </p>
+                    
+                </div>
+                <div class="span4">
+                    <div>
+                        <label style="width: 70px">کالا</label>
+                        <input   
+                            data-bind="combo: { modelProp: ItemGood, displayProp: 'No,Title', valueProp: ItemGoodID, allData: true, expands: ['Scale'] }"/>
+                    </div>
+                    <div>
+                        <label style="width: 70px">فروشنده</label>
+                        <input  
+                            data-bind="combo: { modelProp: Seller, datacontext: $root.context, displayProp: 'Title', valueProp: SellerID, allData: true, pruralEntityName: 'Sellers' }"/>
+                    </div>
+                </div>
+                <div class="span3">
+                    <div>
+                        <label>تعداد</label>
+                        <input type="text" style="width: 100px" data-bind="value: Qty" />
+                        <span data-bind="if: ItemGood()">
+                            <span data-bind="text: ItemGood().Scale().Title"></span>
+                        </span>
+                    </div>
+                    <div>
+                        <label>قیمت واحد</label>
+                        <input type="text" style="width: 100px" data-bind="value: UnitPrice" />
+                    </div>
+                    <label>قیمت کل</label>
+                    <div style="height: 30px"><span data-bind="text: TotalPrice" data-converter="text: float"></span></div>
+                    
+                    <label>جمع هزینه های موثر</label>
+                    <div style="height: 30px"><span data-bind="text: SumEffectiveCostGoods" data-converter="text: float"></span></div>
+                    
+                    <label>جمع نهایی</label>
+                    <div style="height: 30px"><span data-bind="text: TotalPriceAndEffectiveCost" data-converter="text: float"></span></div>
+                </div>
+                <div class="span1">
+                    <div class="btn-group-vertical">
+                        <a class="btn btn-primary" href="#" data-bind="click: $root.selectEffectiveCost" style="width: 100px" >هزینه موثر </a>
+                        <a class="btn btn-danger" href="#" data-bind="click: $root.removeDetail"><i class="icon-trash icon-white"></i> حذف </a> 
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row" style="background-color: #FFFFB9" data-bind="visible: $root.hasChanges() && $data.hasValidationErrors()">
+                <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+            </div>
+
+        </div>
+        <div>
+            <table class="table table-condensed table-hover" data-bind="visible: $root.viewController.currentView().name === 'detail'">
+                <thead>
+                    <tr>
+                        <th>شناسه</th>
+                        <th>ردیف</th>
+                        <th>تاریخ انجام</th>
+                        <th>کالا</th>
+                        <th>فروشنده</th>
+                        <th>تعداد</th>
+                        <th>قیمت واحد</th>
+                        <th>قیمت کل</th>
+                        <th>جمع هزینه های موثر </th>
+                        <th>مبلغ نهایی </th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: RequestDetailGoods">
+                    <tr>
+                        <td data-bind="text: ID"></td>
+                        <td data-bind="text: Row"></td>
+                        <td data-bind="text: DoneDate"></td>
+                        <td>
+                            <div data-bind="if: ItemGood() != null">
+                                <span data-bind="text: ItemGood().No() + ' ' + ItemGood().Title()"></span>
+                            </div>
+                        </td>
+                        <td>
+                            <div data-bind="if: Seller() != null">
+                                <span data-bind="text: Seller().Title()"></span>
+                            </div>
+                        </td>
+                        <td>
+                            <span data-bind="if: ItemGood()">
+                                <span data-bind="text: Qty() + ' ' + ItemGood().Scale().Title()"></span>     
+                            </span>
+                        </td>
+                        <td data-bind="text: UnitPrice"></td>
+                        <td data-bind="text: TotalPrice"></td>
+                        <td data-bind="text: SumEffectiveCostGoods"></td>
+                        <td data-bind="text: TotalPriceAndEffectiveCost"></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr></tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="row">
+            <div class="span5"></div>
+            <div class="span5 view-single pull-left" data-bind="visible: RequestDetailGoods.count()" >
+                <label>جمع کل  </label>
+                <span data-bind="text: TotalPriceAndEffectiveCost" data-converter="text: float" style="font-weight: bold"></span>
+            </div>
+        </div>
+        
+        <div data-bind="if: $root.selectedRequestGoodDetail()">
+            <div data-bind="dialog: { isOpen: $root.isEffectiveCostsOpen, title: 'هزینه های موثر', minWidth: 500 }">
+                <a class="btn btn-primary btn-small" href="#" data-bind="click: $root.addEffectiveCost"><i class="icon-plus icon-white"></i> جدید </a>
+                <br/>
+                <table class="table table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th>نوع هزینه</th>
+                            <th>هزینه</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: $root.selectedRequestGoodDetail().EffectiveCostGoods">
+                        <tr>
+                            <td>
+                                <input style="width: 100px" 
+                                       data-bind="combo: { modelProp: CostType, displayProp: 'Title', valueProp: CostTypeID, allData: true }"/>
+                            </td>
+                            <td><input type="number" data-bind="kendoNumericTextBox: Cost" style="width: 100px"/></td>
+                            <td>
+                                <a class="btn btn-danger btn-small" href="#" data-bind="click: $root.removeEffectiveCost"><i class="icon-trash icon-white"></i> حذف </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="background-color: #FFFFB9" data-bind="visible: $root.hasChanges && $data.hasValidationErrors()">
+                                <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td><h6>جمع هزینه : </h6></td>
+                            <td><span data-bind="text: $root.selectedRequestGoodDetail().SumEffectiveCostGoods" data-converter="text: float"></span></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            
+            
+
+            </div>
+        </div>
+        
+        <div data-bind="dialog: { isOpen: $root.calc.canPriceCalShow, title: 'محاسبه گر', minWidth: 300, minHeight: 200,my: 'center center', at: 'center center',modal: true }">
+            <a class="btn btn-primary btn-small font-white" href="#" data-bind="click: $root.calc.addPrice">
+                <i class="icon-plus icon-white"></i> جدید 
+            </a>
+            <br/>
+            <p style="margin-top: 1em">
+                 <span>تعداد : </span>
+                <input type="text" data-bind="value: $root.calc.qty" style="width: 70px"/>
+            </p>
+            
+        <table class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th>مبلغ</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: $root.calc.prices">
+                <tr>
+                    <td><input type="text" data-bind="value: price" style="width: 100px"/></td>
+                    <td>
+                        <a class="btn btn-danger btn-small font-white" href="#" data-bind="click: $root.calc.removePrice" tabindex="-1">
+                            <i class="icon-trash icon-white"></i> حذف 
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2" >
+                        <p>
+                            <span>قیمت واحد : </span>
+                            <span data-bind="text: $root.calc.unitPrice"></span>
+                        </p>
+                        <p>
+                            <span>قیمت کل : </span>
+                            <span data-bind="text: $root.calc.sum"></span>
+                        </p>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+            
+            <div style="border-top: solid 1px rgba(0, 0, 0, .1);">
+                <a class="btn btn-primary btn-block font-white" style="width: 100%" data-bind="click: $root.calc.confirm">
+                    <i class="icon-ok icon-white"></i> تایید 
+                </a>
+
+            </div>
+        </div>
+
+
+    </div>
+
+</section>
+

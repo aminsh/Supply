@@ -1,0 +1,89 @@
+﻿<section>
+    <style>
+       
+    </style>
+    <h2 class="page-title" data-bind="text: title" style="margin-bottom: 50px;"></h2>
+    
+    <a class="btn btn-primary" href="#" data-bind="click: init" style="margin-left: 0.5em">
+        <i class="icon-refresh icon-white"></i> بازیابی 
+    </a>
+    <a class="btn btn-primary" href="#" data-bind="click: add" style="margin-left: 0.5em">
+        <i class="icon-plus icon-white"></i> جدید 
+    </a>
+    <a class="btn btn-info" href="#" data-bind="click: save, css: { disabled: !hasChanges() }" style="margin-left: 0.5em">
+        <i class="icon-save icon-white"></i> ذخیره 
+    </a>
+    <a class="btn" href="#" data-bind="click: cancel, css: { disabled: !hasChanges() }" style="margin-left: 0.5em">
+        <i class="icon-repeat"></i> انصراف 
+    </a>
+
+    <div class="view-single visible-desktop ui-corner-all" style="background-color: white;margin-top: 50px" >
+        <table class="table" >
+            <thead>
+                <tr>
+                    <th>نام مرحله</th>
+                    <th>الویت</th>
+                    <th>فعال ؟</th>  
+                    <th>ضروری ؟</th>
+                    <th>فرآیند خرید ؟</th>
+                    <th>کاربران رسیدگی کننده</th>
+                    <th>نوع درخواست</th>
+                    <th>فرم نمایش</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: requestDefineSteps">
+                <tr>
+                    <td>
+                        <input type="text" data-bind="value: Title"/>
+                    </td>
+                    <td>
+                        <input type="number" data-bind="value: Ordering" style="width: 70px"/>
+                    </td>
+                    <td>
+                        <button data-bind="checkboxImage: { checked: IsActive }"></button>
+                    </td>
+                    <td>
+                        <button data-bind="checkboxImage: { checked: IsRequired }"></button>
+                    </td>
+                    <td>
+                       <button data-bind="checkboxImage: { checked: IsOrder }"></button>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" data-bind="click: $parent.selectHandlerUser">
+                            <i class="icon-user icon-white"></i>
+                            اضافه کردن کاربران
+                        </a>
+                        
+                        <div data-bind="foreach: HandlerUsers">
+                            <span class="label label-info" >
+                                <button type="button" 
+                                    data-bind="click: $root.removeUser"    
+                                    class="close"
+                                    style="margin-left: 3px">&times;</button>
+
+                                <span data-bind="with: User">
+                                    <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+                                </span>
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <span data-bind="foreach: RequestTypesX">
+                            <button data-bind="checkboxImage: { checked: isSelected }, click: $root.afterSelectRequestType.bind($data,$parent,$parent[0])"></button>
+                            <span data-bind="text: title" style="margin-left: 10px"></span>
+                        </span>
+                    </td>
+                    <td>
+                        <!--<select data-bind="options: $root.views, value: ViewName,optionsCaption: 'انتخاب کنید ...'"></select>-->
+                        <input data-bind="enumCombo: { Type: 'RequestDefineType', value: RequestDefineType }" style="width: 120px" />
+                    </td>
+                </tr>
+                
+            </tbody>
+            <tfoot>
+               
+            </tfoot>
+        </table>
+    </div>
+</section>

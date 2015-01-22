@@ -1,0 +1,226 @@
+﻿<section class="k-rtl">
+    <h2 class="page-title" data-bind="text: title"></h2>
+   <br/>
+    <!--ko compose: {view: 'layout/standardButtons'} --><!--/ko-->
+    
+    <div data-bind="foreach: viewController.viewTypes" style="margin-bottom: 5em;margin-top: 2em">
+        <button 
+            data-bind="attr: { title: title },
+    css: { 'view-icon-icon': name === 'icon', 'view-list-icon': name === 'list', 'view-detail-icon': name === 'detail' },
+    click: $root.viewController.selectView">
+           
+        </button>
+        
+    </div>
+
+    <br/>
+    <table class="table table-condensed table-hover" data-bind="visible: viewController.currentView().name === 'list'">
+        <thead>
+            <tr>
+                <th>شماره</th>
+                <th>شماره دستی</th>
+                <th>تاریخ</th>
+                <th>وضعیت</th>
+                <th>جمع نهایی</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>
+                    <form class="form-search" data-bind="submit: init">
+                        <span class="icon-search"></span>
+                        <input type="text" data-bind="value: noSearch, valueUpdate: 'afterkeydown'"
+                               style="width: 100px;display: inline;background-color: white" placeholder="شماره" class="search-query"/>
+                    </form>
+                </th>
+                <th>
+                    <form class="form-search" data-bind="submit: init">
+                        <span class="icon-search"></span>
+                        <input type="text" data-bind="myDatePicker: dateSearch, value: dateSearch"
+                               style="width: 100px;display: inline;background-color: white" placeholder="تاریخ" class="search-query" data-converter="value: persianDate"/>
+                    </form>
+                </th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: requestGoods">
+            <tr>
+                <td data-bind="text: ID"></td>
+                <td data-bind="text: No"></td>
+                <td data-bind="text: Date"></td>
+                <td data-bind="enumDisplay: { value: Status }"></td>
+                <td data-bind="text: TotalPriceAndEffectiveCost"></td>
+                <td>
+                    <a class="btn btn-danger" href="#" data-bind="click: $root.remove"><i class="icon-trash icon-white"></i> حذف </a> 
+                    <a class="btn btn-primary"href="#" data-bind="attr: { href: '#/requestGoodEdit/' + ID() }"><i class="icon-pencil icon-white"></i> ویرایش </a>
+                </td>
+            </tr>
+
+        </tbody>
+        <tfoot>
+            
+        </tfoot>
+    </table>
+
+    <div data-bind="foreach: requestGoods, visible: viewController.currentView().name === 'icon'">
+        <div class="row view-list">
+            <div class="row">
+                <div class="span9" style="font-size: 14px; color: #0000ff;">
+                    <span >درخواست شماره  </span>
+                    <span data-bind="text: ID"></span>
+                    <span>به تاریخ </span>
+                    <span data-bind="text: Date"></span>
+                    <br/>
+                    
+                    <button data-bind="statusShow: Status, click: $root.changeStatus" title="تغییر وضعیت"></button>
+                    <br/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span2">
+                    <p>
+                        <span>شماره دستی : </span>
+                        <span data-bind="text: No"></span>
+                    </p>
+                </div>
+                <div class="span3">
+                    <p>
+                        <span>قسمت : </span>
+                        <span data-bind="text: Section().Title()"></span>
+                    </p>
+                    <p>
+                        <span>درخواست کننده : </span>
+                        <span data-bind="text: Person().FirstName() + ' ' + Person().LastName()"></span>
+                    </p>
+                </div>
+                <div class="span3">
+                   
+                    <p>
+                        <span>انبار : </span>
+                        <span data-bind="text: StockDeliveryLocation().Title()"></span>
+                    </p>
+                    <p>
+                        <span>وضعیت : </span>
+                        <span data-bind="enumDisplay: { value: Status }"></span>
+                    </p>
+                </div>
+                <div class="span2">
+                    <div class="btn-group-vertical">
+                        <a class="btn btn-danger" href="#" data-bind="click: $root.remove"><i class="icon-trash icon-white"></i> حذف </a> 
+                        <a class="btn btn-primary"href="#" data-bind="attr: { href: '#/requestGoodEdit/' + ID() }"><i class="icon-pencil icon-white"></i> ویرایش </a>
+                    </div>
+                    <br/>
+                    
+                </div>
+            </div>
+            
+            <div class="row" style="width: 90%">
+                <br/>
+                <button  class="btn-toggle ui-corner-top " data-bind="css: { 'ui-corner-bottom': !CanShowLetter() }, click: $root.changeShowLetter">
+                    <i data-bind="css: { 'icon-envelope': !CanShowLetter(), 'icon-remove-circle': CanShowLetter() }"></i> 
+                    <span data-bind="    text: CanShowLetter() ? ' بستن ' : ' نامه '"></span>
+                </button>
+                <div data-bind="slideVisible: CanShowLetter() && LetterRequestGoods.count()" >
+                    <table class="table table-condensed table-hover" style="width: 30%;background-color: white">
+                        <thead>
+                            <tr>
+                                <th>شماره</th>
+                                <th>تاریخ</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: LetterRequestGoods">
+                            <tr>
+                                <td>
+                                    <span data-bind="text: No"></span>
+                                </td>
+                                <td>
+                                    <span data-bind="text: Date"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot></tfoot>
+                    </table>
+
+                </div>
+                <div data-bind="slideVisible: CanShowLetter() && !LetterRequestGoods.count()" style="margin-bottom: 3em">
+                   <label>نامه ای وجود ندارد</label>
+                </div>
+                <br/>
+
+                <button  class="btn-toggle ui-corner-top " data-bind="css: { 'ui-corner-bottom': !ShowDetail() }, click: $root.changeShowDetail" style="width: 200px">
+                    <i data-bind="css: { 'icon-arrow-down': !ShowDetail(), 'icon-arrow-up': ShowDetail() }"></i> 
+                     <span data-bind="    text: ShowDetail() ? ' بستن ' : ' نمایش جزئیات '"></span>
+                </button>
+
+                <div data-bind="slideVisible: ShowDetail() && RequestDetailGoods.count(), slideDuration: 1000" style="background-color: white;width: 100%">
+                    <table class="table table-condensed table-hover"  >
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>ردیف</th>
+                                <th>لغو شده ؟</th>
+                                <th>کالا</th>
+                                <th>تعداد</th>
+                                <th>قیمت واحد</th>
+                                <th>قیمت کل</th>
+                                <th>هزینه موثر</th>
+                                <th>مبلغ نهایی</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: RequestDetailGoods">
+                            <tr data-bind="css: {error: IsCancel,success: DoneDate() != null}">
+                                <td><span data-bind="css: { 'icon-star': PurchaseSize() === 'Middle' }, attr: { title: PurchaseSize() === 'Middle' ? 'خرید های متوسط' : '' }"></span></td>
+                                <td data-bind="text: Row" style="width: 50px"></td>
+                                <td><input type="checkbox" data-bind="checked: IsCancel" disabled="disabled" /></td>
+                                <td data-bind="text: ItemGood().Title()"></td>
+                                <td data-bind="text: Qty() + ' ' + ItemGood().Scale().Title()"style="width: 50px"></td>
+                                <td data-bind="text: UnitPrice"style="width: 100px"></td>
+                                <td data-bind="text: TotalPrice"style="width: 100px"></td>
+                                <td data-bind="text: SumEffectiveCostGoods"style="width: 100px"></td>
+                                <td data-bind="text: TotalPriceAndEffectiveCost"style="width: 100px"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div data-bind="slideVisible: ShowDetail() && !RequestDetailGoods.count()" style="margin-bottom: 3em">
+                    <h3>ردیفی وجود ندارد</h3>
+                </div>
+                <br/>
+                <p>
+                    <span style="width: 500px">جمع کل : </span>
+                    <span data-bind="text: TotalPrice"></span>
+                </p>
+                <p>
+                    <span style="width: 500px">جمع نهایی : </span>
+                    <span data-bind="text: TotalPriceAndEffectiveCost"></span>
+                </p>
+                <br/>
+            </div>
+            <div class="row">
+                <div class="span9" style=" color: #778899;">
+                    <span>ایجاد شده توسط  </span>
+                    <span data-bind="text: CreatedByUser().FirstName() + ' ' + CreatedByUser().LastName()"></span>
+                    <span>  در تاریخ  </span>
+                    <span data-bind="dateString: CreatedOnDate()"></span>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <div data-bind="with: pager">
+        <!--ko compose: {view: 'layout/pager'} --><!--/ko-->
+    </div>
+
+</section>
+
+
+
+
+
+
+
+
+ 

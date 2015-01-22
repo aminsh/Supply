@@ -1,0 +1,66 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity.Infrastructure;
+using System.Data.Objects;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Model;
+
+namespace DataAccess
+{
+    public partial class AppDbContext
+    {
+        public override int SaveChanges()
+        {
+            var context = ((IObjectContextAdapter)this).ObjectContext;
+
+            IEnumerable<ObjectStateEntry> objectStateEntries =
+                context.ObjectStateManager.GetObjectStateEntries(EntityState.Added | EntityState.Modified | EntityState.Deleted)
+                       .Where(e => e.IsRelationship == false && e.Entity != null && e.Entity is Entity).ToList();
+
+            objectStateEntries.ForEach(e =>
+            {
+                var entity = e.Entity;
+
+                Type entityTypeName;
+
+                if (entity.GetType().Namespace.Contains("DynamicProxies"))
+                    entityTypeName = entity.GetType().BaseType;
+                else
+                    entityTypeName = entity.GetType();
+
+                // auth
+                Authorize(entityTypeName.Name,e.State);
+
+                var logicType = _LogicAssembly.GetType(String.Format("BussinessLogic.BL{0}", entityTypeName.Name));
+
+                var originalValues = new Dictionary<String, Object>();
+
+                if (e.State.IsIn(EntityState.Modified, EntityState.Deleted))
+                {
+                    var efOriginalValues = e.OriginalValues;
+                    entityTypeName.GetProperties()
+                                  .Where(
+                                      p =>
+                                      !(p.SetMethod == null || p.PropertyType.FullName.StartsWith("Model") ||
+                                        p.PropertyType.FullName.Contains("ICollection")))
+                                  .ForEach(prop => originalValues.Add(prop.Name, efOriginalValues[prop.Name]));
+                }
+
+                if (logicType != null)
+                {
+                    var logicInstance = Activator.CreateInstance(logicType);
+
+                    logicType.GetProperty("Context").SetValue(logicInstance, this);
+
+                    logicType.GetMethod("OnSubmitEntity").Invoke(logicInstance, new Object[] { entity, e.State, originalValues });
+                }
+
+            });
+
+            return base.SaveChanges();
+        }
+    }
+}

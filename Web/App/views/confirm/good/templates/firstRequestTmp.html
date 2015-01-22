@@ -1,0 +1,168 @@
+﻿
+
+
+<div class="panel-header">
+    <a class="pointer pull-right btn btn-primary" data-bind="click: init">
+        <i class="icon-refresh icon-white"></i>
+        بازیابی
+    </a>
+    &nbsp;
+    <a class="pointer pull-right btn btn-warning" data-bind="click: collapse">
+        <i class="icon-plus-sign icon-white"></i>
+        بستن ردیف ها
+    </a>
+</div>
+
+<div class="panel-body">
+    
+    <div class="view-single  container-fluid visible-desktop ui-corner-all" style="width: 90%;background-color: #8DC1FA;margin-top: 50px;padding: 2em" > 
+        <table class="table" data-bind="if: requests.any()">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>شماره</th>
+                    <th></th>
+                    <th>تاریخ</th>
+                    <th>درخواست دهنده</th>  
+                    
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: requests">
+                <tr class="bold tr-header">
+                    <td>
+                        <div data-bind="css: $root.getRequestIcon(RequestType())"></div>
+                        <div>
+                            <a class="pointer" 
+                               title="جزئیات درخواست"
+                               data-bind="click: $parent.changeShowStatus, css: { 'icon-plus': !ShowDetail(), 'icon-minus': ShowDetail() }"></a>
+                        </div>    
+                    </td>
+                    <td>
+                        <div>
+                            <label>درخواست متقاضی :</label>
+                            <span data-bind="text: ID"></span>
+                        </div>
+                        <div data-bind="if: RequestType() === 'Good'">
+                            <label>درخواست کالا :</label>
+                            <span data-bind="text: RequestGoodNo"></span>
+                        </div>
+                        <div>
+                            <label>درخواست خرید :</label>
+                            <span data-bind="text: OrderNo"></span>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="label label-success"
+                            data-bind="enumDisplay: { value: Status }"></span>
+                    </td>
+                    <td>
+                        <span data-bind="text: Date"></span>
+                    </td>
+                    <td>
+                        <div class="view-single">
+                            <div>
+                                <label>معاونت : </label>
+                                <span data-bind="with: Section">
+                                    <span data-bind="with: Parent">
+                                        <span data-bind="text: Title" class="bold"></span>
+                                    </span>
+                                </span>
+                            </div>
+                            <div>
+                                <label>قسمت : </label>
+                                <span data-bind="with: Section">
+                                    <span data-bind="text: Title" class="bold"></span>
+                                </span>
+                            </div>
+                            <div>
+                                <label>مصرف کننده : </label>
+                                <span data-bind="with: ConsumerSection">
+                                    <span data-bind="text: Title" class="bold"></span>
+                                </span>
+                            </div>
+                            <div>
+                                <label>پرسنل : </label>
+                                <span data-bind="with: Person">
+                                    <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+                                </span>
+                            </div>
+                        </div>
+                                           
+                    </td>
+                    <td style="width: 200px">
+                        <a class="btn btn-success btn-block" data-bind="click: $root.saveOnly">
+                            <i class="icon-save icon-white "></i>
+                            ذخیره
+                        </a>
+
+                        <a class="btn btn-primary btn-block" data-bind="click: $root.goToOrder, css: { disabled: !isCompletedForPurchase() }">
+                            <i class="icon-arrow-left icon-white "></i>
+                            صدور درخواست خرید
+                        </a>
+                        <span data-bind="visible: RequestType() === 'Good'"
+                              style="margin-top: 5px;">
+                            <a class="btn btn-success btn-block" data-bind="css: { disabled: !isCompletedForOutput() }">
+                                <i class="icon-arrow-left icon-white"></i>
+                                صدور حواله
+                            </a>
+                            <a class="btn btn-warning btn-block" >
+                                <i class="icon-arrow-left icon-white"></i>
+                                صدور رسید
+                            </a>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="tr-body" data-bind="if: ShowDetail()">
+                    <td colspan="8">
+                        <div class="ui-corner-all" style="background-color: white; padding: 1em;">
+                            <div data-bind="if: ShowDetail()">
+                                <div class="ui-corner-all" style="padding: 1em;" >
+                                    <a class="btn btn-primary" data-bind="click: $root.loadDetail" title="بازیابی">
+                                        <i class="icon-refresh icon-white"></i>
+                                    </a>
+                                    <table class="table" style="background-color: transparent"
+                                           data-bind="visible: $data['RequestDetail' + RequestType() +'s'].any()">
+                                        <thead>
+                                            <!--ko compose: {view: 'confirm/good/templates/detail-header-expert-tmp'} --><!--/ko-->
+                                            <!--ko compose: {view: 'confirm/good/templates/detail-header-afterExpert-tmp'} --><!--/ko-->
+                                        </thead>
+                               
+                                        <tbody data-bind="foreach: $data['RequestDetail' + RequestType() + 's']">
+                                            <!--ko compose: {view: 'confirm/good/templates/detail-detail-expert-tmp'} --><!--/ko-->
+                                            <!--ko compose: {view: 'confirm/good/templates/detail-detail-afterExpert-tmp'} --><!--/ko-->
+                                        </tbody>
+                                    </table>
+                                    <div data-bind="visible: loadStatus() === 'loading'"
+                                         style="padding: 3em;text-align: center;background-color: #808080">
+                                        <img src="../../../../../Content/images/waiting.gif" style="width: 70px;height: 70px"/>
+                                        <br/>
+                                        <span>لطفا چند لحظه صبر کنید ...</span>
+                                    </div>
+                                    <div data-bind="visible: !$data['RequestDetail' + RequestType() + 's'].any() && loadStatus() == 'loaded'"
+                                         style="padding: 1em">
+                                        اطلاعات جهت نمایش وجود ندارد
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div data-bind="visible: !requests.any()" 
+             style="padding: 1em">
+            اطلاعات جهت نمایش وجود ندارد
+        </div>
+
+    </div>
+</div>
+<div class="panel-footer">
+    <div data-bind="with: pager">
+        <!--ko compose: {view: 'layout/pager'} --><!--/ko-->
+    </div>   
+</div>
+
+

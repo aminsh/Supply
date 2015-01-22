@@ -1,0 +1,145 @@
+﻿<div data-bind="with: myStepPager">
+                <!--ko compose: {view: 'layout/pager'} --><!--/ko-->
+</div>   
+               
+<table class="table" >
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>شماره درخواست</th>
+                            <th></th>
+                            <th>تاریخ</th>
+                            <th>درخواست دهنده</th>  
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: mySteps">
+                        <tr class="bold tr-header" data-bind="with: Request, css: {info: Status() === 'New'}">
+                            <td>
+                                <div data-bind="css: $root.getRequestIcon(entityType.shortName)"></div>
+                                <div data-bind="ifnot: $parent.Status() == 'New'">
+                                    <a class="pointer" 
+                                       title="جزئیات درخواست"
+                                       data-bind="click: $root.changeShowStatus.bind($data, $parent), css: { 'icon-plus': !ShowDetail(), 'icon-minus': ShowDetail() }"></a>
+                                </div>    
+                            </td>
+                            <td>
+                                <div>
+                                    <label>متقاضی  :</label>
+                                    <span data-bind="text: ID"></span>
+                                </div>
+                                <div data-bind="if: entityType.shortName === 'RequestGood'">
+                                    <label> کالا :</label>
+                                    <span data-bind="text: RequestGoodNo"></span>
+                                   
+                                </div>
+                                <div>
+                                    <label> خرید :</label>
+                                    <span data-bind="text: OrderNo"></span>
+                                </div>
+                            </td>
+                            <td data-bind="with: $parent.Step">
+                                <span class="label label-success" data-bind="text: Title"></span> 
+                            </td>
+                            <td>
+                                <span data-bind="text: Date"></span>
+                            </td>
+                            <td>
+                                <div class="view-single">
+                                    <div>
+                                        <label>معاونت : </label>
+                                        <span data-bind="with: Section">
+                                            <span data-bind="with: Parent">
+                                                <span data-bind="text: Title" class="bold"></span>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <label>قسمت : </label>
+                                        <span data-bind="with: Section">
+                                            <span data-bind="text: Title" class="bold"></span>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <label>مصرف کننده : </label>
+                                        <span data-bind="with: ConsumerSection">
+                                            <span data-bind="text: Title" class="bold"></span>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <label>پرسنل : </label>
+                                        <span data-bind="with: Person">
+                                            <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                           
+                            </td>
+                            <!--<td data-bind="visible: $parent.Step().ViewName() === 'OrderExpert'">
+                                <label>کارپرداز : </label>
+                                <input  data-bind="combo: { modelProp: PurchasingOfficer, valueProp: PurchasingOfficerID, displayProp: 'Title', allData: true }"/>
+                            </td>-->
+                            <td style="width: 200px">
+                                <div data-bind="if: $parent.Status() === 'New'">
+                                    <!--ko compose: {view: 'requestStepTmp/newStep/buttons'} --><!--/ko-->
+                                </div>
+
+                                <div data-bind="ifnot: $parent.Status() === 'New'">
+                                    <div data-bind="if: $parent.Step().ViewName() === 'FirstExpert'">
+                                        <!--ko compose: {view: 'requestStepTmp/firstExpert/buttons'} --><!--/ko-->
+                                    </div>
+                                    <div data-bind="if: $parent.Step().ViewName() === 'OrderExpert'">
+                                        <!--ko compose: {view: 'requestStepTmp/orderExpert/buttons'} --><!--/ko-->
+                                    </div>
+                                    <div data-bind="if: $parent.Step().ViewName() === 'PurchasingOfficer'">
+                                        <!--ko compose: {view: 'requestStepTmp/purchasingOfficer/buttons'} --><!--/ko-->
+                                    </div>
+                                    <div data-bind="if: $parent.Step().ViewName() === 'ExpertGood'">
+                                        <!--ko compose: {view: 'requestStepTmp/expertGood/buttons'} --><!--/ko-->
+                                    </div>
+                                    <div data-bind="if: $parent.Step().ViewName() === 'Approval'">
+                                        <!--ko compose: {view: 'requestStepTmp/approval/buttons'} --><!--/ko-->
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>    
+                        <tr class="tr-body" data-bind="if: Request().ShowDetail()">
+                            <td colspan="8">
+                                <div data-bind="with: Request" 
+                                    class="ui-corner-all" style="background-color: white; padding: 1em;">
+                                    <div data-bind="if: ShowDetail()">
+                                        <div class="ui-corner-all" style="padding: 1em;" >
+                                            <a class="btn btn-primary" data-bind="click: $root.loadDetail" title="بازیابی">
+                                                <i class="icon-refresh icon-white"></i>
+                                            </a>
+                                            <div>
+                                                <div data-bind="if: $parent.Step().ViewName() === 'FirstExpert'">
+                                                    <!--ko compose: {view: 'requestStepTmp/requestDetail-firstExpert'} --><!--/ko-->
+                                                </div>
+                                                <div data-bind="if: $parent.Step().ViewName() === 'OrderExpert'">
+                                                    <!--ko compose: {view: 'requestStepTmp/requestDetail-orderExpert'} --><!--/ko-->
+                                                </div>
+                                                <div data-bind="if: $parent.Step().ViewName() === 'PurchasingOfficer'">
+                                                    <!--ko compose: {view: 'requestStepTmp/requestDetail-purchasingOfficer'} --><!--/ko-->
+                                                </div>
+                                                <div data-bind="if: $parent.Step().ViewName() === 'ExpertGood'">
+                                                    <!--ko compose: {view: 'requestStepTmp/requestDetail-expertGood'} --><!--/ko-->
+                                                </div>
+                                                <div data-bind="if: $parent.Step().ViewName() === 'Approval'">
+                                                    <!--ko compose: {view: 'requestStepTmp/requestDetail-approval'} --><!--/ko-->
+                                                </div>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+<div data-bind="with: myStepPager">
+                <!--ko compose: {view: 'layout/pager'} --><!--/ko-->
+</div>   
+

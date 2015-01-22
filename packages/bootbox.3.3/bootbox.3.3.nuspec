@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>bootbox</id>
+    <version>3.3</version>
+    <title>bootbox</title>
+    <authors>Nick Payne</authors>
+    <owners>Nick Payne</owners>
+    <projectUrl>http://bootboxjs.com/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Bootbox.js is a small JavaScript library which allows you to create programmatic dialog boxes using Twitter's Bootstrap modals, without having to worry about creating, managing or removing any of the required DOM elements or JS event handlers.</description>
+    <summary>Bootbox.js—alert, confirm and flexible dialogs for Twitter's Bootstrap framework</summary>
+    <releaseNotes>Add Polish translation (GH-93)
+Add Danish translation (GH-96)
+Pass event object to custom callbacks (GH-103)
+Add Chinese (Taiwan / China) translations (GH-106)
+Make prompt input block-level (GH-111)
+Add link: true option to prevent btn class from being applied (GH-114)
+Prevent child elements triggering hidden callback (GH-115)
+Replace Phing with Grunt
+Replace Closure compiler with UglifyJS</releaseNotes>
+    <copyright />
+    <language />
+    <tags>jquery bootstrap dialog</tags>
+    <dependencies>
+      <dependency id="jQuery" version="1.8" />
+    </dependencies>
+    <references />
+  </metadata>
+</package>

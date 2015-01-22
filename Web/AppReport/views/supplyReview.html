@@ -1,0 +1,26 @@
+﻿<section class="section-main">
+    <div style="background-color: white;padding: 3em;width: 500px" class="ui-corner-all">
+        <div data-bind="with: param">
+            <div data-bind="foreach: $parent.requestTypes">
+                <a class="btn" data-bind="click: $root.selectRequestType">
+                    <span data-bind="text: title"></span>
+                </a>
+            </div>
+            <div data-bind="foreach: $parent.stepType,visible: $parent.canShowStepType()">
+                <a class="btn" data-bind="click: $root.selectStepType">
+                    <span data-bind="text: title"></span>
+                </a>
+            </div>
+            <div data-bind="visible: $parent.canShowDate()">
+                از تاریخ :
+                <input type="text" data-bind="myDatePicker: $root.param.StartDate, value: $root.param.StartDate" data-converter="value: persianDate" />
+                تا تاریخ :
+                <input type="text" data-bind="myDatePicker: $root.param.EndDate, value: $root.param.EndDate" data-converter="value: persianDate" />
+                <br/>
+                نامه :
+                <input data-bind="combo: {
+    modelProp: $root.param.Letter, displayProp: 'No,Date', allData: true, entityName: 'Letter', pluralEntityName: 'Letters',resultMap: $root.mapLetter}" />
+            </div>
+        </div>
+    </div>
+</section>  

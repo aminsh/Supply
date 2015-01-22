@@ -1,0 +1,113 @@
+﻿
+<div data-bind="foreach: requestVehicles">
+            <div class="view-single ui-corner-all" style="border-style: solid;padding: 2em;margin: 2em;background-color: white">
+                <div class="row">
+                      <div class="span3">
+                    <div>
+                        <span>وضعیت : </span>
+                        <span data-bind="enumDisplay: { value: Status }" />
+                    </div>
+                    <div>
+                        <span>  شماره : </span>
+                        <span data-bind="text: No"></span>
+                    </div>
+                    <div>
+                        <span> تاریخ درخواست : </span>
+                        <span  data-bind="text: Date" />
+                    </div>
+                    <div>
+                        <span> روش خرید : </span>
+                        <span  data-bind="enumDisplay: { value: PurchaseMethod }"></span>
+                    </div>
+                </div>
+                    <div class="span4">
+                        <div data-bind="if: Section() != null">
+                            <span>قسمت : </span>
+                            <span data-bind="text: Section().Title()"></span>
+                        </div>
+                        <div data-bind="if: Person() != null">
+                            <span>درخواست دهنده : </span>
+                            <span data-bind="text: Person().FirstName() + ' ' + Person().LastName()"></span>
+                        </div>
+                        <div data-bind="if: PurchasingOfficer() != null">
+                            <span>کارپرداز : </span>
+                            <span data-bind="text: PurchasingOfficer().Title()"></span>
+                        </div>
+                    </div>
+
+                      <div class="span3" >
+                        <span>نامه (ها) : </span>
+                        <div data-bind="visible: !LetterRequestVehicles.count()">
+                            ندارد
+                        </div>
+                        <ul data-bind="foreach: LetterRequestVehicles, visible: LetterRequestVehicles.count()">
+                    
+                            <li>
+                                <span data-bind="text: No"></span>
+                                &nbsp; &lArr; &nbsp;
+                                <span data-bind="text: Date" ></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 3em">
+                    <table class="table table-condensed table-hover" >
+                        <thead>
+                            <tr>
+                                <th>ردیف</th>
+                                <th>تاریخ انجام</th>
+                                <th>وسیله نقلیه</th>
+                                <th>راننده</th>
+                                <th>نوع خدمات</th>
+                                <th>فروشنده</th>
+                                <th>تعداد</th>
+                                <th>قیمت واحد</th>
+                                <th>قیمت کل</th>
+                                <th>جمع هزینه های موثر </th>
+                                <th>مبلغ نهایی </th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: RequestDetailVehicles">
+                            <tr>
+                                <td data-bind="text: Row"></td>
+                                <td data-bind="text: DoneDate"></td>
+                                <td>
+                                    <div data-bind="if: Vehicle() != null">
+                                        <span data-bind="text: Vehicle().No()"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div data-bind="if: Driver() != null">
+                                        <span data-bind="text: Driver().Title()"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div data-bind="if: ItemVehicle() != null">
+                                        <span data-bind="text: ItemVehicle().Title()"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div data-bind="if: Seller() != null">
+                                        <span data-bind="text: Seller().Title()"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span data-bind="if: ItemVehicle()">
+                                        <span data-bind="text: Qty() "></span>     
+                                    </span>
+                                </td>
+                                <td data-bind="text: UnitPrice"></td>
+                                <td data-bind="text: TotalPrice"></td>
+                                <td data-bind="text: SumEffectiveCostVehicleDetails"></td>
+                                <td data-bind="text: TotalPriceAndEffectiveCost"></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr></tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            
+       
+        </div>

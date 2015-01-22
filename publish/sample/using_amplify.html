@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="../Scripts/jquery-1.9.1.js"></script>
+    <script src="../Scripts/amplify.js"></script>
+</head>
+<body>
+    <script>
+        $(function() {
+            
+            amplify.request.define("getEnum", "ajax", {
+                url: "/api/Enum/GetEnums/{enum}",
+                type: "GET",
+                dataType: "json",
+                cache:"persist"
+            });
+
+            $('#btn').click(function() {
+                amplify.request("getEnum", { enum: 'RequestStatus' }, function(data) {
+                    var d = data;
+                    alert(data);
+                });
+
+            });
+
+        });
+    </script>
+    
+    <button id="btn">Click</button>
+</body>
+</html>

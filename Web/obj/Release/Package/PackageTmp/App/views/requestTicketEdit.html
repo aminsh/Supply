@@ -1,0 +1,317 @@
+﻿<section class="k-rtl">
+    <h2 class="page-title" data-bind="text: title"></h2>
+    <br/>
+
+    <a class="btn btn-inverse" href="#" data-bind="click: goBack"><i class="icon-arrow-right icon-white"></i> بازگشت </a>
+    <br/>
+    <!--ko compose: {view: 'layout/standardButtons'} --><!--/ko-->
+    <br/>
+ 
+    
+    <div class="row view-single ui-corner-all" data-bind="with: requestTicket" style="background-color: white;padding: 20px">
+        <div class="row">
+            <div class="span9">
+                <div>
+                    <span style="font-weight: bold;font-size: 14px; color: #0000ff;">شماره درخواست</span>
+                    <span style="font-weight: bold;font-size: 14px; color: #0000ff;" data-bind="text: ID"></span>
+                    <br/><br/>
+                    <label>وضعیت</label>
+                    <input data-bind="enumCombo: { Type: 'RequestStatus', value: Status }"/>
+                    <br/><br/>
+                    <input type="checkbox" data-bind="checked: IsFast"/><span style="font-weight: bold">  فوری ؟   </span>
+                    <br/><br/>
+                </div>
+            </div>
+        </div>
+        <div class="span3">
+            <div>
+                <div>
+                    <label>تاریخ درخواست</label>
+                    <input type="text" data-bind="myDatePicker: Date, value: Date" data-converter="value: persianDate"/>
+                </div>
+                <div>
+                    <label>شماره نامه</label>
+                    <input type="text" data-bind="value: LetterNo" style="width: 70px"/>
+                </div>
+                <div>
+                    <label>تاریخ نامه</label>
+                    <input type="text" data-bind="myDatePicker: Date, value: Date" data-converter="value: persianDate"/>
+                </div>
+                <div>
+                    <a class="btn" href="#" ><i class="icon-envelope"></i> نامه بیشتر </a>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="span4">
+            <div >
+                <div>
+                    <label>قسمت</label>
+                    <input style="width: 100px"  
+                        data-bind="combo: { modelProp: Section, datacontext: $root.context, displayProp: 'Title', valueProp: SectionID, allData: true, pruralEntityName: 'Sections' }"/>
+                </div>
+                <div>
+                    <label>درخواست کننده</label>
+                    <input style="width: 100px"  
+                        data-bind="combo: { modelProp: Person, datacontext: $root.context, displayProp: 'FirstName,LastName', valueProp: PersonID, allData: true, pruralEntityName: 'People' }"/>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+    <div data-bind="with: requestTicket">
+        <input type="checkbox" data-bind="checked: HasOrder"/><span>  سفارش  </span>
+        <input type="checkbox" data-bind="checked: HasPreInvoice"/><span>  پیش فاکتور  </span>
+        <input type="checkbox" data-bind="checked: HasPurchaseOrder"/><span>  دستور خرید  </span>
+        
+        <div data-bind="visible: HasOrder() || HasPreInvoice() || HasPurchaseOrder()"  class="view-single">               
+            <ul data-bind="kendoPanelBar: {}">
+        <li data-bind="kendoPanelItem: { expanded: true }, visible: HasOrder">
+            <span>سفارش</span>
+            <ul>
+                <li>
+                    <p>
+                        <label >تاریخ</label>
+                        <input type="text" data-bind="myDatePicker: OrderDate, value: OrderDate" data-converter="value: persianDate"/>
+                    </p>
+                    <p>
+                        <label>روش خرید</label>
+                        <input data-bind="enumCombo: { Type: 'PurchaseMethod', value: PurchaseMethod }"/>
+                    </p>
+                    <p>
+                        <label>کارپرداز</label>
+                        <input style="width: 100px"  
+                               data-bind="combo: { modelProp: PurchasingOfficer, datacontext: $root.context, displayProp: 'Title', valueProp: PuchasingOfficerID, allData: true, pruralEntityName: 'PurchasingOfficers' }"/>
+                    </p>
+                    <br/>
+                </li>
+            </ul>
+        </li>
+        <li data-bind="kendoPanelItem: { expanded: false }, visible: HasPreInvoice">
+            <span>پیش فاکتور</span>
+            <ul>
+                <li>
+                    <label>تاریخ</label>
+                    <input type="text" data-bind="myDatePicker: PreInvoiceDate, value: PreInvoiceDate" 
+                           data-converter="value: persianDate"/>
+                    <br/>
+                </li>
+            </ul>
+        </li>
+        <li data-bind="kendoPanelItem: { expanded: false }, visible: HasPurchaseOrder">
+            <span>دستور خرید</span>
+            <ul>
+                <li>
+                <label>تاریخ</label>
+                <input type="text" data-bind="myDatePicker: PurchaseOrderDate, value: PurchaseOrderDate" 
+                       data-converter="value: persianDate"/>
+                <br/>
+            </ul>
+        </li>
+    </ul>
+        </div>
+        <br />
+        <br/>
+        <br/>
+         <a class="btn btn-primary" href="#" data-bind="click: $root.addDetail"><i class="icon-plus icon-white"></i> جدید </a>
+        <br/><br/>
+        <table class="table table-hover table-condensed" data-bind="visible: !HasOrder()">
+            <thead>
+                   <tr>
+                        <th>شناسه</th>
+                        <th>لغو شده ؟</th>
+                        <th>ردیف</th>
+                        <th>مسافر</th>
+                        <th>تاریخ رفت</th>
+                        <th>تاریخ برگشت</th>
+                        <th>تاریخ انجام</th>
+                        <th></th>
+                   </tr> 
+            </thead>
+            
+            <tbody data-bind="foreach: RequestDetailTickets ">
+                    <tr>
+        <td data-bind="text: ID" ></td>
+        <td><input type="checkbox" data-bind="checked: IsCancel" required style="width: 100px"/></td>
+        <td data-bind="text: Row" ></td>
+                        <td>
+                            <input  
+                                    data-bind="combo: { modelProp: Passenger, datacontext: $root.context, displayProp: 'FirstName,LastName', valueProp: PassengerID, allData: true, pruralEntityName: 'People' }"/>
+                            <br/>
+                        </td>
+        
+                        <td><input type="text" data-bind="myDatePicker: GoOnDate, value: GoOnDate" data-converter="value: persianDate"/></td>
+                        <td><input type="text" data-bind="myDatePicker: ReturnDate, value: ReturnDate" data-converter="value: persianDate"/></td>
+        <td><input type="text" data-bind="myDatePicker: DoneDate, value: DoneDate" data-converter="value: persianDate"/></td>
+        <td>
+            <a class="btn btn-danger" href="#" data-bind="click: $root.removeDetail"><i class="icon-trash icon-white"></i> حذف </a> 
+        </td>
+    </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+        
+        <div data-bind="foreach: RequestDetailTickets, visible: HasOrder()">
+            <div class="view-list row">
+                <div class="span2">
+                    <div>
+                        <label style="width: 50px">شناسه</label>
+                        <span data-bind="text: ID"></span>  
+                    </div>
+                    <br/>
+                    <div>
+                        <input type="checkbox" data-bind="checked: IsCancel" /><span> لغو شده ؟ </span>
+                    </div>
+                    
+                </div>
+                <div class="span3">
+                    <div>
+                        <label style="width: 70px">مسافر</label>
+                        <input  
+                                    data-bind="combo: { modelProp: Passenger, datacontext: $root.context, displayProp: 'FirstName,LastName', valueProp: PassengerID, allData: true, pruralEntityName: 'People' }"/>
+                            <br/>
+                    </div>
+                    <div>
+                        <label style="width: 70px">فروشنده</label>
+                        <input  
+                            data-bind="combo: { modelProp: Seller, datacontext: $root.context, displayProp: 'Title', valueProp: SellerID, allData: true, pruralEntityName: 'Sellers' }"/>
+                    </div>
+                </div>
+                <div class="span3">
+                    <div>
+                        <label>قیمت رفت</label>
+                        <input type="number" data-bind="kendoNumericTextBox: GoOnPrice" />
+                    </div>
+                    
+                    <div>
+                        <label>قیمت برگشت</label>
+                        <input type="number" data-bind="kendoNumericTextBox: ReturnPrice" />
+                    </div>
+
+                    <label>قیمت کل</label>
+                    <div style="height: 30px"><span data-bind="text: TotalPrice" data-converter="text: float"></span></div>
+
+                    <label>جمع هزینه های موثر</label>
+                    <div style="height: 30px"><span data-bind="text: SumEffectiveCostTickets" data-converter="text: float"></span></div>
+                    
+                    <label>جمع نهایی</label>
+                    <div style="height: 30px"><span data-bind="text: TotalPriceAndEffectiveCost" data-converter="text: float"></span></div>
+                </div>
+                <div class="span1">
+                    <div class="btn-group-vertical">
+                        <a class="btn btn-primary" href="#" data-bind="click: $root.selectEffectiveCost" style="width: 100px" >هزینه موثر </a>
+                        <a class="btn btn-danger" href="#" data-bind="click: $root.removeDetail"><i class="icon-trash icon-white"></i> حذف </a> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span5"></div>
+            <div class="span5 view-single pull-left" data-bind="visible: HasOrder() && RequestDetailTickets.count()" >
+                <label>جمع کل  </label>
+                <span data-bind="text: TotalPriceAndEffectiveCost" data-converter="text: float" style="font-weight: bold"></span>
+            </div>
+        </div>
+        
+        <div data-bind="if: $root.selectedRequestTicketDetail()">
+            <div data-bind="dialog: { isOpen: $root.isEffectiveCostsOpen, title: 'هزینه های موثر', minWidth: 500 }">
+        <a class="btn btn-primary btn-small" href="#" data-bind="click: $root.addEffectiveCost"><i class="icon-plus icon-white"></i> جدید </a>
+        <br/>
+        <table class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th>نوع هزینه</th>
+                    <th>هزینه</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: $root.selectedRequestTicketDetail().EffectiveCostTickets">
+                <tr>
+                    <td>
+                        <input style="width: 100px" 
+                               data-bind="combo: { modelProp: CostType, datacontext: $root.context, displayProp: 'Title', valueProp: CostTypeID, allData: true, pruralEntityName: 'CostTypes' }"/>
+                    </td>
+                    <td><input type="number" data-bind="kendoNumericTextBox: Cost" style="width: 100px"/></td>
+                    <td>
+                        <a class="btn btn-danger btn-small" href="#" data-bind="click: $root.removeEffectiveCost"><i class="icon-trash icon-white"></i> حذف </a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td><h6>جمع هزینه : </h6></td>
+                    <td><span data-bind="text: $root.selectedRequestTicketDetail().SumEffectiveCostTickets" data-converter="text: float"></span></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+            
+            
+
+    </div>
+        </div>
+        
+        <div data-bind="if: $root.selectedRequestTicketDetail()">
+            <div data-bind="dialog: { isOpen: $root.isSmallCostsOpen, title: 'ریز هزینه ها', minWidth: 700 }" class="k-rtl">
+        <a class="btn btn-primary btn-small" href="#" data-bind="click: $root.addSmallCost"><i class="icon-plus icon-white"></i> جدید </a>
+        <br/>
+        <table class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th>شرح</th>
+                    <th>هزینه</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: $root.selectedRequestTicketDetail().SmallCosts">
+                <tr>
+                    <td style="width: 50%"><input type="text" 
+                                                  data-bind="autocomplete: { modelProp: Des, datacontext: $root.context, displayProp: 'Des', pruralEntityName: 'SmallCosts' }" style="width: 90%"/>
+                    </td>
+                    <td><input type="number" data-bind="kendoNumericTextBox: Cost" style="width: 100px"/></td>
+                    <td>
+                        <a class="btn btn-danger btn-small" href="#" data-bind="click: $root.removeSmallCost"><i class="icon-trash icon-white"></i> حذف </a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td><h6>جمع هزینه : </h6></td>
+                    <td>
+                        <h6>
+                            <span data-bind="text: $root.selectedRequestTicketDetail().SumSmallCosts" data-converter="text: float"></span>
+                        </h6>
+                    </td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+

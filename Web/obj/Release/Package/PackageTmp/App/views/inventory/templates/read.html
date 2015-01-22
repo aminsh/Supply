@@ -1,0 +1,129 @@
+﻿ <div class="wrapper">
+     <div data-bind="click: $root.changeShowMaster"  
+         class="panel-header ui-corner-top bold gray pointer">
+            <i class="icon-white" data-bind="css: { 'icon-plus': !$root.canShowMaster(), 'icon-minus': $root.canShowMaster() }"></i>
+            &nbsp;&nbsp;
+            بخش اصلی
+        </div>
+     <div class="panel-body"
+          data-bind="visible: $root.canShowMaster()">
+            <div class="view-box">
+                <div class="row">
+                    <div class="span12" data-bind="if: !entityAspect.entityState.isAdded()">
+                        <label>
+                            ایجاد شده توسط 
+                            <span data-bind="text:  CreatedByUser().FirstName() + ' ' + CreatedByUser().LastName()"></span>
+                            در تاریخ
+                            <span data-bind="text: CreatedOnDate"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                     <div class="span3">
+                        <div>
+                            <label>شماره</label>
+                            <span data-bind="text: No"></span>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <div>
+                            <label>تاریخ</label>
+                            <span data-bind="text: Date"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span4">
+                        <div>
+                            <label>قسمت</label>
+                            <span data-bind="with: Section">
+                                <span data-bind="text: Title"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <div>
+                            <label data-bind="visible: InventoryType() == 'Input'">تحویل گیرنده</label>
+                            <label data-bind="visible: InventoryType() == 'Output'">تحویل دهنده</label>
+                            <span data-bind="with: Person">
+                                <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span3">
+                        <div>
+                            <label>وضعیت</label>
+                            <span data-bind="enumDisplay: { value: Status }"></span>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <div>
+                            <div data-bind="if: InventoryType() == 'Input', visible: InventoryType() == 'Input'">
+                                <label>نوع رسید</label>
+                                <span data-bind="enumDisplay: { value: InputType }"></span>
+                            </div>
+                            <div data-bind="if: InventoryType() == 'Output', visible: InventoryType() == 'Output'">
+                                <label>نوع رسید</label>
+                                <span data-bind="enumDisplay: { value: OutputType }"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span12">
+                        <div>
+                            <label>توضیحات</label>
+                            <span data-bind="text: Des"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+ <div class="wrapper">
+     <div data-bind="click: $root.changeShowDetail" 
+          class="panel-header ui-corner-top bold green pointer">
+         <i class="icon-white" data-bind="css: { 'icon-plus': !$root.canShowDetail(), 'icon-minus': $root.canShowDetail() }"></i>
+         بخش کالا
+     </div>
+     <div class="panel-body" data-bind="visible: $root.canShowDetail()">
+            <table class="table table-hover" data-bind="visible: $data[InventoryType() + 'Details'].any()">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>کالا</th>
+                        <th>مقدار</th>
+                        <th>درخواست خرید</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: $data[InventoryType() + 'Details']">
+                    <tr class="pointer">
+                        <td data-bind="text: Row"></td>
+                        <td>
+                            <span data-bind="with: ItemGood">
+                                <span data-bind="text: No() + ' ' + Title()"></span>
+                            </span>
+                        </td>
+                        <td>
+                            <span data-bind="text: Qty"></span>
+                            <span data-bind="with: ItemGood">
+                                <span data-bind="with: Scale">
+                                    <span data-bind="text: Title"></span>
+                                </span>
+                            </span>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+         <div data-bind="visible: !$data[InventoryType() + 'Details'].any()">
+             اطلاعاتی جهت نمایش وجود ندارد
+         </div>
+        </div>
+    </div>
+    

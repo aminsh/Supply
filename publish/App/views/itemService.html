@@ -1,0 +1,124 @@
+﻿<section>
+    <h2 class="page-title" data-bind="text: title"></h2>
+    
+    <!--ko compose: {view: 'layout/standardButtons'} --><!--/ko-->
+    
+    <br/>
+   
+    <!--ko compose: {view: 'layout/viewController'} --><!--/ko-->
+    
+    <br/><br/>
+    
+    <a class="btn btn-primary" data-bind="click: add">
+        <i class="icon-plus icon-white"></i>
+        جدید
+    </a>
+
+    <table class="table table-hover table-condensed" data-bind="visible: viewController.currentView().name === 'list'">
+        <thead>
+            <tr>
+                <th>شناسه</th>
+                <th>واحد</th> 
+                <th>عنوان</th> 
+                <th></th>
+            </tr>
+            <tr>
+                <th></th> 
+                <th></th>
+                <th>
+                     <form class="form-search" data-bind="submit: init">
+                        <span class="icon-search"></span>
+                        <input type="text" data-bind="value: titleSearch, valueUpdate: 'afterkeydown'"
+                            style="width: 70%;display: inline;background-color: white" placeholder="عنوان" class="search-query"/>
+                    </form>
+                </th> 
+                <th></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: itemServices">
+            <tr>
+                <td data-bind="text: ID"></td>
+                <td >
+                    <input data-bind="combo: { modelProp: Scale, displayProp: 'Title', valueProp: ScaleID, allData: true }"
+                        style="width: 70px"/>
+                </td>
+                <td style="width: 50%"><input type="text" data-bind="value: Title" style="width: 80%"/>
+                </td>
+                
+                <td style="width: 10%">
+                    <div class="btn-group-vertical">
+                        <a class="btn btn-danger" href="#" data-bind="click: $parent.remove"><i class="icon-trash icon-white"></i> حذف </a> 
+                    </div>
+                </td>
+            </tr>
+          
+            <tr data-bind="visible: $root.hasChanges() && $data.hasValidationErrors()" style="background-color: #FFFFB9">
+                <td colspan="6">
+                    <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+                     
+                </td>
+            </tr>
+           
+        </tbody>
+        <tfoot>
+            
+        </tfoot>
+    </table>
+    
+    <div data-bind="visible: viewController.currentView().name === 'icon', foreach: itemServices" style="margin-top: 7em">
+        <div class="view-list">
+             <div class="row">
+            <div class="span4">
+                <div>
+                    <label>واحد : </label>
+                    <input data-bind="combo: { modelProp: Scale, displayProp: 'Title', valueProp: ScaleID, allData: true }"
+                        style="width: 100px"/>
+                </div>
+                <div>
+                    <label>والد: </label>
+                    <input type="text" data-bind="value: ParentID" style="width: 100px"/>
+                </div>
+                <div>
+                    <label>قیمت پیش فرض: </label>
+                    <input type="text" data-bind="value: Price" style="width: 100px" data-converter="value: float"/>
+                </div>
+            </div>
+            <div class="span6">
+                <div>
+                    <label>عنوان : </label>
+                    <input type="text" data-bind="value: Title" style="width: 70%"/>
+                </div>
+                <div>
+                    <label>توضیحات : </label>
+                    <textarea data-bind="value: Des" style="width: 70%"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span9">
+                
+            </div>
+        </div>
+        <div class="row" data-bind="visible: $root.hasChanges() && $data.hasValidationErrors()" style="background-color: #FFFFB9">
+            <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+        </div>
+        </div>
+       
+        
+    </div>
+    <div class="row" data-bind="with: $root.itemServicepager">
+        <!--ko compose: {view: 'layout/pager'} --><!--/ko-->
+    </div>
+
+</section>
+
+
+<!--<form class="form-search" data-bind="submit: init">
+                        <div style=" background-color: white;width: 80%;height: 20px;padding: 5px 10px 7px 35px;width: 80%;" class="ui-corner-all" >
+                            <span class="icon-search"></span>
+                            <input 
+                                type="text" placeholder="جستجوی عنوان" title="متن مورد نظر را اینجا تایپ کنید و کلید Enter را فشار دهید" 
+                                style="width: 80%;border: none;background-color: transparent;display: inline-block" 
+                                data-bind="value: titleSearch, valueUpdate: 'afterkeydown'"/>
+                        </div>
+                    </form>-->

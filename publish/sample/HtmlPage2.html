@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="../Content/bootstrap.css" rel="stylesheet" />
+    <!--<link href="../Content/StyleSheet1.css" rel="stylesheet" />-->
+    <!--<link href="../Content/main.css" rel="stylesheet" />-->
+    <script src="../Scripts/jquery-1.9.1.js"></script>
+    <!--<script src="../Scripts/bootstrap.js"></script>-->
+    <script src="../../Scripts/jquery-ui-1.10.2.js"></script>
+    <script src="../../Scripts/jquery.ui.core.js"></script>
+    <script src="../../Scripts/calendar.js"></script>
+    <!--<script src="../../Scripts/jquery.ui.datepicker-cc-ar.js"></script>-->
+    <script src="../../Scripts/jquery.ui.datepicker-cc-fa.js"></script>
+    <script src="../../Scripts/jquery.ui.datepicker-cc.js"></script>
+    <!--<link href="../Content/main.css" rel="stylesheet" />-->
+    <!--<link href="../Content/themes/start/jquery-ui-1.10.3.custom.css" rel="stylesheet" />-->
+    <link href="../Content/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
+    <link href="../Content/themes/start/jquery-ui-1.10.3.custom.css" rel="stylesheet" />
+      <link href="/Content/themes/start/jquery-ui-1.10.3.custom.css" rel="stylesheet"/>
+<link href="/Content/jquery-ui-1.8.23.custom.css" rel="stylesheet"/>
+<link href="/Content/ie10mobile.css" rel="stylesheet"/>
+<link href="/Content/bootstrap.css" rel="stylesheet"/>
+<link href="/Content/bootstrap-responsive.css" rel="stylesheet"/>
+<link href="/Content/durandal.css" rel="stylesheet"/>
+<link href="/Content/toastr.css" rel="stylesheet"/>
+<link href="/Content/app.css" rel="stylesheet"/>
+<link href="/Content/kendo/2013.1.319/kendo.rtl.min.css" rel="stylesheet"/>
+<link href="/Content/kendo/2013.1.319/kendo.default.min.css" rel="stylesheet"/>
+<link href="/Content/kendo/2013.1.319/kendo.common.min.css" rel="stylesheet"/>
+<link href="/Content/kendo/2013.1.319/kendo.blueopal.min.css" rel="stylesheet"/>
+<link href="/Content/main.css" rel="stylesheet"/>
+    <link href="/Content/app.widget.css" rel="stylesheet"/>
+    
+    
+    <script src="/scripts/jquery-1.6.4.js"></script>
+<script src="/scripts/jquery-1.9.1.js"></script>
+<script src="/scripts/jquery-ui-1.10.2.js"></script>
+<script src="/scripts/jquery.ui.datepicker-cc.js"></script>
+<script src="/scripts/jquery.ui.datepicker-cc-ar.js"></script>
+<script src="/scripts/jquery.ui.datepicker-cc-fa.js"></script>
+<script src="/scripts/bootstrap.js"></script>
+<script src="/scripts/amplify.js"></script>
+<script src="/scripts/calendar.js"></script>
+<script src="/scripts/knockout-2.2.1.debug.js"></script>
+<script src="/scripts/sammy-0.7.4.js"></script>
+<script src="/scripts/toastr.js"></script>
+<script src="/scripts/Q.js"></script>
+<script src="/scripts/breeze.debug.js"></script>
+<script src="/scripts/kendo/2013.1.319/kendo.web.min.js"></script>
+<script src="/scripts/knockout-kendo.js"></script>
+<script src="/scripts/helper/helper.array.js"></script>
+<script src="/scripts/helper/helper.datacontext.js"></script>
+<script src="/scripts/helper/helper.ko.js"></script>
+<script src="/scripts/helper/helper.note.js"></script>
+<script src="/scripts/helper/helper.date.js"></script>
+<script src="/scripts/helper/helper.ko_context.js"></script>
+<script src="/scripts/helper/helper.string.js"></script>
+<script src="/scripts/helper/helper.window.js"></script>
+<script src="/scripts/helper/helper.ajax.js"></script>
+<script src="/scripts/helper/helper.ko.bindingHandlers.js"></script>
+
+    <script src="../../Scripts/helper/helper.ko.bindingHandlers.js"></script>
+</head>
+    <body>
+        <script>
+            $(function () {
+                //$("#datepicker").datepicker();
+                $("#datepicker").css('width', function () {
+                    return 100;
+                });
+                $("#datepicker").datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    showButtonPanel: true,
+                    dateFormat: 'yy/mm/dd'
+                });
+                
+                $("#accordion").accordion();
+
+                var vm = {
+                    
+                };
+
+                ko.applyBindings(vm);
+            });
+        </script>
+       <!-- <div  class="navbar navbar-fixed-top " style="background-color: white">
+        <div class="navbar-inner">
+            <div class="container" style="width: auto;">
+                <ul class="nav pull-right">
+                    <li><a href="#">صفحه اصلی</a></li>
+                    <li><a class="btn btn-large" href="#"><i class="icon-th-large"></i></a></li>
+                            
+                </ul>
+
+                <ul class="nav pull-right" role="navigation">
+                    <li class="dropdown">
+                        <a id="A1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <b> اطلاعات پایه </b> <b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="/sample/HtmlPage1.html"> کالا </a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#/anotherAction"> خدمات </a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> نقلیه </a></li>
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> اشخاص </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" id="A2" role="button" class="dropdown-toggle" data-toggle="dropdown"> <b> درخواست </b> <b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav pull-right">
+                    <li id="Li1" class="dropdown">
+                        <a href="#" id="A3" role="button" class="dropdown-toggle" data-toggle="dropdown">Dropdown 3 <b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="nav pull-left">
+                    <h6>کاربر ناشناس</h6>
+                    <img src="../Content/images/anonymousUser.jpg" width="50px"/>
+                </div>
+            </div>
+        </div> -->
+        
+        
+        <p>Date: <input type="text" id="datepicker" /></p>
+        
+        <div id="accordion">
+            <h3>Section 1</h3>
+            <div>
+                <p>
+                    Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+                    ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+                    amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+                    odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+                </p>
+            </div>
+            <h3>Section 2</h3>
+            <div>
+                <p>
+                    Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
+                    purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
+                    velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
+                    suscipit faucibus urna.
+                </p>
+            </div>
+            <h3>Section 3</h3>
+            <div>
+                <p>
+                    Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
+                    Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
+                    ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
+                    lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
+                </p>
+                <ul>
+                    <li>List item one</li>
+                    <li>List item two</li>
+                    <li>List item three</li>
+                </ul>
+            </div>
+            <h3>Section 4</h3>
+            <div>
+                <p>
+                    Cras dictum. Pellentesque habitant morbi tristique senectus et netus
+                    et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
+                    faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
+                    mauris vel est.
+                </p>
+                <p>
+                    Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
+                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+                    inceptos himenaeos.
+                </p>
+            </div>
+        </div>
+        <br/><br/>
+        <div data-bind="expandable: {}">
+            <h3>Section 1</h3>
+            <div>
+                <p>
+                    Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+                    ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+                    amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+                    odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+                </p>
+            </div>
+            <h3>Section 2</h3>
+            <div>
+                <p>
+                    Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
+                    purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
+                    velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
+                    suscipit faucibus urna.
+                </p>
+            </div>
+            <h3>Section 3</h3>
+            <div>
+                <p>
+                    Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
+                    Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
+                    ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
+                    lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
+                </p>
+                <ul>
+                    <li>List item one</li>
+                    <li>List item two</li>
+                    <li>List item three</li>
+                </ul>
+            </div>
+            <h3>Section 4</h3>
+            <div>
+                <p>
+                    Cras dictum. Pellentesque habitant morbi tristique senectus et netus
+                    et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
+                    faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
+                    mauris vel est.
+                </p>
+                <p>
+                    Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
+                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+                    inceptos himenaeos.
+                </p>
+            </div>
+        </div>
+        <br/><br/>
+        <div data-bind="expandable: {}">
+<h3>Section 1</h3>
+<div>
+<p>
+Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+</p>
+</div>
+<h3>Section 2</h3>
+<div>
+<p>
+Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
+purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
+velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
+suscipit faucibus urna.
+</p>
+</div>
+<h3>Section 3</h3>
+<div>
+<p>
+Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
+Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
+ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
+lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
+</p>
+<ul>
+<li>List item one</li>
+<li>List item two</li>
+<li>List item three</li>
+</ul>
+</div>
+<h3>Section 4</h3>
+<div>
+<p>
+Cras dictum. Pellentesque habitant morbi tristique senectus et netus
+et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
+faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
+mauris vel est.
+</p>
+<p>
+Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
+Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+inceptos himenaeos.
+</p>
+</div>
+</div>
+    </body>
+</html>

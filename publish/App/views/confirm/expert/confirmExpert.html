@@ -1,0 +1,264 @@
+﻿<style>
+    .wrapper {
+        background-color: white
+    }
+
+    .panel-header {
+         
+        padding: 15px;
+        overflow-y: auto;
+    }
+
+    .panel-body {
+        border-top: 1px solid #E2DEDE;
+        padding: 15px;
+        overflow-y: auto;
+    }
+
+    .panel-footer {
+        border-top: 1px solid #E2DEDE;
+        padding: 15px;
+        overflow-y: auto;
+    }
+
+    .tr-header td {
+        border-top: 1px solid #dddddd;
+        border-bottom: none
+    }
+
+    .tr-body td {
+        border-top: none;
+        border-bottom: 1px solid #dddddd;
+    }
+
+    .view-single label {
+        width: 120px;
+        text-align: right
+    }
+
+    .light {
+        opacity: .5;
+    }
+
+    .cancel {
+        opacity: .5;
+        background-color: red
+    }
+</style>
+<section>
+    <h2 class="page-title" data-bind="text: title"></h2>
+    
+    <div class="ui-corner-all wrapper">
+       
+
+
+        <div class="panel-header">
+            <a class="pointer pull-right btn btn-primary" data-bind="click: init">
+                <i class="icon-refresh icon-white"></i>
+                بازیابی
+            </a>
+            &nbsp;
+            <a class="pointer pull-right btn btn-warning" data-bind="click: collapse">
+                <i class="icon-plus-sign icon-white"></i>
+                بستن ردیف ها
+            </a>
+        </div>
+
+        <div class="panel-body">
+    
+            <div data-bind="with: search" class="ui-corner-all view-single" style="background-color: #e2dede;padding: 2em">
+                <div class="row">
+                    <div>
+                        <span>بدون شرط دوره </span>
+                        <button data-bind="checkboxImage: { checked: periodIncluded }"></button>
+                    </div>
+                    <div>
+                        <label>شماره متقاضی</label>
+                        <input type="text" data-bind="value: id" style="width: 50px"/>
+                    </div>
+                    <div>
+                        <label>شماره نامه : </label>
+                        <input type="text" data-bind="value: letterNo" style="width: 100px"/>
+                    </div>
+                    <div>
+                        <label>تاریخ نامه</label>
+                        <input type="text" data-bind="myDatePicker: letterDate, value: letterDate" 
+                               data-converter="value: persianDate"/>
+                    </div>
+                    <div>
+                        <label>قسمت : </label>
+                        <input   
+                            data-bind="combo: {
+    modelProp: section, displayProp: 'Title', allData: true, entityName: 'Section', pluralEntityName: 'Sections'
+}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <a class="btn btn-success" data-bind="click: $parent.init">
+                        <i class="icon-search icon-white"></i>
+                        جستجو
+                    </a>
+                </div>
+            </div>
+            <div class="view-single  container-fluid visible-desktop ui-corner-all" style="width: 90%;background-color: #8DC1FA;margin-top: 50px;padding: 2em" > 
+                <table class="table" data-bind="if: requests.any()">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>شماره</th>
+                            <th></th>
+                            <th>تاریخ</th>
+                            <th>درخواست دهنده</th>  
+                    
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: requests">
+                        <tr class="bold tr-header">
+                            <td>
+                                <div data-bind="css: $root.getRequestIcon(RequestType())"></div>
+                                <div>
+                                    <a class="pointer" 
+                                       title="جزئیات درخواست"
+                                       data-bind="click: $parent.changeShowStatus, css: { 'icon-plus': !ShowDetail(), 'icon-minus': ShowDetail() }"></a>
+                                </div>    
+                            </td>
+                            <td>
+                                <div>
+                                    <label>درخواست متقاضی :</label>
+                                    <span data-bind="text: ID"></span>
+                                </div>
+                                <div data-bind="if: RequestType() === 'Good'">
+                                    <label>درخواست کالا :</label>
+                                    <span data-bind="text: RequestGoodNo"></span>
+                                </div>
+                                <div>
+                                    <label>درخواست خرید :</label>
+                                    <span data-bind="text: OrderNo"></span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="label label-success"
+                                      data-bind="enumDisplay: { value: Status }"></span>
+                            </td>
+                            <td>
+                                <span data-bind="text: Date"></span>
+                            </td>
+                            <td>
+                                <div class="view-single">
+                                    <div>
+                                        <label>معاونت : </label>
+                                        <span data-bind="with: Section">
+                                            <span data-bind="with: Parent">
+                                                <span data-bind="text: Title" class="bold"></span>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <label>قسمت : </label>
+                                        <span data-bind="with: Section">
+                                            <span data-bind="text: Title" class="bold"></span>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <label>مصرف کننده : </label>
+                                        <span data-bind="with: ConsumerSection">
+                                            <span data-bind="text: Title" class="bold"></span>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <label>پرسنل : </label>
+                                        <span data-bind="with: Person">
+                                            <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <label>تایید مدیرعامل : </label>
+                                        <button data-bind="checkboxImage: { checked: IsConfirmGeneralManager }"></button>
+                                    </div>
+                                    <div>
+                                        <label>تایید فنی : </label>
+                                        <button data-bind="checkboxImage: { checked: IsConfirmTech }"></button>
+                                    </div>
+                                </div>
+                                           
+                            </td>
+                            <td style="width: 200px">
+                                <a class="btn btn-success btn-block" data-bind="click: $root.saveOnly">
+                                    <i class="icon-save icon-white "></i>
+                                    ذخیره
+                                </a>
+
+                                <a class="btn btn-primary btn-block" data-bind="click: $root.goToOrder, css: { disabled: !isCompletedForPurchase() },visible: Status() == 'Expert'">
+                                    <i class="icon-arrow-left icon-white "></i>
+                                    صدور درخواست خرید
+                                </a>
+                                <span data-bind="visible: RequestType() === 'Good'">
+                                    <a class="btn btn-success btn-block" data-bind="click: $root.createOutput,css: { disabled: !isCompletedForOutput() }"
+                                        style="margin-top: 10px;">
+                                        <i class="icon-arrow-left icon-white"></i>
+                                        صدور حواله
+                                    </a>
+                                    <a class="btn btn-warning btn-block" data-bind="click: $root.createInput, css: { disabled: !isCompletedForInput() }">
+                                        <i class="icon-arrow-left icon-white"></i>
+                                        صدور رسید
+                                    </a>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="tr-body" data-bind="if: ShowDetail()">
+                            <td colspan="8">
+                                <div class="ui-corner-all" style="background-color: white; padding: 1em;">
+                                    <div data-bind="if: ShowDetail()">
+                                        <div class="ui-corner-all" style="padding: 1em;" >
+                                            <a class="btn btn-primary" data-bind="click: $root.loadDetail" title="بازیابی">
+                                                <i class="icon-refresh icon-white"></i>
+                                            </a>
+                                            <div data-bind="if: $data['RequestDetail' + RequestType() + 's'].any() && loadStatus() == 'loaded'">
+                                                <table class="table" style="background-color: transparent">
+                                                    <thead>
+                                                        <!--ko compose: {view: 'confirm/expert/templates/detail-header-expert-tmp'} --><!--/ko-->
+                                                        <!--ko compose: {view: 'confirm/expert/templates/detail-header-afterExpert-tmp'} --><!--/ko-->
+                                                    </thead>
+                               
+                                                    <tbody data-bind="foreach: $data['RequestDetail' + RequestType() + 's']">
+                                                        <!--ko compose: {view: 'confirm/expert/templates/detail-detail-expert-tmp'} --><!--/ko-->
+                                                        <!--ko compose: {view: 'confirm/expert/templates/detail-detail-afterExpert-tmp'} --><!--/ko-->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div data-bind="if: loadStatus() === 'loading', visible: loadStatus() === 'loading'"
+                                                 style="padding: 3em;text-align: center;background-color: #808080">
+                                                <img src="../../../../../Content/images/waiting.gif" style="width: 70px;height: 70px"/>
+                                                <br/>
+                                                <span>لطفا چند لحظه صبر کنید ...</span>
+                                            </div>
+                                            <div data-bind="if: !$data['RequestDetail' + RequestType() + 's'].any() && loadStatus() == 'loaded',
+                                                            visible: !$data['RequestDetail' + RequestType() + 's'].any() && loadStatus() == 'loaded'"
+                                                 style="padding: 1em">
+                                                اطلاعات جهت نمایش وجود ندارد
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div data-bind="visible: !requests.any()" 
+                     style="padding: 1em">
+                    اطلاعات جهت نمایش وجود ندارد
+                </div>
+
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div data-bind="with: pager">
+                <!--ko compose: {view: 'layout/pager'} --><!--/ko-->
+            </div>   
+        </div>
+
+    </div>
+</section>

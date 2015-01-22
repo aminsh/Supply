@@ -1,0 +1,21 @@
+﻿
+    <div data-bind="if: $data.hasValidationErrors()"style="margin: 5px;padding: 0.5em;border: solid #ff0000" >
+        <span class="icon-warning-sign"></span>
+        <span style="font-weight: bold">لطفا خطا (ها) را تصحیح کنید</span>
+        <div data-bind="foreach: $data.errors">
+            <p  style="color: #ff0000;font-weight: bold">
+                <span data-bind="text: errorMessage"></span>
+            </p>
+        </div>
+    </div>
+
+<!-- New Alert -->
+<!--<div class="alert alert-error" style="border: solid thin #ff0000">
+    <span class="icon-warning-sign" ></span>
+    <span style="font-weight: bold">لطفا خطا (ها) را تصحیح کنید</span>
+    <div data-bind="foreach: $data.errors">
+        <p>
+            <span data-bind="text: errorMessage"></span>
+        </p>
+    </div>
+</div>-->

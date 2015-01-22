@@ -1,0 +1,21 @@
+﻿<div style="width: 300px;padding: 1em;background-color: white" class="ui-corner-all">
+    <button data-bind="click: changeCanShowFullContent">change</button>
+    <div data-bind="if: settings.canShowFullContent()">
+        <form class="form-search" data-bind="submit: doSearch">
+            <span class="icon-search"></span>
+            <input type="text" data-bind="value: settings.lookupTerm, valueUpdate: 'afterkeydown'"
+                   style="width: 200px; display: inline; background-color: white" placeholder="جستجو" class="search-query"/>
+        </form>
+       
+        <ul data-bind="foreach: settings.lookups">
+            <li data-bind="text: FullName, click: $parent.selectItem.bind($data, $parent) " class="pointer btn-result" style="list-style-type: none"></li>
+        </ul>
+        <hr/>
+    </div>
+    <div data-bind="foreach: settings.goals">
+        <button class="btn-selected ui-corner-all" data-bind="attr: { title: FullName }">
+            <i class="icon-remove pointer" data-bind="click: $parent.removeItem.bind($data,$parent)" title="حذف"></i>
+            <span data-bind="text: FullName"></span>
+        </button>
+    </div>
+</div>

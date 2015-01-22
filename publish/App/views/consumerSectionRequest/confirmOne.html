@@ -1,0 +1,182 @@
+﻿<section>
+    <style>
+       
+    </style>
+    <h2 class="page-title" data-bind="text: title" style="margin-bottom: 50px;"></h2>
+    
+    <a class="btn btn-primary" href="#" data-bind="click: init" style="margin-left: 0.5em;margin-top: 2em">
+        <i class="icon-refresh icon-white"></i> بازیابی 
+    </a>
+
+    <!-- #E2EFFC -->
+    <div class="view-single visible-desktop ui-corner-all" style="width: 100%;background-color: #8DC1FA;margin-top: 50px" >
+        <table class="table" data-bind="if: requests().any()">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>شماره</th>
+                    <th>تاریخ</th>
+                    <th>معاونت</th>  
+                    <th>قسمت</th>
+                    <th>درخواست دهنده</th>
+                    <th>نوع درخواست</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: requests">
+                <tr class="bold">
+                    <td>
+                        <div class="good" style="width: 32px;height: 32px"></div>
+                        <!-- <div data-bind="css: {
+    'good': ConsumerSectionRequestType() == 'Good',
+    'service': ConsumerSectionRequestType() == 'Service',
+    'food': ConsumerSectionRequestType() == 'Food',
+    'ticket': ConsumerSectionRequestType() == 'Ticket',
+}" style="width: 32px;height: 32px"></div>-->
+                        <a class="pointer" 
+                           title="جزئیات درخواست"
+                           data-bind="click: $parent.changeShowStatus, css: { 'icon-plus': !ShowDetail(), 'icon-minus': ShowDetail() }"></a>
+                         
+                    </td>
+                    <td>
+                        <span data-bind="text: ID"></span>
+                    </td>
+                    <td>
+                        <span data-bind="text: Date"></span>
+                    </td>
+                    <td>
+                        <span data-bind="with: Section">
+                            <span data-bind="with: Parent">
+                                <span data-bind="text: Title" class="bold"></span>
+                            </span>
+                        </span>
+                    </td>
+                    <td>
+                        <span data-bind="with: Section">
+                            <span data-bind="text: Title" class="bold"></span>
+                        </span>
+                    </td>
+                    <td>
+                        <span data-bind="with: Person">
+                            <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+                        </span>
+                    </td>
+                    <td>
+                        <!--<span data-bind="enumDisplay: { value: ConsumerSectionRequestType }"></span>-->
+                        درخواست کالا
+                        
+                    </td>
+                    <td>
+                        <a class="btn btn-success btn-block" data-bind="click: $root.confirmRequest">
+                            <i class="icon-ok icon-white"></i>
+                            تایید
+                        </a>
+                        <a class="btn btn-danger btn-block" data-bind="click: $root.rejectRequest">
+                            <i class="icon-remove icon-white"></i>
+                            لغو
+                        </a>
+                    </td>
+                </tr>
+                <tr data-bind="if: ShowDetail()">
+                    <td colspan="8">
+                        <div class="ui-corner-all" style="background-color: #D5E9FD; padding: 1em;">
+                            <table class="table" style="background-color: transparent"
+                                  >
+                                <thead>
+                                    <tr>
+                                        <th>شرح کالا</th>
+                                        <th>مقدار مورد نیاز</th>
+                                        <th>مقدار مورد تایید</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                               
+                                <tbody data-bind="foreach: RequestDetailGoods">
+                                    <tr>
+                                        <td>
+                                            <span data-bind="text: ItemDescription"></span>
+                                        </td>
+                                        <td>
+                                            <span data-bind="text: NeedQty"></span>
+                                            <span data-bind="text: ScaleDescription"></span>
+                                        </td>
+                                        <td>
+                                            <input type="text" data-bind="value: AcceptQty" style="width: 70px"/>
+                                        </td>
+                                        <td>
+                                            <button style="border: none" data-bind="css: { 'approved': !IsCancel(), 'canceled': IsCancel() }, click: $root.changeAccept"></button>
+                                        </td>
+                                    </tr>
+                                    <tr data-bind="if: IsCancel()">
+                                        <td colspan="4">
+                                            <textarea 
+                                                class="autofocus"
+                                                placeholder="علت لغو" 
+                                                style="background-color: #FDDCDC;border: 1px solid #F80D0D;width: 90%"></textarea>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!--<table class="table table-condensed" style="background-color: transparent"
+                                   data-bind="visible: ConsumerSectionRequestType() == 'Ticket'">
+                                <thead>
+                                    <tr>
+                                        <th>مسافر</th>
+                                        <th>مقصد</th>
+                                        <th>تاریخ رفت</th>
+                                        <th>تاریخ برگشت</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach: ConsumerSectionRequestDetails">
+                                    <tr>
+                                        <td>
+                                            <span data-bind="with: Passenger">
+                                                <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span data-bind="text: Destination"></span>
+                                        </td>
+                                        <td>
+                                            <span data-bind="text: GoOnDate"></span>
+                                        </td>
+                                        <td>
+                                            <span data-bind="text: ReturnDate"></span>
+                                        </td>
+                                        <td>
+                                            <button style="border: none" data-bind="css: { 'approved': IsAccepted(), 'canceled': !IsAccepted() }, click: $root.changeAccept"></button>
+                                        </td>
+                                    </tr>
+                                    <tr data-bind="if: !IsAccepted()">
+                                        <td colspan="4">
+                                            <textarea 
+                                                class="autofocus"
+                                                placeholder="علت لغو" 
+                                                style="background-color: #FDDCDC;border: 1px solid #F80D0D;width: 90%"></textarea>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>-->
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+               
+            </tfoot>
+        </table>
+        
+
+
+    </div>
+    
+    <div class="visible-tablet">
+        <h2 class="page-title" >نمای مخصوص تبلت</h2>
+        <span class="ticket" style="width: 200px;height: 32px;margin-top: 32px"></span>
+    </div>
+    
+    <div class="visible-phone">
+        <h2 class="page-title" >نمای مخصوص موبایل</h2>
+    </div>
+</section>

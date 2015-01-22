@@ -1,0 +1,55 @@
+﻿<div data-bind="if: $parent.currentRequestType() === 'Food', visible: $parent.currentRequestType() === 'Food'" 
+     style="width: 95%">
+    <div>
+        <div class="alert alert-info" style="width: 70%;">
+            در صورتیکه مایلید اقلام مورد نظر توسط کارشناس تعیین شود ، لطفا درخواست خود در توضیحات وارد نمائید
+        </div>
+        <div>
+            <label class="bold">توضیحات : </label>
+            <textarea data-bind="value: Des" style="width: 70%;height: 50px"></textarea>
+        </div>                          
+    </div>
+    <div data-bind="with: $root.fastEntry">
+        <form class="form-search" data-bind="submit: load">
+            <span class="icon-search"></span>
+            <input type="text" data-bind="value: itemSearch, valueUpdate: 'afterkeydown'"
+                   style="width: 200px; display: inline; background-color: white" placeholder="جستجو" class="search-query"/>
+        </form>
+        <div data-bind="foreach: items" style="margin: 1em">
+            <button class="btn btn-primary font-tahome" data-bind="click: $parent.addToRequestDetail, text: Title,
+    css: { 'btn-primary': type() === 'item','btn-success': type()==='offer'}" 
+                    style="font-size: 12px; margin-bottom: 0.5em"></button>
+        </div>
+
+        @*<div data-bind="foreach: offers" style="margin: 1em">
+            <button class="btn btn-success font-tahome" data-bind="click: $parent.addToRequestDetail, text: Title" 
+                    style="font-size: 12px; margin-bottom: 0.5em"></button>
+        </div>*@
+
+    </div>
+
+    <div >
+        <div data-bind="foreach: RequestDetailFoods"   >
+            <div class="ui-corner-all view-single k-shadow success basket" data-bind="effect: { value: Qty }, effectType: 'bounce'">
+                <h1 data-bind="text: ItemFood().Title" style="height: 30px; font-weight: bold; font-size: 12px"></h1>
+                <p style="border-top: solid 1px rgba(0, 0, 0, .1);">
+                    <label style="width: 30px; font-size: 10px; color: #708090">تعداد</label>
+                    <input type="text" data-bind="value: NeedQty" style="width: 80px" data-converter="value: float"/>
+                </p> 
+                <p style="border-bottom: solid 1px rgba(0, 0, 0, .1);">
+                    <label style="width: 30px; font-size: 10px; color: #708090">واحد</label>
+                    <input type="text" data-bind="autocomplete: { modelProp: ScaleDescription, displayProp: 'Title', pluralEntityName: 'Scales' } "
+                           style="width: 80px" />
+                </p>
+                  
+                <p class="center">
+                    <a class="pull-left" title="حذف" data-bind="click: $root.fastEntry.remove" style="cursor: pointer">
+                        <i class="icon-trash"></i>
+                    </a>
+                    @*<h1 data-bind="text: UnitPrice() * Qty()" style="height: 30px; font-weight: bold; font-size: 14px" data-converer="text: float"></h1>*@ 
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div> 

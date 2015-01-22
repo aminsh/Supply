@@ -1,0 +1,73 @@
+﻿
+<thead>
+    <tr>
+        <th>شامل خرید ؟</th>
+        <th>کالا</th>
+        <th>مقدار</th>
+        <th>مقدار موجود</th>
+        <th>رسید</th>
+        <th>حواله</th>
+        <th></th>
+    </tr>
+</thead>
+
+                          
+<tbody data-bind="foreach: RequestDetailGoods">
+  <tr>
+    <td>
+        <span data-bind="css: { 'icon-dollar': IsOrder() }"></span>
+    </td>
+    <td>
+        <span data-bind="with: ItemGood">
+            <span data-bind="text: No() + ' ' + Title()"></span>
+        </span>
+    </td>
+      <td>
+          <span data-bind="text: Qty"></span>
+          <span data-bind="with: ItemGood">
+              <span data-bind="with: Scale">
+                  <span data-bind="text: Title"></span>
+              </span>
+          </span>
+      </td>
+      <td style="text-align: center" >
+          <span>
+              <span data-bind="if: InventoryQty() == -1">
+                  <i class="icon-question-sign"></i>
+              </span>
+              <span data-bind="if: InventoryQty() == -2">
+                  <img src="../../../../../Content/images/loading-small.gif" />
+              </span>
+
+              <span data-bind="if: InventoryQty() >= 0">
+                  <span data-bind="text: InventoryQty"></span>
+                  <a class="pointer" 
+                     data-bind="click: $root.getInventoryQty"
+                     title="شمارش مجدد">
+                      <i class="icon-repeat"></i>
+                  </a>
+              </span>
+          </span>
+      </td>
+      <td>
+          <span data-bind="with: InputDetail">
+              <span data-bind="with: Input">
+                  <span data-bind="text: No"></span>
+              </span>
+          </span>
+      </td>
+      <td>
+          <span data-bind="with: OutputDetail">
+              <span data-bind="with: Output">
+                  <span data-bind="text: No"></span>
+              </span>
+          </span>
+      </td>
+</tr>
+
+</tbody>
+
+
+
+
+

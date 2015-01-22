@@ -1,0 +1,61 @@
+﻿<section class="k-rtl">
+    <h2 class="page-title" data-bind="text: title"></h2>
+   <br/>
+    <!--ko compose: {view: 'layout/standardButtons'} --><!--/ko-->
+    <br/>
+    
+    <table class="table table-hover table-condensed" >
+            <tbody data-bind="foreach: requestVehicles">
+                <tr>
+                    <td style="text-align: right">
+                        <span>شماره درخواست : </span>
+                        <span data-bind="text: No"></span>
+                        <br/>
+                        <b>شماره نامه : </b> : <span data-bind="text: LetterNo"></span>
+                        <br/>
+                        <span data-bind="dateString: CreatedOnDate"></span>
+                    </td>
+                    <td style="text-align: right">
+                        تاریخ :<span data-bind="dateString: Date"></span>
+                        <br/>
+                        تاریخ نامه :<span data-bind="dateString: LetterDate"></span>
+                        <br/>
+                        
+                    </td>
+                    <td style="text-align: right">
+                        درخواست کننده : <span data-bind="text: Asker().Title()"></span>
+                        <br/>
+                        قسمت : <span data-bind="text: Section().Title()"></span>
+                        <br/>
+                        انبار : <span data-bind="text: StockDeliveryLocation().Title()"></span>
+                        <br/>
+                        وضعیت : <span data-bind="enumDisplay: { value: Status, Type: 'RequestStatus' }"></span>
+                    </td>
+                    <td style="text-align: right">
+                        <a class="btn btn-danger" href="#" data-bind="click: $root.remove"><i class="icon-trash icon-white"></i> حذف </a> 
+                        <a class="btn btn-primary"href="#" data-bind="attr: { href: '#/requestVehicleEdit/' + ID() }"><i class="icon-pencil icon-white"></i> ویرایش </a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <tr>
+                    <td colspan="4">
+                        <div data-bind="with: requestVehiclepager">
+                            <!--ko compose: {view: 'layout/pager'} --><!--/ko-->
+                        </div>
+                    </td>
+                </tr>
+                </tr>
+            </tfoot>
+        </table>
+   
+</section>
+
+
+
+
+
+
+
+   

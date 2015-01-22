@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="../Scripts/jquery-1.9.1.js"></script>
+    <script src="../Scripts/jquery-ui-1.10.2.js"></script>
+    <link href="../Content/jquery-ui-1.8.14.css" rel="stylesheet" />
+    <!--<link href="../Content/jquery-ui-1.10.3.custom.css" rel="stylesheet" />-->
+    <link href="../Content/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
+    <link href="../Content/bootstrap.css" rel="stylesheet" />
+    <link href="../Content/main.css" rel="stylesheet" />
+</head>
+<body>
+    <script>
+        $(function() {
+            
+            $('#btn').click(function() {
+                //alert('yessss.........');
+                $('#dialog').dialog({ position: { my: "right top", at: "right bottom" } });
+            });
+            $('#btnRemove').click(function () {
+                //alert('yessss.........');
+                $('.ui-dialog').remove();
+            });
+        });
+    </script>
+    <button id="btn">Click</button>
+    <button id="btnRemove">Remove</button>
+    <div id="dialog" title="هزینه های موثر">
+        <!--<ul>
+                <li>a</li>
+                <li>b</li>
+                <li>c</li>
+                <li>d</li>
+            </ul>-->
+        
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Amin</td>
+                    <td>Sheikhi</td>
+                    <td>32</td>
+                </tr>
+                <tr>
+                    <td>Hassan</td>
+                    <td>Hosseini</td>
+                    <td>32</td>
+                </tr>
+                 <tr>
+                    <td>Ali </td>
+                    <td>Ghorbani</td>
+                    <td>32</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+﻿<div style="width: 300px;padding: 1em;background-color: white" class="ui-corner-all">
+    <ul data-bind="foreach: settings.lookups">
+        <li data-bind="text: DisplayName, click: $parent.selectItem.bind($parent,$data) " class="pointer btn-result" style="list-style-type: none"></li>
+    </ul>
+    <hr/>
+    <div data-bind="foreach: settings.goals">
+        <button class="btn-selected ui-corner-all">
+            <i class="icon-remove pointer" data-bind="click: $parent.removeItem.bind($parent,$data)" title="حذف"></i>
+            <span data-bind="text: DisplayName"></span>
+        </button>
+    </div>
+</div>

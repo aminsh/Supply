@@ -1,0 +1,16 @@
+﻿<tr data-bind="if: Status() == 'Expert', visible: Status() == 'Expert'">
+    <th>شامل خرید ؟</th>
+    <th data-bind="visible: ['Good', 'Food'].contains(RequestType())">شرح کالای درخواستی</th>
+    <th data-bind="visible: ['Service', 'Vehicle'].contains(RequestType())">شرح خدمات درخواستی</th>
+    <th data-bind="visible: ['Good', 'Food'].contains(RequestType())">کالای قطعی</th>
+    <th data-bind="visible: ['Service', 'Vehicle'].contains(RequestType())">خدمات قطعی</th>
+    <th data-bind="visible: ['Good', 'Food', 'Service', 'Vehicle'].contains(RequestType())">مقدار مورد نیاز</th>
+    <th data-bind="visible: ['Good', 'Food', 'Service', 'Vehicle'].contains(RequestType())">مقدار تایید شده</th>
+    <th data-bind="visible: ['Good', 'Food', 'Service', 'Vehicle'].contains(RequestType())">مقدار قطعی</th>
+    <th data-bind="visible: ['Good'].contains(RequestType())">مقدار موجود</th>
+    <th data-bind="visible: RequestType() === 'Ticket'">مسافر</th>
+    <th data-bind="visible: RequestType() === 'Ticket'">تاریخ رفت</th>
+    <th data-bind="visible: RequestType() === 'Ticket'">تاریخ برگشت</th>
+    <th data-bind="visible: RequestType() === 'Ticket'">مبدا</th>
+    <th data-bind="visible: RequestType() === 'Ticket'">مقصد</th>
+</tr>

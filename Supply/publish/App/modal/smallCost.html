@@ -1,0 +1,70 @@
+﻿<style>
+    h2.page-title {
+        margin-bottom: 0;
+    }
+    .view-single label {
+        width: 120px;
+        text-align: right;
+    }
+
+    h2.header {
+        font-size: 20px;
+        margin-bottom: 1em;
+    }
+
+    span.footer {
+        font-size: 14px;
+        color: #696969
+    }
+</style>
+<div class="messageBox" 
+    data-bind="drag: { options: { handle: '.modal-header', cursor: 'move' } }" 
+     style="font-family: tahoma;font-size: 12px;direction: rtl;width: 500px;padding-bottom: 0">
+    
+    <div class="modal-header">
+        <button type="button" 
+                class="close pull-left" 
+                data-bind="click: close" 
+                data-dismiss="modal" aria-hidden="true" title="بستن">&times;</button>
+       <h2 class="header">ریز هزینه ها</h2>
+        
+         <a class="btn btn-primary btn-small font-white" href="#" data-bind="click: add"><i class="icon-plus icon-white"></i> جدید </a>
+    </div>
+    <div class="modal-body view-single" style="padding-bottom: 0" data-bind="if: master()">
+       
+
+        <table class="table table-hover table-condensed" data-bind="if: list().any()">
+            <thead>
+                <tr>
+                    <th>شرح</th>
+                    <th>هزینه</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: list">
+                <tr>
+                    <td>
+                        <input type="text" 
+                                 data-bind="autocomplete: { modelProp: Des, datacontext: $root.context, displayProp: 'Des', pruralEntityName: 'SmallCostServiceDetails' }" style="width: 90%"/>
+                    </td>
+                    <td><input type="text" data-bind="value: Cost" style="width: 100px" data-converter="value: float"/></td>
+                    <td>
+                        <a class="btn btn-danger btn-small font-white" href="#" data-bind="click: $parent.remove.bind($data, $parent)"><i class="icon-trash icon-white"></i> حذف </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="background-color: #FFFFB9" data-bind="visible: $data.hasValidationErrors()">
+                        <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer" data-bind="if: master()">
+        <div class="pull-left">
+             <span class="footer ">جمع هزینه : </span>
+            <span class="footer "
+                data-bind="text: sumValue"></span>
+        </div>
+    </div>
+</div>

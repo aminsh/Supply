@@ -1,0 +1,16 @@
+﻿<div>
+    <header data-bind="compose: { view: 'nav' }"></header>
+
+    <a href="#" class="scrollup" title="برو بالا"></a>
+
+    <section id="content" class="main container-fluid"
+             data-bind="router: { transition: 'entrance', cacheViews: true }">
+        
+    </section>
+    
+    
+    <div data-bind="with: periodSelector">
+        <!--ko compose: {view: 'tools/periodSelector'} --><!--/ko-->
+    </div>
+    
+</div>

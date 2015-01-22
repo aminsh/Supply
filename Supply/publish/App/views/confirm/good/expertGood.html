@@ -1,0 +1,72 @@
+﻿<style>
+    .wrapper {
+        background-color: white
+    }
+
+    .panel-header {
+         
+        padding: 15px;
+        overflow-y: auto;
+    }
+
+    .panel-body {
+        border-top: 1px solid #E2DEDE;
+        padding: 15px;
+        overflow-y: auto;
+    }
+
+    .panel-footer {
+        border-top: 1px solid #E2DEDE;
+        padding: 15px;
+        overflow-y: auto;
+    }
+
+    .tr-header td {
+        border-top: 1px solid #dddddd;
+        border-bottom: none
+    }
+
+    .tr-body td {
+        border-top: none;
+        border-bottom: 1px solid #dddddd;
+    }
+
+    .view-single label {
+        width: 120px;
+        text-align: right
+    }
+
+    .light {
+        opacity: .5;
+    }
+
+    .cancel {
+        opacity: .5;
+        background-color: red
+    }
+</style>
+<section>
+    <h2 class="page-title" data-bind="text: title"></h2>
+    
+    <div class="ui-corner-all wrapper" 
+         data-bind="visible: viewController.currentView().name === 'firstRequests'">
+       <!--ko compose: {view: 'confirm/good/templates/firstRequestTmp'} --><!--/ko-->
+    </div>
+
+
+    <div class="ui-corner-all wrapper" 
+         data-bind="visible: viewController.currentView().name === 'doneOrders'">
+        <!--ko compose: {view: 'confirm/good/templates/doneOrderTmp'} --><!--/ko-->
+    </div>
+    
+    <div class="ui-corner-all wrapper" 
+         data-bind="visible: viewController.currentView().name === 'inputRequests'">
+       <!--ko compose: {view: 'confirm/good/templates/inputRequestTmp'} --><!--/ko-->
+    </div>
+
+
+    
+    
+    
+    
+</section>

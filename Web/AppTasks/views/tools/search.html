@@ -1,0 +1,139 @@
+﻿<section>
+    <button data-bind="click: addToFilter">Add Filter</button>
+    <div data-bind="foreach: filters" style="display: inline-block">
+        <a class="pointer">
+            <i class="icon-trash"></i>
+        </a>
+        <!--<span data-bind="if: columnSelected()">-->
+        <select data-bind="options: $parent.columns,value: column,optionsText: 'Display',hasfocus: columnSelected"></select>
+        <!--</span>-->
+        <!--<span data-bind="text: column().Display,visible: !columnSelected(),click: $parent.columnGetFocus" style="width: 120px"></span>-->
+        <select data-bind="options: oprs, value: opr, optionsText: 'display', visible: oprs().any(),optionsCaption: 'انتخاب عملگر ...'"></select>
+        
+        <span data-bind="if: type() === 'boolean'">
+            <button data-bind="checkboxImage: { checked: value }"></button>
+        </span>
+
+        <span data-bind="if: opr()">
+            
+            <span data-bind="if: type() === 'number'">
+                <span data-bind="if: opr().name === 'range' || opr().name === 'notRange'">
+                    <input type="text" data-bind="value: valueFrom" data-converter="value: float" style="width: 120px"/>
+                    ...
+                    <input type="text" data-bind="value: valueTo" data-converter="value: float" style="width: 120px"/>
+                </span>
+                <span data-bind="if: opr().name === 'contains' || opr().name === 'notContains'">
+                    <a href="#" data-bind="click: $parent.addNumber">Add Number</a>
+                    <span data-bind="foreach: values" >
+                        <span style="border: thin solid #a9a9a9" class="custom-combobox ui-corner-all">
+                            <a class="pointer">
+                                <i class="icon-trash"></i>
+                            </a>
+                            <input type="text" data-bind="value: value" data-converter="value: float" style="width: 100px;border: none"
+                                />
+                        </span>
+                        
+                    </span>
+                </span>
+                <span data-bind="if:
+    !(opr().name === 'range' || opr().name === 'notRange')
+    &&
+    !(opr().name === 'null' || opr().name === 'notNull')
+    &&
+    !(opr().name === 'contains' || opr().name === 'notContain')">
+                    <input type="text" data-bind="value: value" data-converter="value: float" style="width: 120px"/>
+                </span>
+            </span>
+            <span data-bind="if: type() === 'string'">
+                <input type="text" data-bind="value: value"/>
+            </span>
+            <span data-bind="if: type() === 'Date'"></span>
+            <span data-bind="if: type() === 'model'">
+                <span data-bind="if: opr().name === '==' || opr().name === '!='">
+                    <input data-bind="combo: $parent.comboSetting($data)" />
+                </span>
+                
+                <span data-bind="if: opr().name === 'contains' || opr().name === 'notContains', hasfocus: columnSelected" >
+                    <span data-bind="multiSelect: $parent.multiSelectSetting($data)," style="display: inline-table"></span>
+                </span>
+            </span>
+            <span data-bind="if: type() === 'enum'">
+                <span data-bind="if: opr().name === '==' || opr().name === '!='">
+                    <input data-bind="enumCombo: $parent.enumcomboSetting($data)" />
+                </span>
+                
+                <span data-bind="if: opr().name === 'contains' || opr().name === 'notContains', hasfocus: columnSelected" >
+                    <span data-bind="multiSelectEnum: $parent.enummultiSelectSetting($data)"style="display: inline-table"></span>
+                </span>
+               
+            </span>
+        </span>
+
+        <br/>
+    </div>
+    
+    <div class="row">
+        <div class="span3">
+            <table>
+                <tr data-bind="foreach: seasons">
+                    <td >
+                        <div data-bind="foreach: months">
+                            <div data-bind="css: { 'ui-state-default': !isSelected(), 'ui-state-active': isSelected() }, click: $root.selectMonth" style="width: 52px;height: 52px;margin-left: 0.5em;margin-bottom: 0.5em;text-align: center;" 
+                                 class="ui-corner-all pointer  ">
+                                <br/>
+                                <div data-bind="text: name" ></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+        <div class="span2">
+            <div data-bind="foreach: seasons">
+                <div data-bind="css: { 'ui-state-default': !isSelected(), 'ui-state-active': isSelected() }, click: $root.selectSeason" style="width: 100px;height: 30px;margin-bottom: 0.2em;text-align: center;font-size: 18px" 
+                     class="ui-corner-all pointer">
+                    <!--<br/>-->
+                    <div data-bind="text: title" ></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="span3">
+            <div data-bind="foreach: currents">
+                <div data-bind="css: { 'ui-state-default': !isSelected(), 'ui-state-active': isSelected() }, click: $root.selectSeason" 
+                    style="width: 100px;height: 30px;margin-bottom: 0.2em;text-align: center;font-size: 18px" 
+                     class="ui-corner-all pointer">
+ 
+                    <div data-bind="text: title" ></div>
+                </div>
+            </div>
+        </div>
+        <div class="span3">
+            <input type="text"/>
+            <br/>
+            <input type="text"/>
+        </div>
+    </div>
+    
+    <hr/>
+    <div class="row">
+        <div class="span3">
+            <div data-bind="monthSelector: { minDate: dateFrom, maxDate: dateTo }"></div>
+        </div>
+        <div class="span3">
+            <div data-bind="seasonSelector: { minDate: dateFrom, maxDate: dateTo }"></div>
+        </div>
+        <div class="span3">
+            <div data-bind="currentDateSelector: { minDate: dateFrom, maxDate: dateTo }"></div>
+        </div>
+    </div>
+    
+    
+    <span data-bind="text: dateFrom" data-converter="text: persianDate"></span>
+    ....
+    <span data-bind="text: dateTo" data-converter="text: persianDate"></span>
+
+    
+    
+</section>

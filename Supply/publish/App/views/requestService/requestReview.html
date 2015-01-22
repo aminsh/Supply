@@ -1,0 +1,290 @@
+﻿<section>
+<h2 class="page-title" data-bind="text: title"></h2>
+    <br/>
+    <button  class="btn-toggle ui-corner-top " data-bind="css: { 'ui-corner-bottom': !canAdjustShow() }, click: $root.changeAdjustShow" style="width: 200px;">
+        <i data-bind="css: { 'icon-wrench': !canAdjustShow(), 'icon-remove': canAdjustShow() }"></i> 
+        <span data-bind="    text: canAdjustShow() ? ' بستن ' : ' تنظیمات '"></span>
+    </button>
+
+    <div class="row ui-corner-all" data-bind="slideVisible: canAdjustShow()" style="background-color: white;padding: 2em">
+        <div class="row">
+            <div class="span3" >
+                <div data-bind="with: params" class="view-single" style="font-size: 12px; margin: 2em; width: 50%">
+                    <div>
+                        <label>معاونت : </label>
+                        <input   
+                            data-bind="combo: {
+    modelProp: SectionAssistance, displayProp: 'Title', allData: true, entityName: 'Section', pluralEntityName: 'Sections',
+    query: helper.datacontext.query('Sections').where('SectionID', '==', null)
+}"/>
+                    </div>
+                    <div>
+                        <label>قسمت : </label>
+                        <input   
+                            data-bind="combo: {
+    modelProp: Section, displayProp: 'Title', allData: true, entityName: 'Section', pluralEntityName: 'Sections',
+    query: helper.datacontext.query('Sections').where('SectionID', '!=', null)}"/>
+                    </div>
+                    <div>
+                        <label>درخواست دهنده : </label>
+                        <input   
+                            data-bind="combo: {
+    modelProp: Person, displayProp: 'FirstName,LastName', allData: true, entityName: 'Person', pluralEntityName: 'People'
+}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="span3" >
+                <div data-bind="foreach: statusParam" class="btn-group-vertical">
+                    <a class="btn btn-info" data-bind="text: title"></a>
+                </div>
+            </div>
+            <div class="span3" >
+                <div class="view-single" style="font-size: 12px" >
+                    <label>نوع صفحه بندی : </label>
+                    <select data-bind="options: pagerTypes, value: pagerType, optionsText: 'text'" style="width: 100px"></select>
+                    <label>اندازه هر صفحه : </label>
+                    <select style="width: 100px;" 
+                            data-bind="options: pager.pageSizeOptions, value: pageSize" title="انداز هر صفحه"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row" data-bind="with: params">
+            <div class="span3">
+                <div data-bind="monthSelector: { minDate: DateFrom, maxDate: DateTo }"></div>
+            </div>
+            <div class="span2">
+                <div data-bind="seasonSelector: { minDate: DateFrom, maxDate: DateTo }"></div>
+            </div>
+            <div class="span2">
+                <div data-bind="currentDateSelector: { minDate: DateFrom, maxDate: DateTo }"></div>
+            </div>
+            <div  class="span2 view-single">
+                <div>
+                    <label>از تاریخ : </label>
+                    <input type="text" data-bind="myDatePicker: DateFrom, value: DateFrom" data-converter="value: persianDate"/>
+                </div>
+                <div>
+                    <label>تا تاریخ : </label>
+                    <input type="text" data-bind="myDatePicker: DateTo, value: DateTo" data-converter="value: persianDate"/>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    
+
+    <span data-bind="visible: filters.count()" style="font-weight: bold;color: #008000;padding: 1em"> فیلتر </span>
+    
+    <div data-bind="foreach: filters, visible: filters.count()" style="border: medium solid #008000;padding: 1em;width: 50%;margin-bottom: 2em;font-weight: bold" class="ui-corner-all">
+        <p data-bind="if: $data.hasOwnProperty('Text')">
+            <a data-bind="click: $root.removeFilter" title="حذف" style="cursor: pointer"><i class="icon-remove"></i></a>
+            &nbsp;
+            <span data-bind="text: Text" style="color: #0000ff"></span>
+            &nbsp;
+            <span data-bind="text: EqualityOperatorText" style="color: #008000"></span>
+            &nbsp;
+            <span data-bind="text: DisplayValue" style="color: #0000ff"></span>
+           
+        </p>
+    </div>
+
+    <div data-bind="foreach: selectableColumns" style="margin-top: 2em">
+        <a class="btn btn-success" 
+           data-bind="click: $root.selectColumn,
+    css: { disabled: isActive() }">
+            <i class="icon-white" data-bind="css: { 'icon-ok': isActive(), visible: isActive() }"></i>
+            <span data-bind="text: title"></span>
+        </a>
+        &nbsp;
+    </div>
+    <div>
+        <br/>
+        <a class="btn btn-inverse">
+            <i class="icon-print icon-white"></i>
+            چاپ
+        </a>
+    </div>
+    <div class="pull-left">
+        <a class="btn btn-inverse" title="قبلی" data-bind="click: goBack">
+            <i class="icon-arrow-right icon-white"></i>
+        </a>
+        &nbsp;
+        <a class="btn btn-inverse" title="بعدی" data-bind="click: forward">
+            <i class="icon-arrow-left icon-white"></i>
+        </a>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr data-bind="foreach: selectedColumns">
+                <th data-bind="if: $index() == 0, visible: $index() == 0"></th>
+                <th data-bind="text: title"></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: summaryList">
+            <tr data-bind="css: { info: isSelected }, click: $root.select, foreach: $root.selectedColumns" style="cursor: pointer">
+                <td data-bind="with: $parent, visible: $index() == 0">
+                    <a title="ریز درخواست" data-bind="click: $root.loadRequest" >
+                        <i class="icon-plus" data-bind="css: { 'icon-plus': !isExpanded(), 'icon-minus': isExpanded() }"></i>
+                    </a>
+                </td>
+                <td>
+                    <span data-bind="click: $root.select,text: $root.getColumnValue($parent,$data)"></span>
+                    <!--<span data-bind="click: $root.select,
+    text: typeof $parent[$data.name()] == 'object'
+        ? $parent[$data.name()].FullName :
+    $parent[$data.name()]
+    "></span>-->
+                    <!-- <span data-bind="if: $data.name() === 'SumQty' ">
+                             <span data-bind="if: $parent.ItemService != undefined">
+                                 <span data-bind="text: $parent.ItemService.Scale.FullName"></span>
+                             </span>
+                         </span>-->
+                </td>
+            </tr>
+
+            
+            <tr>
+                <td colspan="6" data-bind="slideVisible: isExpanded()">
+                    <div data-bind="visible: loading()" style="height: 100px;text-align: center;background-color: #808080;padding: 0.5em">
+                        <img src="../../../Content/images/waiting.gif" style="width: 70px;height: 70px"/>
+                        <br/>
+                        <span>لطفا چند لحظه صبر کنید ...</span>
+                    </div>
+                    <div data-bind="visible: !loading()">
+                        <a class="icon-print pointer" title="چاپ">
+                        </a>
+                        <table class="table table-condensed table-hover" style="width: 100%" >
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>درخواست</th>
+                                    <th>تاریخ</th>
+                                    <th>قسمت</th>
+                                    <th>کالا</th>
+                                    <th>قیمت کل</th>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach: requests">
+                                <tr data-bind="css: { success: $data.hasOwnProperty('DoneDate'), error: IsCancel }">
+                                    <td>
+                                        <a href="#requestModel" role="button" data-toggle="modal" style="cursor: pointer" title="نمایش کامل اطلاعات " data-bind="click: $root.selectRequest">
+                                            <i class="icon-fullscreen"></i>
+                                        </a>
+                                        <a  style="cursor: pointer" title="برو به صفحه درخواست" >
+                                            <i class="icon-share"></i>
+                                        </a>
+                                        <span data-bind="css: { 'icon-star': PurchaseSize == 'Middle' }, attr: { title: PurchaseSize == 'Middle' ? 'خرید های متوسط': ''}"></span>
+                                    </td>
+                                    <td data-bind="text: ID"></td>
+                                    <td data-bind="text: stringToDate(Date)" data-converter="text: persianDate"></td>
+                                    <td data-bind="text: Section.Title"></td>
+                                    <td data-bind="text: $data['Item' + $root.requestType()].Title, attr: { title: $data['Item' + $root.requestType()].Des }"></td>
+                                    <td data-bind="text: TotalPrice"></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="6">
+                                        <div data-bind="if: $root.pagerType().key == 'pager'">
+                                            <div data-bind="with: pager">
+                                                <!--ko compose: {view: 'layout/pager'} --><!--/ko-->
+                                            </div>
+                                        </div>
+
+                                        <div data-bind="if: $root.pagerType().key == 'canAdded'">
+                                            <a class="btn btn-block btn-primary" data-bind="click: $root.pagerCanAddedloadInSubRow">بیشتر</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    
+                </td>
+            </tr>
+        </tbody>
+        <tfoot >
+            <tr data-bind="foreach: selectedColumns">
+                <td data-bind="if: $index() == 0, visible: $index() == 0"></td>
+                <td data-bind="text: $root.hasOwnProperty('sum' + name()) ? $root['sum' + name()] : ''"></td>
+            </tr>
+            <tr>
+                <td data-bind="attr: { colspan: selectedColumns.count() + 1 }" >
+                    
+
+                </td>
+            </tr>    
+        </tfoot>
+    </table>
+    
+    <div>
+        <div data-bind="if: pagerType().key == 'pager'">
+            <div data-bind="with: pager">
+                <!--ko compose: {view: 'layout/pager'} --><!--/ko-->
+            </div>
+        </div>
+        <div data-bind="if: pagerType().key =='canAdded'">
+            <a class="btn btn-block btn-primary" data-bind="click: $root.pagerCanAddedload">بیشتر</a>
+        </div>         
+    </div>
+   
+   
+ 
+<!-- Modal -->
+    <div id="requestModel" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close pull-left" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">درخواست</h3>
+        </div>
+        <div class="modal-body">
+            <div data-bind="with: request" class="view-single" style="border: none;font-size: 12px">
+                <div style="margin-bottom: 1em">
+                    <label>شناسه : </label>
+                    <span data-bind="text: ID"></span>
+                </div>
+                <div style="margin-bottom: 1em">
+                    <label>تاریخ : </label>
+                    <span data-bind="text: stringToDate(Date)" data-converter="text: persianDate"></span>
+                </div>
+                <div style="margin-bottom: 1em">
+                    <label>قسمت : </label>
+                    <span data-bind="text: Section.FullName" ></span>
+                </div>
+                <div style="margin-bottom: 1em">
+                    <label>درخواست دهنده : </label>
+                    <span data-bind="text: Person.FullName" ></span>
+                </div>
+                <div style="margin-bottom: 1em">
+                    <label>کارپرداز : </label>
+                    <span data-bind="text: PurchasingOfficer.FullName" ></span>
+                </div>
+                <div style="margin-bottom: 1em">
+                    <label>خدمات : </label>
+                    <span data-bind="text: $data['Item' + $root.requestType()].Title, attr: { title: $data['Item' + $root.requestType()].Des }" ></span>
+                </div>
+                <div style="margin-bottom: 1em">
+                    <label>فروشنده : </label>
+                    <span data-bind="text: Seller.Title" ></span>
+                </div>
+                <div style="margin-bottom: 1em">
+                    <label>قیمت کل :</label>
+                    <span data-bind="text: TotalPrice"></span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="btn" data-dismiss="modal">
+                <i class="icon-remove"></i>
+                بستن
+            </a>
+            <a class="btn btn-primary" data-dismiss="modal">
+                <i class="icon-share icon-white"></i>
+                برو به صفحه درخواست
+            </a>
+           
+        </div>
+    </div>
+
+</section>

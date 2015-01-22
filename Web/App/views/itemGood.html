@@ -1,0 +1,116 @@
+﻿<section>
+    <div class="form-header">
+        <h2 class="page-title" data-bind="text: title"></h2>
+    
+        <a class="btn btn-primary" data-bind="click: add">
+            <i class="icon-plus icon-white"></i>
+            جدید
+        </a>
+        <!--ko compose: {view: 'layout/standardButtons'} --><!--/ko-->
+    </div>
+    
+  
+
+    <div class="form-body">
+        <table class="table table-hover table-condensed" data-bind="visible: viewController.currentView().name === 'list'">
+                 <thead>
+                     <tr>
+                         <th>شناسه</th>
+                         <th>کد</th>
+                         <th>واحد</th> 
+                         <th>عنوان</th> 
+                         <th></th>
+                     </tr>
+                     <tr>
+                         <th></th>
+                         <th>
+                             <form class="form-search" data-bind="submit: init">
+                                 <span class="icon-search"></span>
+                                 <input type="text" data-bind="value: noSearch, valueUpdate: 'afterkeydown'"
+                                        style="width: 100px; display: inline; background-color: white" placeholder="کد" class="search-query"/>
+                             </form>
+                         </th>
+                         <th></th>
+                         <th>
+                             <form class="form-search" data-bind="submit: init">
+                                 <span class="icon-search"></span>
+                                 <input type="text" data-bind="value: titleSearch, valueUpdate: 'afterkeydown'"
+                                        style="width: 70%; display: inline; background-color: white" placeholder="عنوان" class="search-query"/>
+                             </form>
+
+                         </th>  
+                         <th></th>
+                     </tr>
+                 </thead>
+                 <tbody data-bind="foreach: itemGoods">
+                     <tr>
+                         <td>
+                             <a title="نمایش جزئیات" data-bind="click: $root.changeShowDetail" style="cursor: pointer">
+                                 <i class="icon-plus" data-bind="css: { 'icon-plus': !canShowDetail(), 'icon-minus': canShowDetail() }"></i>
+                             </a>
+                         </td>
+                         <td >
+                             <input type="text" data-bind="value: No" style="width: 120px"/>
+                         </td>
+                         <td >
+                             <input data-bind="combo: { modelProp: Scale, displayProp: 'Title', valueProp: ScaleID, allData: true }"
+                                    style="width: 70px"/>
+                         </td>
+                         <td style="width: 50%"><input type="text" data-bind="value: Title" style="width: 80%"/>
+                         </td>
+                
+                         <td style="width: 10%">
+                             <div class="btn-group-vertical">
+                                 <a class="btn btn-danger" href="#" data-bind="click: $parent.remove"><i class="icon-trash icon-white"></i> حذف </a> 
+                             </div>
+                         </td>
+                     </tr>
+                     <tr data-bind="if: canShowDetail()">
+                         <td colspan="5">
+                             <div class="view-single">
+                                 <div>
+                                     <label>شرح فنی :</label>
+                                     <textarea data-bind="value: TechnicalTitle" style="width: 60%"></textarea>
+                                 </div>
+                                 <div>
+                                     <label>محل استقرار :</label>
+                                     <input type="text" data-bind="value: Location" style="width: 60%"/>
+                                 </div>
+                                 <div>
+                                     <label>نقطه سفارش :</label>
+                                     <input type="text" data-bind="value: ReorderPoint" style="width: 100px"/>
+                                 </div>
+                             </div>
+
+                         </td>
+                     </tr>
+                     <tr data-bind="visible: $root.hasChanges() && $data.hasValidationErrors()" style="background-color: #FFFFB9">
+                         <td colspan="6">
+                             <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+                     
+                         </td>
+                     </tr>
+           
+                 </tbody>
+                 <tfoot>
+            
+                 </tfoot>
+             </table></div>
+    
+    
+    <div class="row" data-bind="with: $root.itemGoodpager">
+        <!--ko compose: {view: 'layout/pager'} --><!--/ko-->
+    </div>
+
+</section>
+
+
+<!--<form class="form-search" data-bind="submit: init">
+                        <div style=" background-color: white;width: 80%;height: 20px;padding: 5px 10px 7px 35px;width: 80%;" class="ui-corner-all" >
+                            <span class="icon-search"></span>
+                            <input 
+                                type="text" placeholder="جستجوی عنوان" title="متن مورد نظر را اینجا تایپ کنید و کلید Enter را فشار دهید" 
+                                style="width: 80%;border: none;background-color: transparent;display: inline-block" 
+                                data-bind="value: titleSearch, valueUpdate: 'afterkeydown'"/>
+                        </div>
+                    </form>-->

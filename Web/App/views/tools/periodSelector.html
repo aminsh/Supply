@@ -1,0 +1,9 @@
+﻿<div data-bind="dialog: { isOpen: canPeriodSelectorShow, title: 'انتخاب دوره', minWidth: 300, minHeight: 200, modal: true, at: 'center center', my: 'center center',removableOnDeativate: false }">
+    <table class="table table-hover">
+        <tbody data-bind="foreach: periods">
+            <tr class="pointer" data-bind="css: { info: $data == $parent.current() },click: $parent.select">
+                <td data-bind="text: DateFrom().toPersian() + '...' + DateTo().toPersian()"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

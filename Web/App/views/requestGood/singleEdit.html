@@ -1,0 +1,262 @@
+﻿<style>
+    .toolbox a {
+        margin-left: 0.5em
+    }
+
+    .view-single label {
+        text-align: right
+    }
+
+</style>
+<div>
+    <span class="badge pointer" data-bind="click: changeShowMaster" 
+        style="padding-top: 0.5em;padding-bottom: 0.5em;padding-left: 1em;padding-right: 1em;;width: 100%">
+        <i class="icon-white" data-bind="css: { 'icon-plus': !canShowMaster(), 'icon-minus': canShowMaster() }"></i>
+        بخش درخواست
+    </span>
+    <div class="labelBold ui-corner-all" data-bind="with: current, visible: canShowMaster()" style="background-color: #DADAE0; padding: 2em">
+        <div class="row" style="font-weight: bold" data-bind="with: CreatedByUser">
+            صادر شده توسط 
+            <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="span3" style="width: 100px">
+                <div>
+                    <label>شماره : </label>
+                    <span data-bind="text: OrderNo"></span>
+                </div>
+            </div>
+            <div class="span3" style="width: 100px">
+                <div>
+                    <label>درخواست انبار</label>
+                    <span data-bind="text: RequestGoodNo"></span>
+                    
+                </div>
+            </div>
+            <div class="span3" style="width: 100px">
+                <div>
+                    <label>تاریخ : </label>
+                    <input type="text" data-bind="value: Date"/>
+                </div>
+            </div>
+            <div class="span3">
+                <label>نامه (ها)</label>
+                <button  class="btn-toggle ui-corner-top " data-bind="css: { 'ui-corner-bottom': !$root.letter.isLetterOpen() }, click: $root.letter.openLetter">
+                    <i data-bind="css: { 'icon-envelope': !$root.letter.isLetterOpen(), 'icon-remove-circle': $root.letter.isLetterOpen() }"></i> 
+                    <span data-bind="    text: !$root.letter.isLetterOpen() ? ' نامه ' : ' بستن '"></span>
+                </button>
+
+                <div>
+                    <div class="ui-corner-all popupx" data-bind="with: $root.letter, visible: $root.letter.isLetterOpen()" style="width: 500px">
+                        <!--ko compose: {view: 'letter'} --><!--/ko-->
+                    </div>
+                </div>
+            </div>
+            <div class="span3">
+                <div>
+                    <!--<label>اقدام کننده: </label>-->
+                    <!--<input  data-bind="combo: { modelProp: PerformerSection, valueProp: PerformerSectionID, displayProp: 'Title', allData: true }"/>-->
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div>
+                <div class="span3">
+                    <div>
+                        <label>قسمت : </label>
+                        <input data-bind="combo: { modelProp: Section, valueProp: SectionID, displayProp: 'Title', allData: true }"/>
+                    </div>
+                </div>
+                <div class="span3">
+                    <div>
+                        <label>محل مصرف : </label>
+                        <input data-bind="combo: { modelProp: ConsumerSection, valueProp: ConsumerSectionID, displayProp: 'Title', allData: true }"/>
+                    </div>
+                </div>
+                <div class="span3">
+                    <div>
+                        <label>درخواست دهنده : </label>
+                        <input  data-bind="combo: { modelProp: Person, valueProp: PersonID, displayProp: 'FirstName,LastName', allData: true }"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="span3">
+                <div>
+                    <label>کارپرداز : </label>
+                    <input  data-bind="combo: { modelProp: PurchasingOfficer, valueProp: PurchasingOfficerID, displayProp: 'Title', allData: true }"/>
+                </div>
+            </div>
+            <div class="span3">
+                <label>تاریخ ارائه به کارپرداز : </label>
+                <input type="text" data-bind="value: OrderDate"/>
+            </div>
+            <div class="span3">
+                 <div>
+                    <label>محل تحویل (انبار) : </label>
+                    <input  data-bind="combo: { modelProp: StockDeliveryLocation, valueProp: StockDeliveryLocationID, displayProp: 'Title', allData: true }"/>
+                </div>
+                <div>
+                    <label>فوری ؟</label>
+                    <button data-bind="checkboxImage: { checked: IsFast }"></button>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="span3">
+                <div>
+                    <label>وضعیت : </label>
+                    <input data-bind="enumCombo: { Type: 'RequestStatus', value: Status }" />
+                </div>
+            </div>
+            <div class="span3">
+                <div>
+                    <label>روش خرید : </label>
+                    <input data-bind="enumCombo: { Type: 'PurchaseMethod', value: PurchaseMethod }" />
+                </div>
+            </div>
+            <div class="span3">
+                <div>
+                    <label>دسته بندی : </label>
+                    <input  data-bind="combo: { modelProp: UserDefinedCategory, valueProp: UserDefinedCategoryID, displayProp: 'Title', allData: true }"/>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div data-bind="visible: $root.hasChanges() && $data.hasValidationErrors()" class="row"  style="background-color: #FFFFB9;width: 100%">
+            <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+        </div>
+    </div>
+    <span class="badge badge-success pointer" data-bind="click: changeShowDetail" 
+          style="padding-top: 0.5em;padding-bottom: 0.5em;padding-left: 1em;padding-right: 1em;width: 100%">
+        <i class="icon-white" data-bind="css: { 'icon-plus': !canShowDetail(), 'icon-minus': canShowDetail() }"></i>
+        بخش کالا
+    </span>
+
+    <div class="view-single ui-corner-all" data-bind="with: current, visible: canShowDetail()" style="background-color: rgb(234, 255, 234); padding: 2em">
+        <div style="margin-bottom: 1em">
+            <a class="btn btn-primary" data-bind="click: $root.addDetail">
+                <i class="icon-plus icon-white"></i>
+                جدید
+            </a>
+            &nbsp;
+            <button data-bind="checkboxImage: { checked: $root.canShowCurrentDetailFull }"></button>
+            نمایش کامل اطلاعات
+           
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>کالا</th>
+                    <th>تعداد</th>
+                    <th>قیمت واحد</th>
+                    <th>قیمت کل</th>
+                    <th>تاریخ انجام</th>
+                    <th>رسید انبار</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: RequestDetailGoods">
+                <tr data-bind="click: $root.selectDetail, css: { info: $data == $root.currentDetail(), error: IsCancel() }" class="pointer">
+                    <td>
+                        <span data-bind="text: Row"></span>
+                        
+
+                    </td>
+                    <td>
+                        <input  data-bind="combo: { modelProp: ItemGood, valueProp: ItemGoodID, displayProp: 'No,Title', allData: true, expands: ['Scale'], callbackAfterUpdate: $root.callbackAfterItemGoodUpdate }"/>
+                    </td>
+                    <td>
+                        <input type="text" data-bind="value: Qty" data-converter="value: float" style="width: 50px"/>
+                        <span data-bind="with: ItemGood">
+                            <span data-bind="with: Scale">
+                                <span data-bind="text: Title"></span>
+                            </span>
+                        </span>
+                    </td>
+                    <td>
+                        <input type="text" data-bind="value: UnitPrice" data-converter="value: float" style="width: 100px"/>
+                    </td>
+                    <td data-bind="text: TotalPrice"></td>
+                    <td>
+                        <input type="text" data-bind="value: DoneDate"/>
+                    </td>
+                    <td>
+                        <span data-bind="with: InputDetail">
+                            <span data-bind="with: Input">
+                                <span data-bind="text: No"></span>
+                            </span>
+                        </span>
+                    </td>
+                    <td class="toolbox">
+                        <a class="btn btn-primary" title="صدور حواله">
+                            <i class="icon-tag icon-white"></i>
+                        </a>
+                        <a class="btn btn-success" title="هزینه های موثر" data-bind="click: $root.openEffectiveCostDetail, clickBubble: false">
+                            <i class="icon-plus-sign icon-white"></i>
+                        </a>
+                        <a class="btn btn-danger" data-bind="click: $root.removeDetail, clickBubble: false, css: { disabled: IsCancel() }" title="حذف / لغو">
+                            <i class="icon-trash icon-white"></i>
+                        </a>
+                    </td>
+                </tr>
+                 <tr data-bind="fadeVisible: $data == $root.currentDetail() && $root.canShowCurrentDetailFull()">
+                    <td colspan="8">
+                        <div class="view-single ui-corner-all" style="border: thin solid #808080; padding: 2em;background-color: #EAF5FA;" >
+                            <div style="margin-bottom: 1em;">
+                                <label style="width: 150px" class="pull-right">فروشنده : </label>
+                                <input  data-bind="combo: { modelProp: Seller, valueProp: SellerID, displayProp: 'Title', allData: true }"/>
+                            </div>
+
+                            <div class="row view-single" data-bind="if: IsCancel()" style="margin-bottom: 1em">
+                                <label style="width: 150px">علت لغو : </label>
+                                <textarea data-bind="value: CancelReason" style="width: 70%; background-color: #FF8A8A;"></textarea>
+                            </div>
+
+                            <div class="row view-single" style="margin-bottom: 1em">
+                                <label style="width: 150px">توضیحات : </label>
+                                <textarea data-bind="value: Des" style="width: 70%"></textarea>
+                            </div>
+
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="8" style="background-color: #FFFFB9" data-bind="visible: $root.hasChanges && $data.hasValidationErrors()">
+                        <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+                    </td>
+                </tr>
+               
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td data-bind="text: TotalPrice" data-converter="text: float"></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <span class="badge badge-warning pointer" data-bind="click: changeShowFinance" 
+          style="padding-top: 0.5em;padding-bottom: 0.5em;padding-left: 1em;padding-right: 1em;width: 100%">
+        <i class="icon-white" data-bind="css: { 'icon-plus': !canShowFinance(), 'icon-minus': canShowFinance() }"></i>
+        بخش مالی
+    </span>
+</div>
+
+
+<div class="view-single ui-corner-all" data-bind="with: current, visible: canShowFinance()" style="background-color: rgb(255, 255, 193); padding: 2em">
+    این بخش هنوز پیاده سازی نشده است
+</div>

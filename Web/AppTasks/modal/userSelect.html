@@ -1,0 +1,59 @@
+﻿<style>
+    h2.page-title {
+        margin-bottom: 0;
+    }
+    .view-single label {
+        width: 120px;
+        text-align: right;
+    }
+
+    h2.header {
+        font-size: 20px;
+        margin-bottom: 1em;
+    }
+
+    span.footer {
+        font-size: 14px;
+        color: #696969
+    }
+</style>
+<div class="messageBox" 
+    data-bind="drag: { options: { handle: '.modal-header', cursor: 'move' } }" 
+     style="font-family: tahoma;font-size: 12px;direction: rtl;width: 500px;padding-bottom: 0">
+    
+    <div class="modal-header">
+        <button type="button" 
+                class="close pull-left" 
+                data-bind="click: close" 
+                data-dismiss="modal" aria-hidden="true" title="بستن">&times;</button>
+       <h2 class="header">انتخاب کاربران رسیدگی کننده</h2>
+    </div>
+    <div class="modal-body view-single" style="padding-bottom: 0" >
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>کاربر</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: users">
+                <tr>
+                    <td>
+                        <button data-bind="checkboxImage: { checked: isSelected }"></button>
+                    </td>
+                    <td data-bind="text: FirstName() + ' ' + LastName()"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+         <button class="btn btn-success pull-left font-tahome" data-bind="click: ok" >
+            <i class="icon-ok icon-white"></i>
+            <span>تایید</span>
+        </button>
+        <button class="btn pull-left" data-bind="click: close" style="font-family: tahoma" >
+            <i class="icon-remove"></i>
+            <span>انصراف</span>
+        </button>
+    </div>
+</div>

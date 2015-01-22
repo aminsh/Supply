@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="../Scripts/jquery-1.9.1.js"></script>
+    <script src="../Scripts/knockout-2.2.1.js"></script>
+    <script src="../Scripts/koExternalTemplateEngine_all.js"></script>
+ 
+    
+</head>
+    <body>
+        <script>
+            $(function() {
+                //infuser.defaults.templateSuffix = ".tmpl.html";
+                //infuser.defaults.templateUrl = "/Template/";
+                
+                var vm = {
+                    number : ko.observable(30)
+                };
+
+                ko.applyBindings(vm);
+            });
+        </script>
+
+        <!-- ko template:{name : 'person'} -->
+        <!-- /ko -->
+        
+        <input type="text" data-bind="value: number"/>
+    </body>
+</html>

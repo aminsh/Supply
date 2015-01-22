@@ -1,0 +1,19 @@
+﻿<span data-bind="with: $parent">
+    <a class="btn btn-success btn-block" data-bind="click: $root.saveOnly">
+              <i class="icon-save icon-white "></i>
+              ذخیره
+          </a>
+
+    <a class="btn btn-primary btn-block" data-bind="click: $root.goToOrder, css: { disabled: !Request().isCompletedForPurchase() }">
+        <i class="icon-arrow-left icon-white "></i>
+        صدور درخواست خرید
+    </a>
+
+    <span data-bind="if: Request().entityType.shortName === 'RequestGood'">
+        <a class="btn btn-success btn-block" data-bind="click: $root.createOutput, css: { disabled: !Request().isCompletedForOutput() }"
+           style="margin-top: 10px;">
+            <i class="icon-arrow-left icon-white"></i>
+            صدور حواله
+        </a>
+    </span>
+</span>

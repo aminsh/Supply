@@ -1,0 +1,39 @@
+﻿
+<thead>
+    <tr>
+        <th>شامل خرید ؟</th>
+        <th>کالا</th>
+        <th>مقدار</th>
+        <th>قیمت واحد</th>
+        <th>تاریخ انجام</th>
+        <th></th>
+    </tr>
+
+</thead>
+                          
+<tbody data-bind="foreach: RequestDetailFoods">
+    <tr>
+        <td>
+            <span data-bind="css: { 'icon-dollar': IsOrder() }"></span>
+        </td>
+        <td >
+            <span data-bind="with: ItemFood">
+                <span data-bind="text: Title()"></span>
+            </span>
+        </td>
+        <td>
+            <span data-bind="text: Qty"></span>
+            <span data-bind="with: Scale">
+                <span data-bind="text: Title"></span>
+            </span>
+        </td>
+        <td>
+            <input type="text" data-bind="value: UnitPrice"/>
+        </td>
+        <td>
+           <input type="text" data-bind="value: DoneDate"/>
+        </td>
+    </tr>
+
+</tbody>
+

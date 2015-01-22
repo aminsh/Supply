@@ -1,0 +1,63 @@
+﻿<div style="display: inline-block;width: 100%;position: fixed;top: 0;
+            background-color: #EFEFEF;box-shadow: 0px 2px 10px #888888; -webkit-box-shadow: 0px 2px 10px #888888;
+            padding-top: 6em;padding-right: 10em;padding-bottom: 2em;left: 0;right: 0;z-index: 1">
+    <h2 class="page-title" data-bind="text: title"></h2>
+
+    <div style="margin-top: 2em">
+        <div data-bind="if: viewController.currentView().name === 'list'">
+                  <div style="margin-top: 2em">
+                      <a class="btn btn-primary" data-bind="click: add">
+                          <i class="icon-plus icon-white"></i>
+                          جدید
+                      </a>
+                  </div>
+        </div>    
+
+        <div data-bind="if: viewController.currentView().name === 'singleRead'">
+            <a class="btn btn-inverse" data-bind="click: returnToList">
+                <i class="icon-arrow-right icon-white"></i>
+                بازگشت به لیست
+            </a>
+            &nbsp;
+            <a  class="btn" data-bind="click: changeShowCurrentDetailRead">
+                <i class="icon-fullscreen"></i>
+                نمایش کامل
+            </a>
+            &nbsp;
+            <a class="btn btn-primary" data-bind="click: edit">
+                <i class="icon-edit icon-white"></i>
+                ویرایش
+            </a>
+        </div>    
+
+        <div data-bind="if: viewController.currentView().name === 'singleEdit'">
+            <a class="btn btn-inverse" data-bind="click: returnToList">
+                <i class="icon-arrow-right icon-white"></i>
+                بازگشت به لیست
+            </a>
+            &nbsp;
+            <a class="btn btn-primary" data-bind="click: returnToRead">
+                <i class="icon-share icon-white"></i>
+                بستن ویرایش
+            </a>
+            &nbsp;
+            <a class="btn btn-info" href="#" data-bind="click: save, css: { disabled: !hasChanges() }" style="margin-left: 0.5em">
+                <i class="icon-save icon-white"></i> ذخیره 
+            </a>
+            &nbsp;
+            <a class="btn" href="#" data-bind="click: cancel, css: { disabled: !hasChanges() }" style="margin-left: 0.5em">
+                <i class="icon-repeat"></i> انصراف 
+            </a>
+            &nbsp;
+            <a class="btn btn-danger" href="#" data-bind="click: remove" style="margin-left: 0.5em">
+                <i class="icon-trash icon-white"></i> حذف 
+            </a>
+            &nbsp;
+            <a class="btn" href="#" data-bind="click: print" style="margin-left: 0.5em">
+                <i class="icon-print"></i> چاپ 
+            </a>
+
+        </div>
+    </div>
+
+</div>

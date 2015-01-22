@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>nji</id>
+    <version>0.3.0.0</version>
+    <title>NodeJs (Package) Installer</title>
+    <authors>Prabir Shrestha</authors>
+    <owners>Prabir Shrestha</owners>
+    <projectUrl>https://github.com/prabirshrestha/nji</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package manager for nodejs.</description>
+    <summary>Package manager for nodejs.</summary>
+    <releaseNotes />
+    <copyright />
+    <language />
+    <tags>nodejs</tags>
+  </metadata>
+</package>

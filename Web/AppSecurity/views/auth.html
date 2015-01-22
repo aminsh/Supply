@@ -1,0 +1,184 @@
+﻿<section>
+    
+    <div style="display: inline-block;width: 100%;position: fixed;top: 0; z-index: 5;
+                                     background-color: #EFEFEF;box-shadow: 0px 2px 10px #888888; -webkit-box-shadow: 0px 2px 10px #888888;
+                                     padding-top: 6em;padding-right: 10em;padding-bottom: 2em;left: 0;right: 0">
+        <h2 class="page-title" data-bind="text: title"  style="margin-bottom: 1em"></h2>
+        <a class="btn btn-primary" data-bind="click: addRole"  >
+            <i class="icon-plus icon-white"></i>
+            گروه کاربری جدید
+        </a>
+        &nbsp;
+        <a class="btn btn-info font-white" data-bind="click: save, css: { disabled: !hasChanges() }">
+            <i class="icon-save icon-white"></i>
+            ذخیره
+        </a>
+        &nbsp;
+        <a class="btn" data-bind="click: cancel, css: { disabled: !hasChanges() }">
+            <i class="icon-repeat"></i>
+            انصراف
+        </a>
+         &nbsp;
+        <a class="btn btn-inverse" data-bind="click: showSubjectManagement"  >
+            مدیریت موضوع دسترسی
+        </a>
+        &nbsp;
+        <a class="btn btn-success" data-bind="click: changeShowSubjectManagement"  >
+            <i class="icon-user icon-white"></i>
+            مدیریت کاربران
+        </a>
+    </div>
+    <!--background-color: #4169e1-->
+    <div >
+        <div style="top: 200px;margin-bottom: 1em; border: thin solid #666666; box-shadow: 0px 2px 10px #888888; -webkit-box-shadow: 0px 2px 10px #888888; margin-right: 0.5em; margin-top: 1em; width: 40%; padding: 0.5em; margin-bottom: 1em;position: fixed;left: 40px" 
+             class="ui-corner-all pointer pull-left" 
+             data-bind="click: changeUsersExpand">
+            <div class="pull-right">
+                <img  src="../../../../Content/images/user.png" class="media-object" style="width: 50px;height: 50px" />
+            </div>
+            <div class="media-body" style="padding-top: 1em;padding-bottom: 1em;padding-right: 1em">
+                <span class="media-heading" style="font-size: 18px;font-weight: bold">کاربران</span>
+            </div>
+        </div>
+        <div data-bind="if: canUsersExpand()">
+            <div data-bind="    foreach: users" class="ui-corner-all thumbnailUsers" style="position: fixed; left: 40px; margin-top: 5em">
+                <div data-bind="attr: { title: FirstName() + ' ' + LastName() },
+    click: $root.user.expand,
+    css: { thumbnailUser: !isExpanded(), thumbnailUserExpanded: isExpanded() },
+    drag: { options: { helper: 'clone', appendTo: 'body', cursor: 'copy' }, source: $data }"
+                     class="ui-corner-all pull-right user" >
+                    <img src="../../../Content/images/anonymousUser.jpg" class="img-circle"/>
+                    <span data-bind="text: FirstName() + ' ' + LastName()" class="pull-right"></span>
+                </div>
+                <div data-bind="if: isExpanded()">
+                    <div class="pull-right ui-corner-all userDetail">
+                        <div class="pull-left">
+                            <img src="../../../Content/images/anonymousUser.jpg" class="img-circle" style="width: 70px;height: 70px"/>
+                        </div>
+                        <div>
+                            <label>نام کاربری : </label>
+                            <span data-bind="text: Username"></span>
+                        </div>
+                        <div>
+                            <label>نام : </label>
+                            <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+                        </div>
+                        <div>
+                            <label>تلفن : </label>
+                            <span data-bind="text: Phone"></span>
+                        </div>
+                        <div>
+                            <label>آدرس : </label>
+                            <span data-bind="text: Address"></span>
+                        </div>
+                        <div>
+                            <label>ایمیل : </label>
+                            <span data-bind="text: Email"></span>
+                        </div>
+                        <div>
+                            <label>فعال است ؟ </label>
+                            <button data-bind="checkboxImage: {  }"></button>
+                        </div>
+                        <div class="pull-left">
+                            <a class="btn btn-inverse" title="">
+                                <i class="icon-lock icon-white"></i>
+                                تعیین دسترسی
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+   
+    <div  data-bind="foreach: roles" style="width: 50%;margin-top: 150px">
+        <div style="width: 90%;padding: 0.5em;margin-bottom: 1em;box-shadow: 0px 2px 10px #888888;-webkit-box-shadow: 0px 2px 10px #888888;border: thin solid #666666;float: right;margin-top: 1em" 
+             class="ui-corner-all pointer" 
+             data-bind="drop: { options: { accept: '.user', hoverClass: 'ui-state-hover' }, dropCallback: $parent.addUserInRole, target: $data }, click: $parent.changeShowDetailRole">
+            <div class="pull-right">
+                <img  src="../../../../Content/images/user-group.png" class="media-object" style="width: 50px;height: 50px" />
+            </div>
+            <div class="media-body" style="padding-top: 1em;padding-bottom: 1em;padding-right: 1em">
+                <span data-bind="if: isEditing()">
+                    <input type="text" data-bind="value: Title"/>
+                    <a class="icon-save-black pull-left" title="ذخیره" data-bind="click: $parent.saveRole"></a>
+                    <a class="icon-remove pull-left" title="انصراف" data-bind="click: $parent.cancelEditingRole"></a>
+                </span>
+                <span data-bind="if: !isEditing()">
+                    <span class="media-heading" style="font-size: 18px;" data-bind="text: Title"></span>
+                    <a class="icon-pencil pull-left" data-bind="click: $parent.editRole" title="ویرایش"></a>
+                    &nbsp;
+                    <a class="icon-trash pull-left" data-bind="click: $parent.removeRole"title="حذف"></a>
+                    &nbsp;
+                    <a class="icon-lock pull-left" data-bind="click: $parent.assignSubjectToRole" title="تعیین دسترسی"></a>
+                </span>
+            </div>
+        </div>
+        <div data-bind="if: canShowDetail()">
+            <div data-bind="foreach: UserInRoles"  style="margin-bottom: 1em; margin-top: 1em; padding: 1em">
+                <div data-bind="if: User()">
+                    <div data-bind="attr: { title: User().FirstName() + ' ' + User().LastName()  }"
+                         class="ui-corner-all pull-right thumbnailUser user" >
+                        <button class="close" data-bind="click: $root.removeUserInRole" 
+                                type="button" title="حذف از گروه کاربری">×</button>
+                        <img src="../../../Content/images/anonymousUser.jpg" 
+                             class="img-circle"
+                            />
+                        <span data-bind="text: User().FirstName() + ' ' + User().LastName()" class="pull-right"></span>
+                    </div>
+                </div>
+                
+
+                <!--<div
+                        style="border: thin solid #C0C0C0; padding: 1em; margin-right: 1em; font-size: 10px; cursor: default; width: 50px; height: 70px; background-color: white; float: right" 
+                        class="ui-corner-all" data-bind="with: User">
+                        <img src="../../../../Content/images/anonymousUser.jpg" style="width: 100%; height: 70%; margin-left: auto; margin-right: auto; display: block" />
+                        <p data-bind="text: FirstName() + ' ' + LastName()" style="text-align: center; margin-right: 0; margin-left: 0"></p>
+                    </div>-->
+            </div>
+            <div data-bind="if: RolePermits.count()">
+                <div class="ui-corner-all" 
+                
+                     style="border-style: solid; border-width: thin;padding: 0.5em;float: right;width: 80%">
+                    <table class="table" >
+                        <thead>
+                            <tr>
+                                <th>موضوع</th>
+                                <th>ببیند ؟</th>
+                                <th>ویرایش کند ؟</th>
+                                <th>حذف کند ؟</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: RolePermits">
+                            <tr>
+                                <td data-bind="with: Subject">
+                                    <span data-bind="text: Title"></span>
+                                </td>
+                                <td>
+                                    <button data-bind="checkboxImage: { checked:  CanRead}"></button>
+                                </td>
+                                <td>
+                                    <button data-bind="checkboxImage: { checked: CanEdit }"></button>
+                                </td>
+                                <td>
+                                    <button data-bind="checkboxImage: { checked: CanDelete }"></button>
+                                </td>
+                                <td>
+                                    <a class="icon-trash pointer" data-bind="click: $root.removeRolePermit" title="حذف"></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+             
+        </div>
+    </div>
+</section>
+
+
+
+

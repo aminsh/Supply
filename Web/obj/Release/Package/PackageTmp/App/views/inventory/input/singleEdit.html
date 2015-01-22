@@ -1,0 +1,114 @@
+﻿<div>
+    <span class="badge pointer blue" data-bind="click: changeShowMaster" 
+        style="padding-top: 0.5em;padding-bottom: 0.5em;padding-left: 1em;padding-right: 1em;width: 100%">
+        <i class="icon-white" data-bind="css: { 'icon-plus': !canShowMaster(), 'icon-minus': canShowMaster() }"></i>
+        بخش اصلی
+    </span>
+    <div class="labelBold ui-corner-all" data-bind="with: current, visible: canShowMaster()" style="background-color: #B7D8FC;padding: 2em">
+        <div class="row" style="font-weight: bold">
+            صادر شده توسط 
+            <span data-bind="with: CreatedByUser">
+                <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+            </span>
+            در تاریخ
+            <span data-bind="text: CreatedOnDate()"></span>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="span3" style="width: 100px">
+                <div>
+                    <label>شماره : </label>
+                    <span data-bind="text: No() == 0 ? 'جدید': No()"  style="color: #0000ff;font-weight: bold"></span>
+                </div>
+            </div>
+            
+            <div class="span3" style="width: 100px">
+                <div>
+                    <label>تاریخ : </label>
+                    <input type="text" data-bind="value: Date"/>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div>
+                <div class="span3">
+                    <div>
+                        <label>قسمت : </label>
+                        <input data-bind="combo: { modelProp: Section, valueProp: SectionID, displayProp: 'Title', allData: true }"/>
+                    </div>
+                </div>
+                <div class="span3">
+                    <div>
+                        <label>تحویل گیرنده : </label>
+                        <input  data-bind="combo: { modelProp: Person, valueProp: PersonID, displayProp: 'FirstName,LastName', allData: true }"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div>
+                <label>توضیحات : </label>
+                <textarea data-bind="value: Des" style="width: 70%"></textarea>
+            </div>
+        </div>
+        <hr/>
+        <div data-bind="visible: $root.hasChanges() && $data.hasValidationErrors()" class="row"  style="background-color: #FFFFB9;width: 100%">
+            <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+        </div>
+    </div>
+    <span class="badge badge-success pointer" data-bind="click: changeShowDetail" 
+          style="padding-top: 0.5em;padding-bottom: 0.5em;padding-left: 1em;padding-right: 1em;width: 100%">
+        <i class="icon-white" data-bind="css: { 'icon-plus': !canShowDetail(), 'icon-minus': canShowDetail() }"></i>
+        بخش کالا
+    </span>
+
+    <div class="view-single ui-corner-all" data-bind="with: current, visible: canShowDetail()" style="background-color: rgb(234, 255, 234); padding: 2em">
+        <div style="margin-bottom: 1em">
+            <a class="btn btn-primary" data-bind="click: $root.addDetail">
+                <i class="icon-plus icon-white"></i>
+                جدید
+            </a>
+           
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>کالا</th>
+                    <th>مقدار</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: InputDetails">
+                <tr data-bind="click: $root.selectDetail, css: { info: $data == $root.currentDetail() }" class="pointer">
+                    <td data-bind="text: Row"></td>
+                    <td style="width: 50%">
+                        <input  data-bind="combo: { modelProp: ItemGood, valueProp: ItemGoodID, displayProp: 'No,Title', allData: true, expands: ['Scale'] }" style="width: 90%"/>
+                    </td>
+                    <td>
+                        <input type="text" data-bind="value: Qty" data-converter="value: float" style="width: 50px"/>
+                        <span data-bind="with: ItemGood">
+                            <span data-bind="with: Scale">
+                                <span data-bind="text: Title"></span>
+                            </span>
+                        </span>
+                    </td>
+                    <td>
+                        <a class="icon-trash pointer" data-bind="click: $root.removeDetail" title="حذف"></a>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td colspan="8" style="background-color: #FFFFB9" data-bind="visible: $root.hasChanges && $data.hasValidationErrors()">
+                        <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+               
+            </tfoot>
+        </table>
+    </div>
+</div>

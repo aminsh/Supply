@@ -1,0 +1,84 @@
+﻿<div data-bind="with: search" class="ui-corner-all view-single" 
+    style="border: 1px #778899;background-color: white;padding: 2em;display: block">
+    <div class="row">
+        <div>
+            <span>بدون شرط دوره </span>
+            <button data-bind="checkboxImage: { checked: periodIncluded }"></button>
+        </div>
+        <div>
+            <label>شماره متقاضی</label>
+            <input type="text" data-bind="value: id" style="width: 50px"/>
+        </div>
+        <div>
+            <label>شماره نامه : </label>
+            <input type="text" data-bind="value: letterNo" style="width: 100px"/>
+        </div>
+        <div>
+            <label>تاریخ نامه</label>
+            <input type="text" data-bind="myDatePicker: letterDate, value: letterDate" 
+                   data-converter="value: persianDate"/>
+        </div>
+        <div>
+            <label>قسمت : </label>
+            <input   
+                data-bind="combo: {
+    modelProp: section, displayProp: 'Title', allData: true, entityName: 'Section', pluralEntityName: 'Sections'
+}"/>
+        </div>
+    </div>
+    <div class="row">
+        <a class="btn btn-success" data-bind="click: $parent.init">
+            <i class="icon-search icon-white"></i>
+            جستجو
+        </a>
+    </div>
+</div>
+
+
+<div class="ui-corner-all" 
+         style="border: 1px #778899;background-color: white;padding: 2em;display: block;margin-top: 2em">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th></th>
+                <th>درخواست متقاضی</th>
+                <th>سفارش خرید</th>
+                <th>درخواست انبار</th>
+                <th>تاریخ</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: requests">
+            <tr>
+                <td>
+                    <span data-bind="css: $root.getRequestIcon(RequestType())"></span>
+                </td>
+                <td data-bind="text: ID"></td>
+                <td data-bind="text: OrderNo"></td>
+                <td>
+                    <span data-bind="if: $data.hasOwnProperty('RequestGoodNo')">
+                        <span data-bind="text: RequestGoodNo"></span>
+                    </span>
+                </td>
+                <td data-bind="text: Date"></td>
+                <td style="text-align: center">
+                    <a class="btn btn-primary"
+                       data-bind="click: $root.read">
+                        <i class="icon-play-circle icon-white"></i>
+                        نمایش
+                    </a>
+                    &nbsp;
+                    <a class="btn btn-success"
+                       data-bind="click: $root.edit">
+                        <i class="icon-edit icon-white"></i>
+                        ویرایش
+                    </a>
+                </td>      
+            </tr>
+        </tbody>
+    </table>
+    <div data-bind="with: pager">
+                <!--ko compose: {view: 'layout/pager'} --><!--/ko-->
+    </div>   
+
+</div>

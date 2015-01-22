@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    
+    <link href="../Content/toastr.css" rel="stylesheet" />
+    <link href="../Content/kendo/2013.1.319/kendo.default.min.css" rel="stylesheet" />
+    <link href="../Content/kendo/2013.1.319/kendo.common.min.css" rel="stylesheet" />
+    
+    <script src="../Scripts/jquery-1.9.1.js"></script>
+    <script src="../Scripts/knockout-2.2.1.js"></script>
+    <script src="../Scripts/q.js"></script>
+    <script src="../Scripts/breeze.debug.js"></script>
+    <script src="../Scripts/helper/util.note.js"></script>
+    <script src="../Scripts/helper/helper.array.js"></script>
+    <script src="../Scripts/helper/helper.datacontext.js"></script>
+    <script src="../Scripts/helper/helper.ko.js"></script>
+    <script src="../Scripts/helper/helper.note.js"></script>
+    <script src="../Scripts/kendo/2013.1.319/kendo.web.min.js"></script>
+    <script src="../Scripts/knockout-kendo.js"></script>
+</head>
+<body>
+    <script>
+        $(function () {
+            var dataItems;
+            $.ajax("http://localhost:1557//api/item/items", {
+                dataType: "json",
+                contentType: "odata",
+                cache: false,
+                type: "GET",
+                success: function (data) {
+
+                    dataItems = data;
+                    var list = ko.observableArray(dataItems);
+                    list(list.filter(function(item) {
+                        return item.children;
+                    }));
+                    dataItems = list();
+                    
+                    var ds = new kendo.data.HierarchicalDataSource({
+                        data: dataItems,
+                        schema: {
+                            model: {
+                                children: "children"
+                            }
+                        }
+                    });
+                    $("#tree").kendoTreeView({
+                        dataSource: ds,
+                        dataTextField: ["Title", "Title"]
+                    });
+
+                }
+            });
+
+            var ds = function() {
+                return new kendo.data.HierarchicalDataSource({
+                    data: vm.list(),
+                    schema: {
+                        model: {
+                            children: "Children"
+                        }
+                    }
+                });
+            }
+            var vm = {
+                list: ko.observableArray([]),
+                load: function() {
+                    var context = new helper.datacontext("Item", "Items", vm.list);
+                    var q = context.query();
+                    context.executeQuery(q);
+                    
+                },
+                haveChildren: ko.observableArray([]),
+                done: function() {
+                    vm.haveChildren(vm.list.filter(function(item) {
+                        return item.PartentID == undefined;
+                    }));
+                }
+            };
+            vm.load();
+            ko.applyBindings(vm);
+        });
+    </script>
+    
+   
+    
+   
+    
+    
+
+    <div id="tree"></div>
+    <hr/>
+  
+    <input type="button" data-bind="click: done" value="done"/>
+    <hr/>
+    <ul data-bind="foreach: list, kendoTreeView: {}">
+    <li>
+        <span data-bind="text: Title"></span>
+        <ul data-bind="foreach: Children">
+            <li data-bind="text: Title">Test 1A</li>
+            
+        </ul>
+    </li>
+</ul>
+</body>
+</html>

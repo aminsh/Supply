@@ -1,0 +1,636 @@
+﻿@using System.Web
+@using System.Web.Optimization
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>تایید واحد متقاضی</title>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        @* for no-cache *@
+        <meta http-equiv="no-cache">
+        <meta http-equiv="Expires" content="-1">
+        <meta http-equiv="Cache-Control" content="no-cache">
+
+        @Styles.Render("~/Content/css")
+        <script type="text/javascript">
+            if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+                var msViewportStyle = document.createElement("style");
+                var mq = "@@-ms-viewport{width:auto!important}";
+                msViewportStyle.appendChild(document.createTextNode(mq));
+                document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+            }
+
+        </script>
+
+
+
+    </head>
+    
+
+    <body>
+        
+        @Scripts.Render("~/scripts/vendor")
+        <script src="~/Scripts/bootbox.js"></script>
+        @if (@User.Identity.IsAuthenticated)
+        {
+            <style>
+            html {
+                /*background: url(/Content/images/bg.jpg);*/
+            }
+            body {
+                padding: 0 auto;
+                max-width: 100%;
+            }
+
+                .bg-img {
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    z-index: 0;
+                    opacity: .8;
+                }
+
+            .btn {
+                font-family: tahoma
+            }
+
+            .modal-footer .btn{
+                width: 100px;
+                height: 30px;
+                margin-left: 5px
+            }
+
+            
+            h2.page-title {
+                font-size: 25px
+            }
+            .custom-combobox {
+                width: 90%
+            }
+            .tile {
+                width: 300px;
+                height: 150px;
+            }
+
+            .view-single label {
+                display: inline-block;
+                width: 80px;
+                height: 20px;
+                padding-left: 10px;
+                text-align: right;
+                font-style: normal;
+                font-weight: bold;
+                color: #778899
+            }
+
+                .section-main {
+                    background-color: #EFEFEF;
+                    /*margin-top: 5%;
+                    margin-left: 30%;
+                    margin-right: 30%;*/
+                }
+
+            .section-header {
+                border-bottom: 1px solid #E2DEDE;
+                padding: 15px;
+                overflow-y: auto;
+            }
+            .section-footer {
+                border-top: 1px solid #E2DEDE;
+                padding: 15px;
+                overflow-y: auto;
+            }
+
+            .section-body {
+                padding: 15px;
+                overflow-y: auto;
+            }
+            .main {
+                margin-top: 50px;
+                /*position: absolute*/
+            }
+
+            #selectRequest,
+            #requstEntry,
+            #trackRequest {
+                display: none;
+            }
+
+            #section {
+                min-width: 300px
+            }
+            button .badge {
+                position: relative;
+                top: -10px;
+                right: -5px;
+                z-index: 100
+            }
+
+            .user-info {
+                
+            }
+
+           .user-info h2{
+                font-size: 14px;
+                /*font-weight: bold;*/
+            }
+        </style>
+           <img src="/content/images/bg.jpg" class="bg-img" alt="">
+            
+            @Html.Partial("_header")
+            
+           <script>
+               $(function() {
+                   toastr.options.positionClass = 'toast-bottom-left';
+                   toastr.options.backgroundpositionClass = 'toast-bottom-left';
+
+                   function messageBox(message, callback) {
+                       bootbox.confirm(message, callback);
+                   }
+
+                   var context = helper.datacontext;
+                   
+                   helper.ajax.getCurrentUser(function (user) {
+                       helper.defaults.setCurrentUser(user);
+
+                       var q = context.query('Employees')
+                           .where('ID', '==', user.EmployeeID);
+
+                       var navigarions = [
+                           "Section",
+                           "Section.Parent"
+                       ];
+
+                       q = q.expand(navigarions);
+
+                       context.executeQuery(q)
+                           .then(function (data) {
+                               var results = data.results;
+                               vm.section(results[0].Section());
+                               vm.person(results[0]);
+                               vm.loadTotal();
+                           });
+                   });
+                   
+                   var vm = {
+                       title: ko.observable('تایید واحد متقاضی'),
+                       section: ko.observable(),
+                       person: ko.observable(),
+                       context: helper.datacontext,
+                       requestGoods: ko.observableArray(),
+                       requestServices: ko.observableArray(),
+                       requestFood: ko.observableArray(),
+                       requestTickets: ko.observableArray(),
+                       requestVehicles: ko.observableArray(),
+                       totalRequests: ko.observableArray(),
+                       requests: ko.observableArray(),
+                       current: ko.observable(),
+                       currentSection: '#section',
+                       currentRequestType: ko.observable(),
+                       requestType: ko.observableArray(),
+                       color: ['purple', 'green', 'red', 'orange', 'blue']
+                   };
+
+                   vm.loadTotal = function() {
+                       var q = context.query('TotalRequestsForSection');
+                       //q = q.where('Status', '==', 'Created');
+
+                       var params = [];
+                           params.push({ FieldName: 'SectionID', Value: vm.section().ID() });
+                       
+                       q = q.withParameters({ filter: ko.toJSON(params) });
+                       
+                       //var navigarions = [
+                       //    "Section",
+                       //    "Person",
+                       //    "RequestDetailGoods"
+                       //];
+
+                       //q = q.expand(navigarions);
+                       context.executeQuery(q)
+                           .then(function(data) {
+                               var results = data.results;
+                               vm.totalRequests(ko.getObservableArray(results));
+                           });
+                   };
+
+
+                   vm.loadRequestGood = function() {
+                       var q = context.query('RequestGoods');
+                       q = q.where('Status', '==', 'Created');
+
+                       var navigarions = [
+                           "Section",
+                           "Person",
+                           "RequestDetailGoods"
+                       ];
+
+                       q = q.expand(navigarions);
+                       context.executeQuery(q)
+                           .then(function (data) {
+                               var results = data.results;
+                               vm.requestGoods(results);
+                           });
+                   };
+                   
+                   vm.loadRequestTicket = function () {
+                       var q = context.query('RequestTickets');
+                       q = q.where('Status', '==', 'Created');
+
+                       var navigarions = [
+                           "Section",
+                           "Person",
+                           "RequestDetailTickets",
+                           "RequestDetailTickets.Passenger"
+                       ];
+
+                       q = q.expand(navigarions);
+                       context.executeQuery(q)
+                           .then(function (data) {
+                               var results = data.results;
+                               vm.requestTickets(results);
+                           });
+                   };
+                   
+                   vm.saveRequest = function (item, callbackAfterUpdate) {
+                       var items = [];
+                       if (!item.entityAspect.entityState.isUnchanged())
+                           items.push(item);
+                       
+                       var details = item['RequestDetail' + vm.currentRequestType().Name() + 's'];
+                       
+                       details.foreach(function (rdg) {
+                           if (!rdg.entityAspect.entityState.isUnchanged())
+                               items.push(rdg);
+                       });
+
+                       context.manager.saveChanges(items)
+                           .then(function () {
+                               //helper.note.successDefault();
+                               callbackAfterUpdate();
+                           })
+                           .fail(function (error) {
+                               helper.note.error(error.errorMessage);
+                           });
+                   };
+
+                   vm.rejectRequest = function (item) {
+                       item.Status('Cancel');
+                       context.manager.saveChanges([item])
+                           .then(function () {
+                               requests.remove(item);
+                               helper.note.successDefault();
+                           });
+                   };
+
+                   vm.changeAccepted = function (item) {
+                       item.IsCancel(!item.IsCancel());
+                   };
+
+
+                   vm.confirmRequest = function (item) {
+                       item.Status('ConfirmSection');
+
+                       var master = vm['request' + vm.currentRequestType().Name() + 's'];
+                       var details = item['RequestDetail' + vm.currentRequestType().Name() + 's'];
+
+                       vm.saveRequest(item, function () {
+                           master.remove(item);
+                           helper.note.successDefault();
+                       });
+                   };
+
+                   vm.changeAccept = function (item) {
+                       item.IsCancel(!item.IsCancel());
+                   };
+
+                   vm.changeShowStatus = function (item) {
+                       item.ShowDetail(!item.ShowDetail());
+                   };
+
+                   vm.getRequestTotal = function(type) {
+                       var className = 'icon-' + type.toLowerCase();
+                       var obj = {};
+                       obj[className] = true;
+                       return obj;
+                   };
+
+                   vm.loadRequest = function(item) {
+                       var loadFunc = 'loadRequest' + item.Name();
+                       vm[loadFunc]();
+                       vm.currentRequestType(item);
+                   };
+                   
+                   ko.applyBindings(vm);
+               });
+           </script>
+            
+           <div style="margin-top: 10%; padding-left: 5%; padding-right: 5%;position: absolute">
+               <h2 class="page-title font-white" data-bind="text: title, visible: !section()" ></h2>
+               <div class="ui-corner-all section-main" 
+                    data-bind="with: section"
+                   style="padding: 1em;width: 400px;height: 100px">
+                   <div class="pull-right">
+                       <img src="../../Content/images/anonymousUser.jpg" class="img-circle" />
+                   </div>
+                   <div class="pull-right user-info"
+                        style="margin-right: 1em;width: 70%">
+                       <span  data-bind="with: $parent.person"
+                           >
+                           <h2  style="font-size: 20px;color: #39b5aa"
+                               data-bind="text: FirstName() + ' ' + LastName()" ></h2>
+                       </span>
+                       <br/>
+                       <span data-bind="with: Parent">
+                           <h2  data-bind="text: Title" ></h2>
+                       </span>
+                       <h2  data-bind="text: Title" ></h2>
+                       
+                   </div>
+               </div>
+               
+               <div class="main">
+                   <div id="requerstTypeSection" 
+                       class="ui-corner-all section-main"
+                        data-bind="fadeVisible: !currentRequestType(), slideDuration: 1000"
+                       style="padding: 2em;padding-bottom: 1em;">
+                       <table class="table table-hover" style="width: 500px;">
+                           <tbody data-bind="foreach: totalRequests">
+                               <tr class="pointer"
+                                   data-bind="click: $root.loadRequest">
+                                   <td>
+                                       <button class=" ui-corner-all" >
+                                           <i data-bind="css: $root.getRequestTotal(Name())"></i>
+                                       </button>
+                                   </td>
+                                   <td data-bind="text: Title"></td>
+                                   <td style="text-align: left">
+                                       <span class="badge badge-success" data-bind="text: Count, visible: Count() != 0"></span>
+                                   </td>
+                               </tr>
+                           </tbody>
+                       </table>
+                   </div>
+                   <div id="section"  class="section-main ui-corner-all" data-bind="fadeVisible: currentRequestType(),slideDuration: 1000">
+                       <div class="section-header ui-corner-top " >
+                           <div data-bind="foreach: totalRequests">
+                               <button class="pointer" data-bind="visible: $data != $root.currentRequestType(),click: $root.loadRequest">
+                                   <i data-bind="css: $root.getRequestTotal(Name())"></i>
+                                   <span class="badge badge-success" data-bind="text: Count,visible: Count()!= 0"></span>
+                               </button>
+                           </div> 
+                       </div>
+                       <div class="section-body" data-bind="if: currentRequestType()">
+                           <div class="view-single visible-desktop ui-corner-all"
+                                data-bind="if: currentRequestType().Name() == 'Good'" 
+                                style="width: 100%;background-color: #8DC1FA;" >
+                               <table class="table" data-bind="if: requestGoods().any()">
+                                   <thead>
+                                       <tr>
+                                           <th></th>
+                                           <th>شماره</th>
+                                           <th>تاریخ</th>
+                                           <th>درخواست دهنده</th>  
+                                           <th></th>
+                                       </tr>
+                                   </thead>
+                                   <tbody data-bind="foreach: requestGoods">
+                                       <tr class="bold">
+                                           <td>
+                                               <div class="good" style="width: 32px;height: 32px"></div>
+                                               <a class="pointer" 
+                                                  title="جزئیات درخواست"
+                                                  data-bind="click: $parent.changeShowStatus, css: { 'icon-plus': !ShowDetail(), 'icon-minus': ShowDetail() }"></a>
+                         
+                                           </td>
+                                           <td>
+                                               <span data-bind="text: ID"></span>
+                                           </td>
+                                           <td>
+                                               <span data-bind="text: Date"></span>
+                                           </td>
+                                           <td>
+                                               <div class="view-single">
+                                                   <div>
+                                                       <label>معاونت : </label>
+                                                       <span data-bind="with: Section">
+                                                           <span data-bind="with: Parent">
+                                                               <span data-bind="text: Title" class="bold"></span>
+                                                           </span>
+                                                       </span>
+                                                   </div>
+                                                   <div>
+                                                       <label>قسمت : </label>
+                                                       <span data-bind="with: Section">
+                                                           <span data-bind="text: Title" class="bold"></span>
+                                                       </span>
+                                                   </div>
+                                                   <div>
+                                                       <label>پرسنل : </label>
+                                                       <span data-bind="with: Person">
+                                                           <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+                                                       </span>
+                                                   </div>
+                                               </div>
+                                           
+                                           </td>
+                                           <td style="width: 200px">
+                                               <a class="btn btn-success btn-block" data-bind="click: $root.confirmRequest">
+                                                   <i class="icon-ok icon-white"></i>
+                                                   تایید
+                                               </a>
+                                               <a class="btn btn-danger btn-block" data-bind="click: $root.rejectRequest">
+                                                   <i class="icon-remove icon-white"></i>
+                                                   لغو
+                                               </a>
+                                           </td>
+                                       </tr>
+                                       <tr data-bind="if: ShowDetail()">
+                                           <td colspan="8">
+                                               <div class="ui-corner-all" style="background-color: #D5E9FD; padding: 1em;">
+                                                   <table class="table" style="background-color: transparent"
+                                                       >
+                                                       <thead>
+                                                           <tr>
+                                                               <th>شرح کالا</th>
+                                                               <th>مقدار مورد نیاز</th>
+                                                               @*<th>مقدار مورد تایید</th>*@
+                                                               <th></th>
+                                                           </tr>
+                                                       </thead>
+                               
+                                                       <tbody data-bind="foreach: RequestDetailGoods">
+                                                           <tr>
+                                                               <td>
+                                                                   <span data-bind="text: ItemDescription"></span>
+                                                               </td>
+                                                               <td>
+                                                                   <input type="text" data-bind="value: NeedQty" style="width: 70px"/>
+                                                                   @*<span data-bind="text: NeedQty"></span>*@
+                                                                   <span data-bind="text: ScaleDescription"></span>
+                                                               </td>
+                                                               @*<td>
+                                                               <input type="text" data-bind="value: AcceptQty" style="width: 70px"/>
+                                                           </td>*@
+                                                               <td>
+                                                                   <button style="border: none" data-bind="css: { 'approved': !IsCancel(), 'canceled': IsCancel() }, click: $root.changeAccept"></button>
+                                                               </td>
+                                                           </tr>
+                                                           <tr data-bind="if: IsCancel()">
+                                                               <td colspan="4">
+                                                                   <textarea 
+                                                                       class="autofocus"
+                                                                       placeholder="علت لغو" 
+                                                                       style="background-color: #FDDCDC;border: 1px solid #F80D0D;width: 90%"></textarea>
+                                                               </td>
+                                                           </tr>
+                                                       </tbody>
+                                                   </table>
+                                               </div>
+                                           </td>
+                                       </tr>
+                                   </tbody>
+                                   <tfoot>
+               
+                                   </tfoot>
+                               </table>
+                               <div data-bind="visible: !requestGoods().any()"
+                                   style="padding: 1em">
+                                   اطلاعات جهت نمایش وجود ندارد
+                               </div>
+                           </div>
+                           <div class="view-single visible-desktop ui-corner-all" 
+                                data-bind="if: currentRequestType().Name() == 'Ticket'"
+                                style="width: 100%;background-color: #8DC1FA;">
+                               <table class="table" data-bind="if: requestTickets().any()">
+                                   <thead>
+                                       <tr>
+                                           <th></th>
+                                           <th>شماره</th>
+                                           <th>تاریخ</th>
+                                           <th>درخواست دهنده</th>  
+                                           <th></th>
+                                       </tr>
+                                   </thead>
+                                   <tbody data-bind="foreach: requestTickets">
+                                       <tr class="bold">
+                                           <td>
+                                               <div class="icon-ticket" style="width: 32px;height: 32px"></div>
+                                               <a class="pointer" 
+                                                  title="جزئیات درخواست"
+                                                  data-bind="click: $parent.changeShowStatus, css: { 'icon-plus': !ShowDetail(), 'icon-minus': ShowDetail() }"></a>
+                         
+                                           </td>
+                                           <td>
+                                               <span data-bind="text: ID"></span>
+                                           </td>
+                                           <td>
+                                               <span data-bind="text: Date"></span>
+                                           </td>
+                                           <td>
+                                               <div class="view-single">
+                                                   <div>
+                                                       <label>معاونت : </label>
+                                                       <span data-bind="with: Section">
+                                                           <span data-bind="with: Parent">
+                                                               <span data-bind="text: Title" class="bold"></span>
+                                                           </span>
+                                                       </span>
+                                                   </div>
+                                                   <div>
+                                                       <label>قسمت : </label>
+                                                       <span data-bind="with: Section">
+                                                           <span data-bind="text: Title" class="bold"></span>
+                                                       </span>
+                                                   </div>
+                                                   <div>
+                                                       <label>پرسنل : </label>
+                                                       <span data-bind="with: Person">
+                                                           <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+                                                       </span>
+                                                   </div>
+                                               </div>
+                                           
+                                           </td>
+                                           <td style="width: 200px">
+                                               <a class="btn btn-success btn-block" data-bind="click: $root.confirmRequest">
+                                                   <i class="icon-ok icon-white"></i>
+                                                   تایید
+                                               </a>
+                                               <a class="btn btn-danger btn-block" data-bind="click: $root.rejectRequest">
+                                                   <i class="icon-remove icon-white"></i>
+                                                   لغو
+                                               </a>
+                                           </td>
+                                       </tr>
+                                       <tr data-bind="if: ShowDetail()">
+                                           <td colspan="8">
+                                               <div class="ui-corner-all" style="background-color: #D5E9FD; padding: 1em;">
+                                                   <table class="table" style="background-color: transparent"
+                                                       >
+                                                       <thead>
+                                                           <tr>
+                                                               <th>مسافر</th>
+                                                               <th>مقصد</th>
+                                                               <th>تاریخ رفت</th>
+                                                               <th>تاریخ برگشت</th>
+                                                               <th></th>
+                                                           </tr>
+                                                       </thead>
+                               
+                                                       <tbody data-bind="foreach: RequestDetailTickets">
+                                                           <tr>
+                                                               <td data-bind="with: Passenger">
+                                                                   <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+                                                               </td>
+                                                               <td data-bind="text: Destination"></td>
+                                                               <td data-bind="text: GoOnDate"></td>
+                                                               <td data-bind="text: ReturnDate"></td>
+                                                               <td>
+                                                                   <button style="border: none" data-bind="css: { 'approved': !IsCancel(), 'canceled': IsCancel() }, click: $root.changeAccept"></button>
+                                                               </td>
+                                                           </tr>
+                                                           <tr data-bind="if: IsCancel()">
+                                                               <td colspan="4">
+                                                                   <textarea 
+                                                                       class="autofocus"
+                                                                       placeholder="علت لغو" 
+                                                                       style="background-color: #FDDCDC;border: 1px solid #F80D0D;width: 90%"></textarea>
+                                                               </td>
+                                                           </tr>
+                                                       </tbody>
+                                                   </table>
+                                               </div>
+                                           </td>
+                                       </tr>
+                                   </tbody>
+                                   <tfoot>
+               
+                                   </tfoot>
+                               </table>
+                               <div data-bind="visible: !requestTickets().any()"
+                                   style="padding: 1em">
+                                   اطلاعات جهت نمایش وجود ندارد
+                               </div>
+                           </div>
+                       </div>
+                       <div class="section-footer ui-corner-bottom"></div>
+                   </div>
+               </div>
+
+           </div>
+              
+        }
+        else
+        {
+            @Html.Partial("_Login")
+        }
+    </body>
+</html>

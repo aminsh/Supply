@@ -1,0 +1,68 @@
+﻿
+<thead>
+    <tr>
+        <th>شامل خرید ؟</th>
+        <th>شرح کالای درخواستی</th>
+        <th>کالای قطعی</th>
+        <th>مقدار مورد نیاز</th>
+        <th>مقدار تایید شده</th>
+        <th>مقدار قطعی</th>
+        <th>مقدار موجود</th>
+    </tr>
+</thead>
+                          
+<tbody data-bind="foreach: RequestDetailGoods">
+  <tr>
+    <td>
+        <button data-bind="checkboxImage: { checked: IsOrder }" ></button>
+    </td>
+    <td
+        style="max-width: 200px">
+        <span data-bind="text: ItemDescription"></span>
+    </td>
+    <td style="width: 300px">
+        <span>
+            <input data-bind="combo: { modelProp: ItemGood, valueProp: ItemGoodID, displayProp: 'No,Title', allData: true, expands: ['Scale'], callbackAfterUpdate: $root.callbackAfterItemUpdate }" />
+        </span>
+    </td>
+    <td>
+        <span data-bind="text: NeedQty"></span>
+        <span data-bind="text: ScaleDescription"></span>
+    </td>
+    <td>
+        <span data-bind="text: AcceptQty"></span>
+    </td>
+    <td>
+        <input type="text" data-bind="value: Qty" style="width: 70px"/>
+        <span data-bind="with: ItemGood">
+            <span data-bind="with: Scale">
+                <span data-bind="text: Title"></span>
+            </span>
+        </span>
+    </td>
+    <td style="text-align: center" >
+        <span>
+            <span data-bind="if: InventoryQty() == -1">
+                <i class="icon-question-sign"></i>
+            </span>
+            <span data-bind="if: InventoryQty() == -2">
+                <img src="../../../../../Content/images/loading-small.gif" />
+            </span>
+
+            <span data-bind="if: InventoryQty() >= 0">
+                <span data-bind="text: InventoryQty"></span>
+                <a class="pointer" 
+                   data-bind="click: $root.getInventoryQty"
+                   title="شمارش مجدد">
+                    <i class="icon-repeat"></i>
+                </a>
+            </span>
+        </span>
+    </td>
+</tr>
+</tbody>
+
+
+
+
+

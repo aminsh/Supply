@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="../../Scripts/jquery-1.9.1.js"></script>
+    <script src="../Scripts/amplify.js"></script>
+    
+</head>
+<body>
+    <script>
+        amplify.request.define("wcf", "ajax", {
+            url: "http://localhost:3000/HRService.svc/People",
+            type: "GET",
+            dataType: "odata",
+            cache: "persist"
+        });
+        
+        amplify.request("wcf", function(data) {
+            alert(data);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+﻿<section>
+    <h2 class="page-title" data-bind="text: title"></h2>
+    
+    <!--ko compose: {view: 'layout/standardButtons'} --><!--/ko-->
+   
+    <a class="btn btn-primary" data-bind="click: add">
+        <i class="icon-plus icon-white"></i>
+        جدید
+    </a>
+    
+    <div  data-bind="foreach: everyones">
+        <div class="view-list">
+            <div class="row">
+                <div class="span4">
+                    <div>
+                        <label>شناسه</label>
+                        <span data-bind="text: ID"></span>
+                    </div>
+                    <div>
+                        <label>کد</label>
+                        <input type="text" data-bind="value: Code" style="width: 50px"/>
+                    </div>
+                    <div>
+                        <label>نام</label>
+                        <input type="text" data-bind="value: FirstName" />
+                    </div>
+                    <div>
+                        <label>نام خانوادگی</label>
+                        <input type="text" data-bind="value: LastName" />
+                    </div>
+                </div>
+                <div class="span4">
+                    <div>
+                        <label>محل</label>
+                        <input type="text" data-bind="value: Location" />
+                    </div>
+                    <div>
+                        <label>توضیحات</label>
+                        <textarea  data-bind="value: Des" ></textarea>
+                    </div>
+                </div>
+                <div class="span1">
+                    <div class="btn-group-vertical">
+                        <a class="btn btn-danger" href="#" data-bind="click: $root.remove"><i class="icon-trash icon-white"></i> حذف </a> 
+                    </div>
+                </div>
+            </div>
+            <div class="row" data-bind="visible: $root.hasChanges() && $data.hasValidationErrors()" style="background-color: #FFFFB9">
+                <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+            </div>
+        </div>
+    </div>
+  
+    <div data-bind="with: everyonepager">
+       <!--ko compose: {view: 'layout/pager'} --><!--/ko-->
+    </div>
+    
+   
+   
+</section>

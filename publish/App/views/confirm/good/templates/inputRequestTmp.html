@@ -1,0 +1,158 @@
+﻿
+ <div class="panel-header">
+            <div data-bind="foreach: viewController.viewTypes">
+                <a class="btn" 
+                    data-bind="css: $root.getViewCss($data), click: $root.changeView, visible: !($data == $root.viewController.currentView())">
+                    <span data-bind="text: title"></span>
+                </a>
+                &nbsp;
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="view-single  container-fluid visible-desktop ui-corner-all" style="width: 90%;background-color: #8DC1FA; margin-top: 50px;padding: 2em" > 
+        <table class="table" data-bind="if: inputRequests().any()">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>شماره درخواست</th>
+                    <th>شماره درخواست کالا</th>
+                    <th>شماره درخواست خرید</th>
+                    <th>تاریخ</th>
+                    <th>درخواست دهنده</th>  
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: inputRequests">
+                <tr class="bold tr-header">
+                    <td>
+                        <div class="good" style="width: 32px;height: 32px"></div>
+                        <a class="pointer" 
+                           title="جزئیات درخواست"
+                           data-bind="click: $parent.changeShowStatus, css: { 'icon-plus': !ShowDetail(), 'icon-minus': ShowDetail() }"></a>
+                         
+                    </td>
+                    <td>
+                        <span data-bind="text: ID"></span>
+                    </td>
+                    <td>
+                        <span data-bind="text: RequestGoodNo"></span>
+                    </td>
+                    <td>
+                        <span data-bind="text: OrderNo"></span>
+                    </td>
+                    <td>
+                        <span data-bind="text: Date"></span>
+                    </td>
+                    <td>
+                        <div class="view-single">
+                            <div>
+                                <label>معاونت : </label>
+                                <span data-bind="with: Section">
+                                    <span data-bind="with: Parent">
+                                        <span data-bind="text: Title" class="bold"></span>
+                                    </span>
+                                </span>
+                            </div>
+                            <div>
+                                <label>قسمت : </label>
+                                <span data-bind="with: Section">
+                                    <span data-bind="text: Title" class="bold"></span>
+                                </span>
+                            </div>
+                            <div>
+                                <label>مصرف کننده : </label>
+                                <span data-bind="with: ConsumerSection">
+                                    <span data-bind="text: Title" class="bold"></span>
+                                </span>
+                            </div>
+                            <div>
+                                <label>پرسنل : </label>
+                                <span data-bind="with: Person">
+                                    <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+                                </span>
+                            </div>
+                        </div>
+                                           
+                    </td>
+                    <td style="width: 200px">
+                        <a class="btn btn-success btn-block" data-bind="click: $root.createOutput">
+                            <i class="icon-arrow-left icon-white"></i>
+                            صدور حواله
+                        </a>
+                    </td>
+                </tr>
+                <tr class="tr-body" data-bind="if: ShowDetail()">
+                    <td colspan="8">
+                        <div class="ui-corner-all" style="background-color: #D5E9FD; padding: 1em;">
+                            <div data-bind="if: ShowDetail()">
+                                <div class="ui-corner-all" style="background-color: #D5E9FD; padding: 1em;" >
+                                    <table class="table" style="background-color: transparent"
+                                           data-bind="visible: RequestDetailGoods().any()">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>کالا</th>
+                                                <th>مقدار</th>
+                                                <th>شماره رسید</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                               
+                                        <tbody data-bind="foreach: RequestDetailGoods">
+                                            <!--data-bind="css: { info: isSelected() }"-->
+                                            <tr>
+                                                <td>
+                                                    <!--<button data-bind="checkboxImage: { checked: IsOrder }" ></button>-->
+                                                </td>
+                                                <td data-bind="with: ItemGood">
+                                                    <span data-bind="text: No() + ' ' + Title()"></span>
+                                                </td>
+                                                <td>
+                                                    <span data-bind="text: Qty"></span>
+                                                    <span data-bind="with: ItemGood">
+                                                        <span data-bind="with: Scale">
+                                                            <span data-bind="text: Title"></span>
+                                                        </span>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span data-bind="with: InputDetail">
+                                                        <span data-bind="with: Input">
+                                                            <span data-bind="text: No"></span>
+                                                        </span>
+                                                    </span>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div data-bind="visible: loadStatus() === 'loading'"
+                                        style="padding: 3em;text-align: center;background-color: #808080">
+                                        <img src="../../../../Content/images/waiting.gif" style="width: 70px;height: 70px"/>
+                                        <br/>
+                                        <span>لطفا چند لحظه صبر کنید ...</span>
+                                    </div>
+                                    <div data-bind="visible: !RequestDetailGoods().any() && loadStatus() == 'loaded'"
+                                         style="padding: 1em">
+                                        اطلاعات جهت نمایش وجود ندارد
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div data-bind="visible: !inputRequests().any()"
+             style="padding: 1em">
+            اطلاعات جهت نمایش وجود ندارد
+        </div>
+
+    </div>
+        </div>
+<div class="panel-footer">
+            
+</div>
+

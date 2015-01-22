@@ -1,0 +1,300 @@
+﻿ <div class="wrapper shadow">
+     <div data-bind="click: $root.changeShowMaster"  
+         class="panel-header ui-corner-top bold gray pointer">
+            <i class="icon-white" data-bind="css: { 'icon-plus': !$root.canShowMaster(), 'icon-minus': $root.canShowMaster() }"></i>
+            &nbsp;&nbsp;
+            بخش درخواست
+        </div>
+     <div class="panel-body"
+          data-bind="visible: $root.canShowMaster()">
+            <div class="view-box">
+                <div class="row">
+                    <div class="span12" data-bind="if: !entityAspect.entityState.isAdded()">
+                        <label>
+                            ایجاد شده توسط 
+                            <span data-bind="text:  CreatedByUser().FirstName() + ' ' + CreatedByUser().LastName()"></span>
+                            در تاریخ
+                            <span data-bind="text: CreatedOnDate"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span3">
+                        <div>
+                            <label>شماره درخواست متقاضی</label>
+                            <span data-bind="text: ID"></span>
+                        </div>
+                    </div>
+                    <div class="span3" data-bind="visible: $data.hasOwnProperty('RequestGoodNo')">
+                        <div data-bind="if: $data.hasOwnProperty('RequestGoodNo')">
+                            <label>درخواست انبار</label>
+                            <span data-bind="text: RequestGoodNo"></span>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <div>
+                            <label>شماره درخواست  خرید</label>
+                            <span data-bind="text: OrderNo"></span>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <div>
+                            <label>تاریخ</label>
+                            <span data-bind="text: Date"></span>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <div>
+                            <label>نامه (ها)</label>
+                            <span data-bind="if: $data['LetterRequest' + RequestType() + 's'].any()">
+                                <span class="badge badge-info pointer" data-bind="click: $root.changeShowLetter" >
+                                    <i class="icon-white" 
+                                       data-bind="css: { 'icon-plus': !$root.canShowLetter(), 'icon-minus': $root.canShowLetter() }"></i>
+                                </span>
+
+                                <span data-bind="if: $root.canShowLetter()">
+                                    <ul data-bind="foreach: $data['LetterRequest' + RequestType() + 's']">
+                                        <li style="list-style-type: none">
+                                            <span data-bind="text: No"></span>
+                                            &nbsp; &lArr; &nbsp;
+                                            <span data-bind="text: Date" ></span>
+                                        </li>
+                                    </ul>
+                                </span>
+                            </span>
+                            <span data-bind="ifnot: $data['LetterRequest' + RequestType() + 's'].any()">ندارد</span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span4">
+                        <div>
+                            <label>قسمت</label>
+                            <span data-bind="with: Section">
+                                <span data-bind="text: Title"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <div>
+                            <label>مصرف کننده</label>
+                            <span data-bind="with: ConsumerSection">
+                                <span data-bind="text: Title"></span>
+                            </span>
+                        </div>
+
+                    </div>
+                    <div class="span4">
+                        <div>
+                            <label>درخواست دهنده</label>
+                            <span data-bind="with: Person">
+                                <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span4">
+                        <div>
+                            <label>کارپرداز</label>
+                            <span data-bind="with: PurchasingOfficer">
+                                <span data-bind="text: Title"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <div>
+                            <label>تاریخ ارائه به کارپرداز</label>
+                            <span data-bind="text: OrderDate"></span>
+                        </div>
+
+                    </div>
+                    <div class="span4" 
+                         data-bind="if: IsFast()">
+                        <label>فوری</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span3">
+                        <div>
+                            <label>وضعیت</label>
+                            <span data-bind="enumDisplay: { value: Status }"></span>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <div>
+                            <label>روش خرید</label>
+                            <span data-bind="enumDisplay: { value: PurchaseMethod }"></span>
+                        </div>
+                    </div>
+                    <div class="span3" data-bind="with: UserDefinedCategory">
+                        <div >
+                            <label>دسته بندی</label>
+                            <span data-bind="text: Title"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span12">
+                        <div>
+                            <label>توضیحات</label>
+                            <span data-bind="text: Des"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+ <div class="wrapper shadow">
+     <div data-bind="click: $root.changeShowDetail" 
+          class="panel-header ui-corner-top bold green pointer">
+         <i class="icon-white" data-bind="css: { 'icon-plus': !$root.canShowDetail(), 'icon-minus': $root.canShowDetail() }"></i>
+         بخش کالا
+     </div>
+     <div class="panel-body" data-bind="visible: $root.canShowDetail()">
+            <table class="table table-hover" data-bind="visible: $data['RequestDetail' + RequestType() + 's'].any()">
+                <thead>
+                    <tr>
+                     <th>ردیف</th>
+                     <th data-bind="visible: ['Good', 'Food'].contains(RequestType())">کالا</th>
+                     <th data-bind="visible: RequestType() === 'Service'">خدمات</th>
+                     <th data-bind="visible: ['Good', 'Food', 'Service', 'Vehicle'].contains(RequestType())">تعداد</th>
+                     <th data-bind="visible: ['Good', 'Food', 'Service', 'Vehicle'].contains(RequestType())">قیمت واحد</th>
+                     <th data-bind="visible: ['Good', 'Food', 'Service', 'Vehicle'].contains(RequestType())">قیمت کل</th>
+                     <th data-bind="visible: RequestType() === 'Ticket'">مسافر</th>
+                     <th data-bind="visible: RequestType() === 'Ticket'">تاریخ رفت</th>
+                     <th data-bind="visible: RequestType() === 'Ticket'">تاریخ برگشت</th>
+                     <th data-bind="visible: RequestType() === 'Ticket'">قیمت رفت</th>
+                     <th data-bind="visible: RequestType() === 'Ticket'">قیمت برگشت</th>
+                     <th>تاریخ انجام</th>
+                      <th data-bind="visible: RequestType() === 'Good'">رسید</th>
+                 </tr>
+                </thead>
+                <tbody data-bind="foreach: $data['RequestDetail' + RequestType() + 's']">
+                    <tr class="pointer"
+                        data-bind="
+    css: { info: $data == $root.currentDetail(), error: IsCancel(), success: !isNullOrEmpty(DoneDate()) }">
+                        <td data-bind="text: Row"></td>
+                        <td data-bind="visible: ['Good', 'Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+                            <span data-bind="if: ['Good', 'Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+                                <span data-bind="if: $parent.RequestType() === 'Good'">
+                                    <span data-bind="with: ItemGood">
+                                        <span data-bind="text: No() + ' ' + Title()"></span>
+                                    </span>
+                                </span>
+                                <span data-bind="if: $parent.RequestType() === 'Service'">
+                                    <span data-bind="with: ItemService">
+                                        <span data-bind="text: Title"></span>
+                                    </span>
+                                </span>
+                                <span data-bind="if: $parent.RequestType() === 'Food'">
+                                    <span data-bind="with: ItemFood">
+                                        <span data-bind="text: Title"></span>
+                                    </span>
+                                </span>
+                                <span data-bind="if: $parent.RequestType() === 'Vehicle'">
+                                    <span data-bind="with: ItemVehicle">
+                                        <span data-bind="text: Title"></span>
+                                    </span>
+                                </span>
+                            </span>
+                        </td>
+                        <td data-bind="visible: ['Good', 'Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+                            <span data-bind="if: ['Good', 'Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+                                <span data-bind="text: Qty"></span>
+
+                                <span data-bind="if: $parent.RequestType() === 'Good'">
+                                    <span data-bind="with: ItemGood">
+                                        <span data-bind="with: Scale">
+                                            <span data-bind="text: Title"></span>
+                                        </span>
+                                    </span>
+                                </span>
+                                <span data-bind="if: ['Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+                                    <span data-bind="with: Scale">
+                                        <span data-bind="text: Title"></span>
+                                    </span>
+                                </span>
+                            </span>
+                        </td>
+                        <td data-bind="visible: ['Good', 'Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+                            <span data-bind="if: ['Good', 'Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+                                <span data-bind="text: UnitPrice"></span>
+                            </span>
+                        </td>
+                        <td data-bind="visible: ['Good', 'Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+                            <span data-bind="if: ['Good', 'Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+                                <span data-bind="text: TotalPrice"></span>
+                            </span>
+                        </td>
+                        <td data-bind="visible: $parent.RequestType() === 'Ticket'">
+                            <span data-bind="if: $parent.RequestType() === 'Ticket'">
+                                <span data-bind="with: Passenger">
+                                    <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+                                </span>
+                            </span>
+                        </td>
+                        <td data-bind="visible: $parent.RequestType() === 'Ticket'">
+                            <span data-bind="if: $parent.RequestType() === 'Ticket'">
+                                <span data-bind="text: GoOnDate"></span>
+                            </span>
+                        </td>
+                        <td data-bind="visible: $parent.RequestType() === 'Ticket'">
+                            <span data-bind="if: $parent.RequestType() === 'Ticket'">
+                                <span data-bind="text: ReturnDate"></span>
+                            </span>
+                        </td>
+                        <td data-bind="visible: $parent.RequestType() === 'Ticket'">
+                            <span data-bind="if: $parent.RequestType() === 'Ticket'">
+                                <span data-bind="text: GoOnPrice"></span>
+                            </span>
+                            
+                        </td>
+                        <td data-bind="visible: $parent.RequestType() === 'Ticket'">
+                            <span data-bind="if: $parent.RequestType() === 'Ticket'">
+                                <span data-bind="text: ReturnPrice"></span>
+                            </span>
+                            
+                        </td>
+                        <td data-bind="text: DoneDate"></td>
+                        <td data-bind="if: $parent.RequestType() === 'Good', visible: $parent.RequestType() === 'Good'">
+                            <span data-bind="with: InputDetail">
+                                <span data-bind="with: Input">
+                                    <span data-bind="text: No"></span>
+                                </span>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr data-bind="visible: ['Good', 'Food', 'Service', 'Vehicle'].contains(RequestType())">
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                     <td data-bind="if: ['Good', 'Food', 'Service', 'Vehicle'].contains(RequestType())">
+                         <span data-bind="text: TotalPrice" data-converter="text: float"></span>
+                     </td>
+                     <td></td>
+                 </tr>
+                </tfoot>
+            </table>
+         <div data-bind="visible: !$data['RequestDetail' + RequestType() + 's'].any()">
+             اطلاعاتی جهت نمایش وجود ندارد
+         </div>
+        </div>
+    </div>
+    
+ <div class="wrapper shadow">
+     <div class="panel-header ui-corner-top bold yellow pointer"
+         data-bind="click: $root.changeShowFinance">
+         <i class="icon-white" data-bind="css: { 'icon-plus': !$root.canShowFinance(), 'icon-minus': $root.canShowFinance() }"></i>
+         بخش مالی
+     </div>
+     <div class="panel-body"
+         data-bind="visible: $root.canShowFinance()">
+            این بخش هنوز پیاده سازی نشده
+        </div>
+    </div>

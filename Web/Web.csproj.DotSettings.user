@@ -1,0 +1,18 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/IgnoredPaths/=APPCONFIRM_005CCONTENT_005CIMAGES_005CLOADING_002DSMALL_002EGIF/@EntryIndexedValue">AppConfirm\Content\images\loading-small.gif</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/IgnoredPaths/=APP_005CCONTENT/@EntryIndexedValue">App\Content</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/IgnoredPaths/=APP_005CVIEWS_005CCONTENT/@EntryIndexedValue">App\views\Content</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/IgnoredPaths/=APP_005CVIEWS_005CCONTENT_005CIMAGES/@EntryIndexedValue">App\views\Content\images</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/IgnoredPaths/=CONTENT_005CIMAGES_005CSEARCH_002EJPG/@EntryIndexedValue">Content\images\search.jpg</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/IgnoredPaths/=_002E_002E_005CCONTENT/@EntryIndexedValue">..\Content</s:String>
+	
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/IgnoredPaths/=_002E_002E_005CSCRIPTS/@EntryIndexedValue">..\Scripts</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/MappedPaths/=CONTENT_005CCONTENTIMAGESPNG48ACCEPT_002EPNG/@EntryIndexedValue"></s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/PathsInCorrectCasing/=APPCONFIRM_005CCONTENT_005CIMAGES_005CLOADING_002DSMALL_002EGIF/@EntryIndexedValue">AppConfirm\Content\images\loading-small.gif</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/PathsInCorrectCasing/=APP_005CCONTENT/@EntryIndexedValue">App\Content</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/PathsInCorrectCasing/=APP_005CVIEWS_005CCONTENT/@EntryIndexedValue">App\views\Content</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/PathsInCorrectCasing/=APP_005CVIEWS_005CCONTENT_005CIMAGES/@EntryIndexedValue">App\views\Content\images</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/PathsInCorrectCasing/=CONTENT_005CCONTENTIMAGESPNG48ACCEPT_002EPNG/@EntryIndexedValue">Content\ContentimagesPng48Accept.png</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/PathsInCorrectCasing/=CONTENT_005CIMAGES_005CSEARCH_002EJPG/@EntryIndexedValue">Content\images\search.jpg</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/PathsInCorrectCasing/=_002E_002E_005CCONTENT/@EntryIndexedValue">..\Content</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/PathsInCorrectCasing/=_002E_002E_005CSCRIPTS/@EntryIndexedValue">..\Scripts</s:String></wpf:ResourceDictionary>

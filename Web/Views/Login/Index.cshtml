@@ -1,0 +1,31 @@
+﻿@using System.Web.Optimization
+
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>ورود به سیستم</title>
+        
+        <script type="text/javascript">
+            if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+                var msViewportStyle = document.createElement("style");
+                var mq = "@@-ms-viewport{width:auto!important}";
+                msViewportStyle.appendChild(document.createTextNode(mq));
+                document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+            }
+
+        </script>
+    </head>
+
+    @Styles.Render("~/Content/css")
+
+    <body>
+        <div>
+            @Scripts.Render("~/scripts/vendor")
+            @Html.Partial("_Login")
+            
+            
+        </div>
+    </body>
+</html>

@@ -1,0 +1,302 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+
+
+    <script src="/scripts/bootstrap.js"></script>
+      <script src="../Scripts/jquery-1.9.1.js"></script>
+        <script src="../Scripts/jquery-ui-1.10.2.js"></script>
+        <script src="../Scripts/knockout-2.2.1.js"></script>
+        <script src="../Scripts/q.js"></script>
+        
+    <script src="../Scripts/breeze.debug.js"></script>
+    <script src="../Scripts/amplify.js"></script>
+    <script src="../Scripts/helper/helper.string.js"></script>
+    <script src="../Scripts/helper/helper.window.js"></script>
+    <script src="../Scripts/helper/helper.ajax.js"></script>
+    <script src="../Scripts/helper/helper.datacontext.js"></script>
+    <script src="../Scripts/helper/helper.ko.js"></script>
+    <script src="../Scripts/helper/helper.array.js"></script>
+    <script src="../Scripts/helper/helper.ko.bindingHandlers.js"></script>
+
+    <link href="Content/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
+   
+    <link href="Content/app.widget.css" rel="stylesheet" />
+    
+ 
+</head>
+<body dir="rtl">
+    <script>
+        $(function () {
+            ko.bindingHandlers.AutoX = {
+                init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+                    var $element = $(element),
+                        value = valueAccessor(),
+                        context = value.datacontext,
+                        displayProp = value.displayProp,
+                        valueProp = value.valueProp,
+                        modelProp = value.modelProp,
+                        allData = value.allData,
+                        options = { autoFocus: true },
+                        data = value.data,
+                        dataStatus = value.data == undefined ? 'remote' : 'local';
+
+                    options.select = function(event, ui) {
+                        input.val(ui.item.label);
+                        modelProp(ui.item.item);
+                        valueProp(ui.item.value);
+                        return false;
+                    };
+                    
+                    options.focus = function (event, ui) {
+                        input.val(ui.item.label);
+                        return false;
+                    };
+                    
+                    options.change = function (event, ui) {
+                        if (!ui.item) {
+                            input.val('');
+                            modelProp(null);
+                            valueProp(null);
+                            return false;
+                        }
+                        input.val(ui.item.label);
+                        return false;
+                    };
+
+                    options.source = function (request, response) {
+                        var displays = displayProp.split(',');
+                        
+                        if (dataStatus == 'local')
+                            runLocal();
+                        else if (dataStatus == 'remote')
+                            runRemote();
+                        
+                        return;
+
+                        function runLocal() {
+                            var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term.trim()), "i");
+                            response($.map(data(), function(item) {
+                                var label = "";
+                                displays.foreach(function(p) {
+                                    label = label == "" ? item[p]() : label + " " + item[p]();
+                                });
+                                if (!request.term.trim() || matcher.test(label))
+                                    return {
+                                        label: label,
+                                        value: item['ID'](),
+                                        item: item
+                                    };
+                            }));
+                        }
+
+                        function runRemote() {
+                            var q = context.query('CostTypes');
+
+                            if (request.term.trim() != "") {
+                                var preds = [];
+                                displays.foreach(function (p) {
+                                    preds.push(breeze.Predicate.create(p, "contains", request.term));
+                                });
+                                var pred = breeze.Predicate.or(preds);
+                                q = q.where(pred);
+                            }
+
+                            context.executeQuery(q)
+                                .then(function (data) {
+                                    response($.map(data.results, function (item) {
+                                        var label = "";
+                                        displays.foreach(function (p) {
+                                            label = label == "" ? item[p]() : label + " " + item[p]();
+                                        });
+                                        return {
+                                            label: label,
+                                            value: item['ID'](),
+                                            item: item
+                                        };
+                                    }));
+                                });
+                        }
+                        
+                    };
+                    var w = $element.width();
+                    //$element.hide();
+                    this.wrapper = $("<span>")
+                       .addClass("custom-combobox")
+                       .insertAfter($element);
+                    
+                    //Move input($element) to wrapper
+                    this.wrapper.prepend($element);
+                    var input = $element;
+                    //var input = $("<input>")
+                    //.appendTo(this.wrapper)
+                    
+                    input
+                        .css('width', $element.width())
+                        .attr("title", "")
+                        .addClass("custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-right ");
+                    input.autocomplete(options).data("ui-autocomplete")._renderItem = function (ul, item) {
+                        return $("<li>")
+                            .append("<a>" + item.label + "</a>")
+                            .appendTo(ul);
+                    };
+                    
+                    input.autocomplete("option", "position", { my: "right top", at: "right bottom" });
+
+                    if (!allData) {
+                        input.addClass('ui-corner-left');
+                        return;
+                    }
+                    var wasOpen = false;
+                    
+                    $("<a>")
+                    .attr("tabIndex", -1)
+                    .tooltip()
+                    .appendTo(this.wrapper)
+                    .mousedown(function () {
+                        wasOpen = input.autocomplete("widget").is(":visible");
+                    })
+                    .button({
+                        icons: {
+                            primary: "ui-icon-triangle-1-s"
+                        },
+                        text: false
+                    })
+                    .removeClass("ui-corner-all")
+                    .addClass("custom-combobox-toggle ui-corner-left").click(function () {
+                        input.focus();
+                        
+                        if (wasOpen) {
+                            return;
+                        }
+                        
+                        input.autocomplete("search", " ");
+                    });
+                },
+                update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+                    var value = valueAccessor();
+                    var modelProp = value.modelProp;
+                    var $element = $(element);
+
+                    if (modelProp()) {
+                        $element.val(modelProp().Title());
+                    }
+                }                
+            };
+            
+            ko.bindingHandlers.something = {
+                init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+                    var value = valueAccessor();
+                    var modelProp = value.modelProp;
+                    var $element = $(element);
+                    
+                    if (modelProp()) {
+                        $element.val(modelProp().Title());
+                    }
+                    this.wrapper = $("<span>")
+                      .addClass("custom-combobox")
+                      .insertAfter($element);
+                    this.wrapper.prepend($element);
+                    $element
+                        .attr("title", "")
+                        .addClass("custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-right ");
+                    
+                    $("<a>")
+                    .attr("tabIndex", -1)
+                    .tooltip()
+                    .appendTo(this.wrapper)
+                    .button({
+                        icons: {
+                            primary: "ui-icon-triangle-1-s"
+                        },
+                        text: false
+                    })
+                    .removeClass("ui-corner-all")
+                    .addClass("custom-combobox-toggle ui-corner-left")
+                        .click(function () {
+                            $element.focus();
+                    });
+                },
+                update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+                    var value = valueAccessor();
+                    var modelProp = value.modelProp;
+                    var $element = $(element);
+
+                    if (modelProp()) {
+                        $element.val(modelProp().Title());
+                    }
+                }
+            }
+            var vm = function() {
+                var context = new helper.datacontext();
+                var list = ko.observableArray();
+                var costTypes = ko.observableArray();
+                var costType = ko.observable();
+                var NatureCost = ko.observable();
+
+                var init = function() {
+                    var q = context.query('EffectiveCostVehicles');
+
+                    context.executeQuery(q)
+                        .then(function(data) {
+                            list(data.results);
+                        })
+                        .fail(function() {
+                            alert('fail to load EffectiveCostVehicles ...');
+                        });
+                    
+                    q = context.query('CostTypes');
+                    context.executeQuery(q)
+                        .then(function(data) {
+                            costTypes(data.results);
+                        })
+                        .fail(function() {
+                            alert('fail to load  costTypes');
+                        });
+
+
+                };
+                var add = function() {
+                    var newEntity = context.addEntity('EffectiveCostVehicle');
+                    list.push(newEntity);
+                };
+
+                return {
+                    context: context,
+                    list: list,
+                    costTypes: costTypes,
+                    init: init,
+                    add: add,
+                    costType: costType,
+                    NatureCost: NatureCost
+                };
+            };
+
+            var thisvm = new vm();
+            thisvm.init();
+            ko.applyBindings(thisvm);
+        });
+    </script>
+    <button data-bind="click: add">Add</button>
+    <input data-bind="enumCombo: { Type: 'RequestStatus', value: NatureCost }"/>
+    <!--<select data-bind="options: $root.costTypes, optionsText: 'Title',value: costType"></select>
+    <div data-bind="if: costType()">
+         <h3 data-bind="text: costType().Title()"></h3>
+    </div>
+    <!--<div data-bind="foreach: list">
+        <h1 data-bind="text: ID"></h1>
+        <select data-bind="options: $root.costTypes, optionsText: 'Title', value: CostType"></select>
+        <input  data-bind="AutoX: { modelProp: CostType, datacontext: $root.context, displayProp: 'Title', valueProp: CostTypeID, allData: true,data: $root.costTypes }" style="width: 50%" 
+             />
+        <hr/>
+        <div data-bind="if: CostType()">
+            <h1 data-bind="text: CostType().Title()"></h1>a
+            <h1 data-bind="text: CostTypeID"></h1>
+        </div>
+        
+    </div>-->
+    
+    
+</body>
+</html>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>nodejs-v.0.8.16</id>
+    <version>0.8.16</version>
+    <title>nodejs</title>
+    <authors>nodejs</authors>
+    <owners>nodejs</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>nodejs</description>
+    <releaseNotes />
+    <copyright>Copyright 2012</copyright>
+    <language />
+    <tags>nodejs</tags>
+  </metadata>
+</package>

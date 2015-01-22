@@ -1,0 +1,41 @@
+﻿<style>
+    .wrapper {
+        background-color: white
+    }
+
+    .panel-header {
+         
+        padding: 15px;
+        overflow-y: auto;
+    }
+
+    .panel-body {
+        border-top: 1px solid #E2DEDE;
+        padding: 15px;
+        overflow-y: auto;
+    }
+
+    .panel-footer {
+        border-top: 1px solid #E2DEDE;
+        padding: 15px;
+        overflow-y: auto;
+    }
+
+    .tr-header td {
+        border-top: 1px solid #dddddd;
+        border-bottom: none
+    }
+
+    .tr-body td {
+        border-top: none;
+        border-bottom: 1px solid #dddddd;
+    }
+</style>
+<section>
+    <h2 class="page-title" data-bind="text: title"></h2>
+    
+    <div class="ui-corner-all wrapper" 
+         data-bind="visible: viewController.currentView().name === 'firstRequests'">
+       <!--ko compose: {view: 'confirm/service/templates/firstRequestTmp'} --><!--/ko-->
+    </div> 
+</section>

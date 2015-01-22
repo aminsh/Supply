@@ -1,0 +1,30 @@
+﻿<thead>
+     <tr>
+     <th>شامل خرید ؟</th>
+     <th>کالا</th>
+     <th>مقدار</th>
+     <th></th>
+ </tr>
+
+</thead>
+
+                          
+<tbody data-bind="foreach: RequestDetailVehicles">
+ <tr>
+    <td>
+        <span data-bind="css: { 'icon-dollar': IsOrder() }"></span>
+    </td>
+    <td>
+        <span data-bind="with: ItemVehicle">
+            <span data-bind="text: Title()"></span>
+        </span>
+    </td>
+     <td>
+         <span data-bind="text: Qty"></span>
+         <span data-bind="with: Scale">
+             <span data-bind="text: Title"></span>
+         </span>
+     </td>
+</tr>
+
+</tbody>

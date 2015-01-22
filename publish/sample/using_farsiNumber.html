@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="../Scripts/jquery-1.9.1.js"></script>
+</head>
+<body>
+    <script>
+        $(function() {
+            function toPersianNumber(num) {
+                var persianNumberArray = new Array('۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹')
+                var res = ''
+                for (; num / 10 > 0;) {
+                    n = num % 10
+                    num = parseInt(num / 10)
+                    res = persianNumberArray[n] + res
+                }
+                return res
+            }
+
+
+$('#btn').click(function () {
+var name = "131321311"
+alert(toPersianNumber(parseInt($('#txt').val())));
+});
+});
+
+</script>
+<input type="text" id="txt"/>
+<input type="button" id="btn" value="Click to convert number"/>
+</body>
+</html>

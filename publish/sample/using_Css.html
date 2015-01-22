@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="../Content/main.css" rel="stylesheet" />
+    <script src="../Scripts/jquery-1.9.1.js"></script>
+</head>
+    <body>
+        <script>
+            $(function () {
+                var list = ['approved', 'pendding', 'canceled'];
+                $('#btn').addClass(list[0]);
+
+                var i = 0;
+                
+                $('#btn').click(function() {
+                    $('#btn').removeClass(list[i]);
+
+                    if (i + 1 < list.length)
+                        i += 1;
+                    else
+                        i = 0;
+                    $('#btn').addClass(list[i]);
+                });
+            });
+        </script>
+        <h1>Test CSS</h1>
+        <br/><br/><br/>
+        <!--<button class="statusconfirm"></button>
+            <br/>
+            <a href="#" id="btn">
+                <div class="statusconfirm"></div>
+            </a>
+            
+            
+            <br/>
+            <div class="statusconfirm"></div>
+            <p>
+                <button class="statusconfirm"></button>
+            </p>
+        
+            <input type="button" class="statusconfirm"/>-->
+        
+        <button  id="btn"></button>
+    </body>
+</html>

@@ -1,0 +1,56 @@
+﻿<section>
+    <h2 class="page-title" data-bind="text: title"></h2>
+    
+    <!--ko compose: {view: 'layout/standardButtons'} --><!--/ko-->
+
+    <a class="btn btn-primary" data-bind="click: add">
+        <i class="icon-plus icon-white"></i>
+        جدید
+    </a>
+
+    <table class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>شناسه</th>
+                <th>فعال ؟</th>
+                <th>تاریخ شروع</th>
+                <th>تاریخ پایان</th>
+                <th>حداقل مبلغ معاملات متوسط</th>
+                <th>نرخ مالیات بر ارزش افزوده</th>
+                <th>نرخ عوارض</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: periods">
+            <tr>
+                <td data-bind="text: ID" ></td>
+                <td style="min-width: 100px"><input type="checkbox" data-bind="checked: IsActive"/></td>
+                <td><input type="text" data-bind="value: DateFrom" /></td>
+                <td><input type="text" data-bind="value: DateTo" /></td>
+                <td><input type="text" data-bind="value: MiddleTransactionAtleast" /></td>
+                <td><input type="text" data-bind="value: VATPercent" /></td>
+                <td><input type="text" data-bind="value: TaxPercent" /></td>
+                <td style="min-width: 100px">
+                    <a class="btn btn-danger" href="#" data-bind="click: $parent.remove"><i class="icon-trash icon-white"></i> حذف </a> 
+                </td>
+            </tr>
+            <tr data-bind="visible: $root.hasChanges() && $data.errors.count()" style="background-color: #FFFFB9">
+                <td colspan="5">
+                    <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+                     
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="8" >
+                    <div data-bind="with: periodpager">
+                        <!--ko compose: {view: 'layout/pager'} --><!--/ko-->
+                    </div>
+                    
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+   
+</section>

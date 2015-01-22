@@ -1,0 +1,121 @@
+﻿<div data-bind="with: current" >
+        <div class="view-single">
+            <div class="row" data-bind="with: Section">
+                <span>قسمت : </span>
+                <span data-bind="text: Title"></span>
+            </div>
+            <div class="row" data-bind="with: Person">
+                <span>درخواست دهنده : </span>
+                <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+            </div>
+            <div class="row">
+                <div class="span3">
+                    <div>
+                        <span>شماره درخواست : </span>
+                        <span data-bind="text: OrderNo"></span>
+                    </div>
+                </div>
+                <div class="span3">
+                    <span>تاریخ درخواست : </span>
+                    <span data-bind="text: ID"></span>
+                </div>
+            </div>
+            <div class="row">
+                <span>نامه (ها) : </span>
+
+                <div data-bind="visible: !LetterRequestGoods.count()">
+                    ندارد
+                </div>
+
+
+                <ul data-bind="foreach: LetterRequestGoods, visible: LetterRequestGoods.count()">
+                    
+                    <li>
+                        <span data-bind="text: No"></span>
+                        &nbsp; &lArr; &nbsp;
+                        <span data-bind="text: Date" ></span>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="row">
+                <div class="span3">
+                    <div data-bind="with: PurchasingOfficer">
+                        <span>کارپرداز : </span>
+                        <span data-bind="text: Title"></span>
+                    </div>
+                </div>
+                <div class="span3">
+                    <div>
+                        <span>تاریخ ارائه به کارپرداز : </span>
+                        <span data-bind="text: OrderDate"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span3">
+                    <div>
+                        <span>وضعیت : </span>
+                        <span data-bind="enumDisplay: { value: Status }" />
+                    </div>
+                </div>
+                <div class="span3">
+                    <div>
+                        <span> روش خرید : </span>
+                        <span  data-bind="enumDisplay: { value: PurchaseMethod }"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <table class="table" >
+                <thead>
+                    <tr>
+                        <th>ردیف</th>
+                        <th>کالا</th>
+                        <th>تعداد</th>
+                        <th>قیمت واحد</th>
+                        <th>قیمت کل</th>
+                        <th>جمع هزینه های موثر </th>
+                        <th>مبلغ نهایی </th>
+                        <th>تاریخ انجام</th>
+                        <th>فروشنده</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: RequestDetailGoods">
+                    <tr>
+                        <td data-bind="text: Row"></td>
+                        <td>
+                            <div data-bind="with: ItemGood">
+                                <span data-bind="text: No() + ' ' + Title()"></span>
+                            </div>
+                        </td>
+                        <td>
+                            <span data-bind="if: ItemGood()">
+                                <span data-bind="text: Qty() + ' '"></span>     
+                            </span>
+                            <span data-bind="with: ItemGood">
+                                <span data-bind="with: Scale">
+                                    <span data-bind="text: Title"></span>
+                                </span>
+                            </span>
+                        </td>
+                        <td data-bind="text: UnitPrice"></td>
+                        <td data-bind="text: TotalPrice"></td>
+                        <td data-bind="text: SumEffectiveCostGoodDetails"></td>
+                        <td data-bind="text: TotalPriceAndEffectiveCost"></td>
+                        <td data-bind="text: DoneDate"></td>
+                        <td>
+                            <div data-bind="if: Seller() != null">
+                                <span data-bind="text: Seller().Title()"></span>
+                            </div>
+                        </td>
+
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr></tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>

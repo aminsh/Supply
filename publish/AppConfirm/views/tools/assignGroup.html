@@ -1,0 +1,32 @@
+﻿<div data-bind="dialog: { isOpen: canShowAssignGroup, title: 'مقدار دهی گروهی', minWidth: 500, minHeight: 200, modal: true, at: 'center center', my: 'center center' }">
+    <div class="view-single row" style="padding: 1em; margin: 2em;"
+        >
+        <div>
+            <label>کارپرداز : </label>
+            <input   
+                data-bind="combo: {
+    modelProp: assignGroup.grpPurchasingOfficer,
+    displayProp: 'Title', allData: true, entityName: 'PurchasingOfficer', pluralEntityName: 'PurchasingOfficers'
+}"/>
+        </div>
+        <div>
+            <label>قسمت : </label>
+            <input   
+                data-bind="combo: {
+    modelProp: assignGroup.grpSection,
+    displayProp: 'Title', allData: true, entityName: 'Section', pluralEntityName: 'Sections'
+}"/>
+        </div>
+
+        <div>
+            <label> تاریخ انجام : </label>
+            <input type="text" data-bind="myDatePicker: assignGroup.grpDoneDate, value: assignGroup.grpDoneDate" data-converter="value: persianDate"/>
+        </div>
+        <br/>
+        <a class="btn btn-primary pull-left" data-bind="click: assignGroup.doAssign">
+            <i class="icon-plus-sign icon-white"></i>
+            کپی
+        </a>
+    </div>
+
+</div>

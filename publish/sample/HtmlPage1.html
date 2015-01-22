@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="../Scripts/knockout-2.2.1.js"></script>
+
+    <script src="../Scripts/knockout.validation.js"></script>
+    <script src="../Scripts/jquery-1.9.1.js"></script>
+  
+    <script src="../Scripts/toastr.js"></script>
+    <script src="../Scripts/helper/helper.note.js"></script>
+    <script src="../Scripts/helper/helper.string.js"></script>
+    <script src="../Scripts/bootstrap.js"></script>
+    <script src="../Scripts/bootstrap.validate.js"></script>
+
+    <link href="../Content/toastr.css" rel="stylesheet" />
+    <link href="../Content/bootstrap.css" rel="stylesheet" />
+    <link href="../Content/main.css" rel="stylesheet" />
+</head>
+    <body >
+        
+        
+        <div class="btn-group">
+           
+            
+
+        <a href="#myModal" role="button" class="btn" data-toggle="modal">Launch demo modal</a>
+        <input type="button" id="btnAlaki" value="alaki"/>
+ <a class="btn btn-primary pull-right" href="#"><i class="icon-user icon-white"></i> User</a>
+             <a class="btn btn-primary dropdown-toggle ri" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="#"><i class="icon-pencil"></i> Edit</a></li>
+                <li><a href="#"><i class="icon-trash"></i> Delete</a></li>
+                <li><a href="#"><i class="icon-ban-circle"></i> Ban</a></li>
+                <li class="divider"></li>
+                <li><a href="#"><i class="i"></i> Make admin</a></li>
+            </ul>
+        </div>
+        <!-- Modal -->
+        <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Modal header</h3>
+            </div>
+            <div class="modal-body">
+                <p id="ppp">Name: <input type="text"/></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">بستن</button>
+                <button class="btn btn-primary" id="btnSave">ذخیره سازی</button>
+            </div>
+        </div>
+        <script>
+            $(function() {
+                //var l = ko.observableArray();
+                ko.observableArray.fn.filter = function (callback) {
+                    return ko.utils.arrayFilter(this(), callback);
+                };
+
+                $('#btnSave').click(function() {
+                    $('#ppp').html('sssssssssssssssssssssssssssssssssssssssssss');
+                    alert('ssssssss');
+                });
+                
+                $('#btnAlaki').click(function () {
+                    //$('#myModal').modal();
+                    
+                    $('#myModal').modal({
+                        keyboard: false
+                    })
+                });
+
+                ko.observableArray.fn.baselist = ko.observableArray();
+                //ko.observable.fn. = ko.observableArray();
+                
+                var vm = {
+                    load: function() {
+                        var self = this;
+                        vm.list.baselist([{ d: "a" }, { d: "b" }, { d: "c" }]);
+                        vm.lists.push(vm.list);
+                        vm.lists.push(vm.list2);
+                        vm.lists.push(vm.list3);
+                    },
+                    self: null,
+                    name: ko.observable().extend({ required: true }),
+                    lists: ko.observableArray(),
+                    list: ko.observableArray([{ d: "a" }, { d: "b" }, { d: "c" }]),
+                    list2: ko.observableArray([{ d: "a" }, { d: "b" }, { d: "c" }]),
+                    list3: ko.observableArray([{ d: "a" }, { d: "b" }, { d: "c" }]),
+                    value: ko.observable(''),
+                    filterList: function () {
+                        var me = this;
+                        var f = this.list.filter(function (item) {
+                            return item.d == me.value();
+                        });
+                        
+                        //var f = ko.utils.arrayFilter(this.list(), function (item) {
+                        //    return  item.d == "a";
+                            
+                        //});
+
+                        this.list(f);
+                    },
+                    returnList: function() {
+                        //alert(this.list().length);
+                        //helper.note.warning("خروج از سیستم امکانپذیر نمیباشد");
+                        //this.list.foreach(function(item) {
+                        //    item.d = item.d + "_util";
+                        //});
+                        vm.list(vm.list.baselist());
+                    }
+                };
+
+                vm.load();
+                ko.applyBindings(vm);
+
+                var x = [1, 2, 3, 5, 6, 7, 8, 9, 10];
+
+                $('#btn').click(function () {
+                    x.removeAll();
+                    helper.note.info(x.count());
+                });
+
+               
+                
+                $('#btnX').click(function () {
+                    
+                    alert("/supply/".indexOf("/"));
+                });
+
+            });
+        </script>
+        <style>
+            body {
+                background-color: white
+            }
+
+            input:focus {
+                width: 300px;
+                background-color: white;
+            }
+
+            input {
+                background-color: navy;
+            }
+
+            input:required {
+                background-color: lightpink;
+            }
+        </style>
+        <button style="background-image: url('../../Content/images/Png48Accept.png'); background-repeat: no-repeat; width: 50px;height: 50px;"></button>
+         <ul data-bind="foreach: list">
+        <li data-bind="text: d"></li>
+    </ul>
+    <p><input type="text" data-bind="value: value"/></p>
+    <input type="button" data-bind="click: filterList" value="Click to filter list"/>
+    <input type="button" data-bind="click: returnList" value="Return list"/>
+    
+    <input type="button" id="btn" value="Click"/>
+   
+    <b class="icon-adjust"></b>
+    <br/>
+        <input type="text" data-bind="value: name" placeholder="نام کاربری " />
+        <span data-bind="text: name.validationMessage"></span>
+    
+                                                                                              </p>
+  <p><input name="name" type="text" validate="required"/>                                     </p>
+  <p><input name="email" type="text" validate="email"/>                                       </p>
+        <p><input name="www" type="text" validate="www"/>                                           </p>
+        <p><input name="address" type="text" validate="length_min,10"/>                             </p>
+        <p><input name="number" id="number" type="text" validate="float|between,5,7" style="background-color: transparent"  />              </p>
+        
+        <a class="close" data-dismiss="alert" href="#">
+            <div style="background-color: purple">
+                &times;
+                <h1>Supply</h1>
+            </div>
+        </a>
+        
+        <input type="button" id="btnX" value="Click to see root"/>
+         <div class="view-list">
+            <a href="#" id="lnk">
+                <h1>Hello world</h1>
+                <input type="text" value="Ssalam"/>
+                <input type="button" value="Click to enjoy"/>
+            </a>
+        </div>
+         <div class="view-list">
+            <a href="#" id="lnk">
+                <h1>Hello world</h1>
+                <input type="text" value="Ssalam" class="left" style="float: left"/>
+                <input type="button" value="Click to enjoy" class="left"/>
+            </a>
+        </div>
+        <div class="view-list">
+            <a href="#" id="lnk">
+                <h1>Hello world</h1>
+                <input type="text" value="Ssalam"/>
+                <input type="button" value="Click to enjoy"/>
+            </a>
+        </div>
+        
+        <div class="row" style="border-style: solid none solid none; border-width: 1px; border-color: #C0C0C0">
+            <div class="span9">
+                Level 1 column
+                <div class="row">
+                    <div class="span4">
+                        <h1>Hello world</h1>
+                <input type="text" value="Ssalam"/>
+                <input type="button" value="Click to enjoy"/>
+                    </div>
+                    <div class="span4">
+                        <h1>Hello world</h1>
+                <input type="text" value="Ssalam"/>
+                <input type="button" value="Click to enjoy"/>
+                    </div>
+                        <div class="span1">Level 3</div>
+                    </div>
+            </div>
+        </div>
+        
+        <form class="form-horizontal">
+            <div class="control-group" style="float: left">
+                <label class="control-label" for="inputEmail">Email</label>
+                <div class="controls" >
+                    <input type="text" id="inputEmail" placeholder="Email"/>
+                </div>
+            </div>
+            <div class="control-group" style="float: left">
+                <label class="control-label" for="inputPassword">Password</label>
+                <div class="controls" style="float: left">
+                    <input type="password" id="inputPassword" placeholder="Password"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <label class="checkbox">
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <button type="submit" class="btn">Sign in</button>
+                </div>
+            </div>
+        </form>
+
+    </body>
+    <style>
+        .view-list:hover {
+            background-color: lightblue;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        $(function() {
+            $('.view-list').click(function () {
+                alert('ok you click me ....');
+            });
+        });
+    </script>
+
+</html>

@@ -1,0 +1,49 @@
+﻿<style>
+     h2.page-title {
+        margin-bottom: 0;
+    }
+    .view-single label {
+        width: 120px;
+        text-align: right;
+    }
+
+    .message {
+        font-size: 17px;
+        color: #777;
+    }
+
+    h2.header {
+        font-size: 20px;
+    }
+</style>
+
+<div class="messageBox" 
+    data-bind="drag: { options: { handle: '.modal-header', cursor: 'move' } }" 
+    style="font-family: tahoma;font-size: 12px;direction: rtl;width: 500px;padding-bottom: 0" >
+    <div class="modal-header">
+        <h2 class="header">لغو ردیف</h2>
+    </div>
+    <div class="modal-body view-single">
+        <div class="view-single">
+            <span class="message">
+                فقط ردیف های جدید قابل حذف میباشد ، آیا مایل به لغو ردیف جاری هستید ؟
+            </span>
+            <form style="margin-top: 2em">
+                <div>
+                    <label>علت لغو : </label>
+                    <textarea data-bind="value: cancelReason, valueUpdate: 'afterkeydown'" style="width: 90%" class="autofocus"></textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary pull-left"  style="font-family: tahoma" data-bind="click: ok">
+            <i class="icon-ok icon-white"></i>
+            <span>  تایید</span>
+        </button>
+        <button class="btn btn-danger pull-left"  style="font-family: tahoma" data-bind="click: close">
+            <i class="icon-remove icon-white"></i>
+            <span>  انصراف</span>
+        </button>
+    </div>
+</div>

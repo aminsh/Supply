@@ -1,0 +1,17 @@
+﻿<div style="padding: .8em" class="ui-corner-all">
+    <table>
+        <tr data-bind="foreach: settings.seasons">
+            <td >
+                <div data-bind="foreach: months">
+                    <div data-bind="css: { 'ui-state-default': !isSelected(), 'ui-state-active': isSelected() },
+    click: $parents[1].selectItem.bind($data, $parents[1])" style="width: 52px;height: 52px;margin-left: 0.5em;margin-bottom: 0.5em;text-align: center;" 
+                         class="ui-corner-all pointer  ">
+                        <br/>
+                        <div data-bind="text: name" ></div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+</div>

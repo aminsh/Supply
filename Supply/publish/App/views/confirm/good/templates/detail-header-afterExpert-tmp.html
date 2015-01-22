@@ -1,0 +1,11 @@
+﻿ <tr data-bind="if: ['Order', 'PurchasingOfficer', 'OrderDone', 'InventoryInput', 'InventoryOutput', 'Delivered'].contains(Status()),
+    visible: ['Order', 'PurchasingOfficer', 'OrderDone', 'InventoryInput', 'InventoryOutput', 'Delivered'].contains(Status())">
+     <th>شامل خرید ؟</th>
+     <th>کالا</th>
+     <th>مقدار</th>
+     <th data-bind="visible: RequestType() === 'Good' &&
+    ['InventoryInput', 'InventoryOutput', 'Delivered'].contains(Status())">رسید</th>
+     <th data-bind="visible: RequestType() === 'Good' &&
+    ['InventoryOutput', 'Delivered'].contains(Status())">حواله</th>
+     <th></th>
+ </tr>

@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{90140D0A-D928-4382-946E-011A72FAE6F8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Model</RootNamespace>
+    <AssemblyName>Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\FilterableAttribute.cs" />
+    <Compile Include="Attributes\UniqeAttribute.cs" />
+    <Compile Include="CostType.cs" />
+    <Compile Include="DefaultSetting.cs" />
+    <Compile Include="EffectiveCostFood.cs" />
+    <Compile Include="EffectiveCostGood.cs" />
+    <Compile Include="EffectiveCostService.cs" />
+    <Compile Include="EffectiveCostTicket.cs" />
+    <Compile Include="EffectiveCostVehicle.cs" />
+    <Compile Include="Input.cs" />
+    <Compile Include="InputDetail.cs" />
+    <Compile Include="Inventory.cs" />
+    <Compile Include="InventoryDetail.cs" />
+    <Compile Include="ItemFood.cs" />
+    <Compile Include="ItemGoodInStock.cs" />
+    <Compile Include="ItemTicket.cs" />
+    <Compile Include="Letter.cs" />
+    <Compile Include="Output.cs" />
+    <Compile Include="OutputDetail.cs" />
+    <Compile Include="Period.cs" />
+    <Compile Include="PermitBase.cs" />
+    <Compile Include="Person.cs" />
+    <Compile Include="Driver.cs" />
+    <Compile Include="EffectiveCost.cs" />
+    <Compile Include="Entity.cs" />
+    <Compile Include="EntityBasic.cs" />
+    <Compile Include="EntityType.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="ItemGood.cs" />
+    <Compile Include="ItemService.cs" />
+    <Compile Include="ItemVehicle.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchasingOfficer.cs" />
+    <Compile Include="Request.cs" />
+    <Compile Include="RequestDetail.cs" />
+    <Compile Include="RequestDetailFood.cs" />
+    <Compile Include="RequestDetailGood.cs" />
+    <Compile Include="RequestDetailService.cs" />
+    <Compile Include="RequestDetailTicket.cs" />
+    <Compile Include="RequestDetailVehicle.cs" />
+    <Compile Include="RequestFood.cs" />
+    <Compile Include="RequestGood.cs" />
+    <Compile Include="RequestService.cs" />
+    <Compile Include="RequestStep.cs" />
+    <Compile Include="RequestSubmitBatch.cs" />
+    <Compile Include="RequestTicket.cs" />
+    <Compile Include="RequestVehicle.cs" />
+    <Compile Include="Role.cs" />
+    <Compile Include="Scale.cs" />
+    <Compile Include="Section.cs" />
+    <Compile Include="SectionConfirm.cs" />
+    <Compile Include="Seller.cs" />
+    <Compile Include="SmallCost.cs" />
+    <Compile Include="Stock.cs" />
+    <Compile Include="Subject.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="UserDefinedCategory.cs" />
+    <Compile Include="UserInRole.cs" />
+    <Compile Include="Vehicle.cs" />
+    <Compile Include="VehicleType.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

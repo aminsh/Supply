@@ -1,0 +1,9 @@
+﻿<div data-bind="foreach: viewController.viewTypes" style="margin-bottom: 2em;margin-top: 2em;display: inline-block">
+    <button 
+        data-bind="attr: { title: title },
+    css: { 'view-icon-icon': name === 'icon', 'view-list-icon': name === 'list', 'view-detail-icon': name === 'detail' },
+    click: $root.viewController.selectView">
+           
+    </button>
+        
+</div>

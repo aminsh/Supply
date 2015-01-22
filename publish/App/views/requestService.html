@@ -1,0 +1,153 @@
+﻿<section class="k-rtl">
+    <h2 class="page-title" data-bind="text: title"></h2>
+   <br/>
+    <!--ko compose: {view: 'layout/standardButtons'} --><!--/ko-->
+    <br/>
+
+<div data-bind="foreach: requestServices">
+    <div class="row view-list">
+        <div class="row">
+            <div class="span9" style="font-size: 14px; color: #0000ff;">
+                <span >درخواست شماره  </span>
+                <span data-bind="text: ID"></span>
+                <span>به تاریخ </span>
+                <span data-bind="dateString: Date"></span>
+                <br/>
+                    
+                <button data-bind="statusShow: Status, click: $root.changeStatus" title="تغییر وضعیت"></button>
+                <br/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span2">
+                
+            </div>
+            <div class="span3">
+                <p>
+                    <span>قسمت : </span>
+                    <span data-bind="text: Section().Title()"></span>
+                </p>
+                <p>
+                    <span>درخواست کننده : </span>
+                    <span data-bind="text: Person().FirstName() + ' ' + Person().LastName()"></span>
+                </p>
+            </div>
+            <div class="span3">
+                <p>
+                    <span>وضعیت : </span>
+                    <span data-bind="enumDisplay: { value: Status, Type: 'RequestStatus' }"></span>
+                </p>
+            </div>
+            <div class="span2">
+                <div class="btn-group-vertical">
+                    <a class="btn btn-danger" href="#" data-bind="click: $root.remove"><i class="icon-trash icon-white"></i> حذف </a> 
+                    <a class="btn btn-primary"href="#" data-bind="attr: { href: '#/requestServiceEdit/' + ID() }"><i class="icon-pencil icon-white"></i> ویرایش </a>
+                </div>
+                <br/>
+                <input type="checkbox" data-bind="checked: ShowDetail"/><span> نمایش جزئیات </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span9" style=" color: #778899;">
+                <span>ایجاد شده توسط  </span>
+                <span data-bind="text: CreatedByUser().FirstName() + ' ' + CreatedByUser().LastName()"></span>
+                <span>  در تاریخ  </span>
+                <span data-bind="dateString: CreatedOnDate()"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div data-bind="visible: ShowDetail() && RequestDetailServices.count()" style="background-color: white;width: 70%">
+                <table class="table table-condensed table-hover"  >
+                    <thead>
+                        <tr>
+                            <th>ردیف</th>
+                            <th>لغو شده ؟</th>
+                            <th>کالا</th>
+                            <th>تعداد</th>
+                            <th>قیمت واحد</th>
+                            <th>قیمت کل</th>
+                            <th>هزینه موثر</th>
+                            <th>مبلغ نهایی</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: RequestDetailServices">
+                        <tr data-bind="css: { error: IsCancel, success: DoneDate() != null }">
+                            <td data-bind="text: Row" style="width: 50px"></td>
+                            <td><input type="checkbox" data-bind="checked: IsCancel" disabled="disabled" /></td>
+                            <td data-bind="text: ItemService().Title()"></td>
+                            <td data-bind="text: Qty"style="width: 50px"></td>
+                            <td data-bind="text: UnitPrice"style="width: 100px"></td>
+                            <td data-bind="text: TotalPrice"style="width: 100px"></td>
+                            <td data-bind="text: SumEffectiveCostServices"style="width: 100px"></td>
+                            <td data-bind="text: TotalPriceAndEffectiveCost"style="width: 100px"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+   
+     
+    <div data-bind="with: pager">
+        <!--ko compose: {view: 'layout/pager'} --><!--/ko-->
+    </div>
+
+</section>
+
+<script type="text/html" id="requestService-template">
+    <div class="view-list">
+        <div class="span2">
+            <p>
+                <span>شماره درخواست: </span>
+                <span data-bind="text: ID"></span>
+            </p>
+            <p>
+                <span>شماره نامه: </span>
+                <span data-bind="text: LetterNo"></span>
+            </p>
+        </div>
+        <div class="span3">
+            <p>
+                <span>تاریخ درخواست : </span>
+                <span data-bind="dateString: Date"></span>
+            </p>
+            <p>
+                <span>تاریخ نامه : </span>
+                <span data-bind="dateString: LetterDate"></span>
+            </p>
+        </div>
+        <div class="span3">
+            <p>
+                <span>قسمت : </span>
+                <span data-bind="text: Section().Title()"></span>
+            </p>
+            <p>
+                <span>درخواست کننده : </span>
+                <span data-bind="text: Person().FirstName()"></span>
+            </p>
+            <p>
+                <span>انبار : </span>
+                <span data-bind="text: StockDeliveryLocation().Title()"></span>
+            </p>
+            <p>
+                <span>وضعیت : </span>
+                <span data-bind="enumDisplay: { value: Status, Type: 'RequestStatus' }"></span>
+            </p>
+        </div>
+        <div class="span1">
+            <div class="btn-group-vertical">
+                <a class="btn btn-danger" href="#" data-bind="click: $root.remove"><i class="icon-trash icon-white"></i> حذف </a> 
+                <a class="btn btn-primary"href="#" data-bind="attr: { href: '#/requestServiceEdit/' + ID() }"><i class="icon-pencil icon-white"></i> ویرایش </a>
+            </div>
+        </div>
+    </div>
+</script>
+
+
+
+
+
+
+
+ 

@@ -1,0 +1,11 @@
+﻿<div style="padding: .8em" class="ui-corner-all">
+    <div data-bind="foreach: \  .currents">
+        <div data-bind="css: { 'ui-state-default': !isSelected(), 'ui-state-active': isSelected() },
+    click: $parent.selectItem.bind($data, $parent)" 
+             style="width: 100px;height: 30px;margin-bottom: 0.2em;text-align: center;font-size: 18px" 
+             class="ui-corner-all pointer">
+ 
+            <div data-bind="text: title" ></div>
+        </div>
+    </div>
+</div>

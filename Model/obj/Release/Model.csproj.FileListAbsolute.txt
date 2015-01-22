@@ -1,0 +1,5 @@
+D:\Project\SPA\Supply\Model\bin\Release\Model.dll
+D:\Project\SPA\Supply\Model\bin\Release\Model.pdb
+D:\Project\SPA\Supply\Model\obj\Release\Model.csprojResolveAssemblyReference.cache
+D:\Project\SPA\Supply\Model\obj\Release\Model.dll
+D:\Project\SPA\Supply\Model\obj\Release\Model.pdb

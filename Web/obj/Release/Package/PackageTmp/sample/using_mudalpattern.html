@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+     <script src="../Scripts/jquery-1.9.1.js"></script>
+</head>
+<body>
+    <script>
+        $(function() {
+            var ns = {};
+
+            ns.datacontext = (function () {
+                alert('Hello for the first time ....');
+                var 
+                doSomething = function (word) {
+                    alert('hello world - ' +word);
+                },
+                result = {
+                    success: null,
+                    errror: null
+                }
+
+                return {
+                    init: (function () {
+                        doSomething('in the first time ...');
+                    })(),
+                    doSomething: doSomething,
+                    result : result
+                };
+            })();
+            
+            ns.datacontext.doSomething();
+
+            ns.datacontext.doMoreFuction = function() {
+                alert('doMoreFuction');
+                doSomething('...');
+            };
+
+            ns.datacontext.doMoreFuction();
+            ns.obj = {
+                init: (function() {
+                    alert('this is start of object ...');
+                })(),
+                result: {
+                    subObj1: {},
+                    subObj2: {}
+                }
+            };
+        });
+        
+    </script>
+</body>
+</html>

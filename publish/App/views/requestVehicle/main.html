@@ -1,0 +1,63 @@
+﻿<div>
+    <!--ko compose: {view: 'requestVehicle/header'} --><!--/ko-->
+</div>
+
+<h2 class="page-title" data-bind="text: title"></h2>
+
+<div style="margin-top: 150px">
+    <div data-bind="if: viewController.currentView().name === 'list'">
+              <!--ko compose: {view: 'requestVehicle/list'} --><!--/ko-->
+          </div>
+
+    <div data-bind="if: viewController.currentView().name === 'singleRead'">
+        <!--ko compose: {view: 'requestVehicle/singleRead'} --><!--/ko-->
+    </div>
+
+    <div data-bind="if: viewController.currentView().name === 'singleEdit'">
+        <!--ko compose: {view: 'requestVehicle/singleEdit'} --><!--/ko-->
+    </div>
+</div>
+
+<div data-bind="with: effectiveCost">
+    <!--ko compose: {view: 'effectiveCost'} --><!--/ko-->
+</div>
+    
+<div data-bind="with: smallCost">
+    <!--ko compose: {view: 'smallCost'} --><!--/ko-->
+</div>
+
+
+
+<div data-bind="dialog: { isOpen: canShowCurrentDetailFull, title: 'سایر اطلاعات', minWidth: 700, modal: true, at: 'center center', my: 'center center' }">
+    <div class="row view-single" data-bind="with: currentDetail" style="padding: 2em">
+        <div style="margin-bottom: 1em">
+            <label style="width: 150px">راننده : </label>
+            <input  data-bind="combo: { modelProp: Driver, valueProp: DriverID, displayProp: 'Title', allData: true }"/>
+        </div>
+         <div style="margin-bottom: 1em">
+            <label style="width: 150px">واحد اندازه گیری : </label>
+            <input  data-bind="combo: { modelProp: Scale, valueProp: ScaleID, displayProp: 'Title', allData: true }"/>
+        </div>
+        <div style="margin-bottom: 1em">
+            <label style="width: 150px">فروشنده : </label>
+            <input  data-bind="combo: { modelProp: Seller, valueProp: SellerID, displayProp: 'Title', allData: true }"/>
+        </div>
+        <div style="margin-bottom: 1em">
+            <label>لغو شده ؟ </label>
+            <button data-bind="checkboxImage: { checked: IsCancel }"></button>
+        </div>
+        <div class="row view-single" data-bind="if: IsCancel()" style="margin-bottom: 1em">
+            <label style="width: 150px">علت ابطال : </label>
+            <textarea data-bind="value: CancelReason" style="width: 70%"></textarea>
+        </div>
+        <div class="row view-single" style="margin-bottom: 1em">
+            <label style="width: 150px">توضیحات : </label>
+            <textarea data-bind="value: Des" style="width: 70%"></textarea>
+        </div>
+    </div>
+</div>
+
+<div data-bind="dialog: { isOpen: canShowCurrentDetailRead, title: '', minWidth: 750, modal: true, at: 'center center', my: 'center center' }">
+    <!--ko compose: {view: 'requestVehicle/detailRead'} --><!--/ko-->
+</div>
+ 

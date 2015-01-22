@@ -1,0 +1,20 @@
+﻿ <tr data-bind="if: ['Order', 'PurchasingOfficer', 'OrderDone', 'InventoryInput', 'InventoryOutput', 'Delivered'].contains(Status()),
+    visible: ['Order', 'PurchasingOfficer', 'OrderDone', 'InventoryInput', 'InventoryOutput', 'Delivered'].contains(Status()) &&
+        ['Good', 'Food', 'Service', 'Vehicle'].contains(RequestType())">
+     <th>شامل خرید ؟</th>
+     <th data-bind="visible: ['Good', 'Food', 'Service', 'Vehicle'].contains(RequestType())">کالا</th>
+     <th data-bind="visible: ['Good', 'Food', 'Service', 'Vehicle'].contains(RequestType())">مقدار</th>
+     <th data-bind="visible: RequestType() === 'Good' &&
+    ['InventoryInput', 'InventoryOutput', 'Delivered'].contains(Status())">رسید</th>
+     <th data-bind="visible: RequestType() === 'Good' &&
+    ['Order', 'PurchasingOfficer', 'OrderDone', 'InventoryInput'].contains(Status())">مقدار موجود</th>
+     <th data-bind="visible: RequestType() === 'Good' &&
+    ['InventoryOutput', 'Delivered'].contains(Status())">حواله</th>
+     <th data-bind="visible: RequestType() === 'Ticket'">مسافر</th>
+     <th data-bind="visible: RequestType() === 'Ticket'">تاریخ رفت</th>
+     <th data-bind="visible: RequestType() === 'Ticket'">تاریخ برگشت</th>
+     <th data-bind="visible: RequestType() === 'Ticket'">مبدا</th>
+     <th data-bind="visible: RequestType() === 'Ticket'">مقصد</th>
+     <th></th>
+ </tr>
+

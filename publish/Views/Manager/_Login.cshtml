@@ -1,0 +1,396 @@
+﻿<style>
+    html {
+        /*background: url(/content/images/login-bg.png)*/  
+    }
+
+    body {
+        padding: 0 auto;
+        max-width: 100%;
+    }
+
+    .btn {
+        font-family: tahoma
+    }
+
+    .modal-footer .btn{
+        width: 100px;
+        height: 30px;
+        margin-left: 5px
+    }
+
+            
+    h2.page-title {
+        font-size: 25px
+    }
+    .custom-combobox {
+        width: 90%
+    }
+    .tile {
+        width: 300px;
+        height: 150px;
+    }
+
+    .view-single label {
+        display: inline-block;
+        width: 100px;
+        height: 20px;
+        padding-left: 10px;
+        text-align: right;
+        font-style: normal;
+        font-weight: bold;
+    }
+
+    .section-main {
+        background-color: #EFEFEF;
+                
+        margin-top: 15%;
+        margin-left: 30%;
+        margin-right: 30%
+    }
+    .section-header {
+        border-bottom: 1px solid #E2DEDE;
+        padding: 15px;
+        overflow-y: auto;
+    }
+    .section-footer {
+        border-top: 1px solid #E2DEDE;
+        padding: 15px;
+        overflow-y: auto;
+    }
+
+    .section-body {
+        padding: 15px;
+        overflow-y: auto;
+    }
+
+    .section-body label {
+        font-weight: bold
+    }
+
+    .section-body input {
+        width: 95%
+    }
+    .section-body input {
+        background-color: white
+    }
+    .main {
+        margin-top: 50px;
+    }
+
+    #loginForm,
+    #register,
+    #successRegister {
+        display: none
+    }
+
+    .leftToRight {
+        direction: ltr
+    }
+
+    .login-img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        /*z-index: 91;*/
+    }
+
+    .row-margin-bottom div{
+        margin-bottom: 1em
+    }
+</style>
+<script>
+    $(function() {
+        var context = helper.datacontext;
+        
+        $('#register').draggable();
+        $('#loginForm').draggable();
+        $('#successRegister').draggable();
+        $('#loginForm').show("size", 500);
+        $('#username').focus();
+        
+        var vm = {
+            loginModel: {
+                userName: ko.observable(),
+                password: ko.observable(),
+                hasError: ko.observable(false),
+                errors: ko.observableArray()
+            },
+            registerModel: ko.observable(),
+            isOrganUser: ko.observable(true),
+            firstNameHasFocus: ko.observable(false),
+            personHasFocus: ko.observable(false),
+            isSuccessfull: ko.observable(false)
+            
+        };
+        
+        vm.init= function() {
+            vm.isOrganUser.subscribe(function() {
+                vm.firstNameHasFocus(!vm.isOrganUser());
+                vm.personHasFocus(vm.isOrganUser());
+                if (vm.isOrganUser()) {
+                    vm.registerModel().Person(null);
+                    vm.registerModel().PersonID(null);
+                } else {
+                    vm.registerModel().FirstName('');
+                    vm.registerModel().LastName('');
+                }
+                
+            });
+        },
+        vm.login = function () {
+            var userLogin = {
+                UserName: vm.loginModel.userName(),
+                Password: vm.loginModel.password(),
+                RememberMe: false,
+                Result: false
+            };
+            var options = {
+                dataType: "json",
+                contentType: "application/json",
+                cache: false,
+                type: 'GET',
+                data: userLogin
+            };
+
+            var url = '/api/Account/Login';
+
+            $.ajax(url, options)
+               .done(function (loginUser) {
+                   vm.loginModel.hasError(false);
+                   vm.loginModel.errors.removeAll();
+                   helper.defaults.setCurrentUser(loginUser);
+                   window.location = window.location;
+               })
+               .fail(function (error) {
+                   error = eval("(" + error.responseText + ')');
+
+                   vm.loginModel.errors.removeAll();
+                   vm.loginModel.errors.push({ errorMessage: error.ExceptionMessage });
+                   vm.loginModel.hasError(true);
+               });
+            
+        };
+
+        vm.register = function() {
+            context.manager.saveChanges([vm.registerModel()])
+                .then(function (data) {
+                    vm.registerModel().hasValidationErrors(false);
+                    vm.registerModel().errors.removeAll();
+                    vm.isSuccessfull(true);
+                    $('#successRegister').show();
+                })
+                .fail(function (error) {
+                    var result = eval(error.message);
+                    vm.registerModel().hasValidationErrors(true);
+                    vm.registerModel().errors.push({ errorMessage: result.message });
+                });
+        };
+
+        vm.showLogin = function() {
+            $("#register, #successRegister").hide("explode", 1000, function () {
+                $("#loginForm").show("size", 1000);
+            });
+        };
+
+        vm.showRegister = function () {
+            $("#loginForm").hide("explode", 1000, function () {
+                var vld = new breeze.Validator(
+                  "compare",
+                  function (value, ctnx) {
+                      if (value == null) return true;
+                      return value === ctnx.entity.Password();
+                  },
+                  {
+                      messageTemplate: "کلمه عبور و تایید کلمه عبور یکسان نیست"
+                  });
+                var type = context.manager.metadataStore.getEntityType('User');
+                type.getProperty('ConfirmPassword').validators.push(vld);
+
+                var requiredVld = breeze.Validator.required();
+                requiredVld.context.messageTemplate = 'تایید کلمه عبور الزامی است';
+                type.getProperty('ConfirmPassword').validators.push(requiredVld);
+
+                var newEntity = context.addEntity('User', {});
+                newEntity.Person.subscribe(function() {
+                    if (!isNullOrEmpty(newEntity.Person())) {
+                        newEntity.FirstName(newEntity.Person().FirstName());
+                        newEntity.LastName(newEntity.Person().LastName());
+                    }
+                });
+                vm.registerModel(newEntity);
+                $("#register").show("size", 1000);
+            });
+        };
+        
+        ko.applyBindings(vm);
+        vm.init();
+       
+    });
+</script>
+<img src="/content/images/login-bg.png" class="login-img" alt="">
+<div class="ui-widget-overlay"></div>   
+<div class="main">
+    <div id="loginForm"  class="section-main ui-corner-all">
+        <div class="section-header ui-corner-top">
+            <h2 class="page-title">ورود به سیستم</h2>
+        </div>
+        <div class="section-body" >
+            <div class="alert alert-success">
+                نام کاربری و کلمه عبور را وارد کنید
+            </div>
+
+            <div style="margin-bottom: 2em" data-bind="with: loginModel">
+                <form data-bind="submit: $parent.login">
+                    <label>نام کاربری : </label>
+                    <input id="username" 
+                           data-bind="value: userName, valueUpdate: 'afterkeydown'"
+                           type="text" class="autofocus leftToRight" />
+                </form>
+                <form style="margin-top: 1em" 
+                      data-bind="submit: $parent.login">
+                    <label>کلمه عبور : </label>
+                    <input type="password" 
+                           data-bind="value: password, valueUpdate: 'afterkeydown'"   
+                           class="leftToRight" />
+                </form>
+                <div class="alert alert-error" data-bind="visible: hasError()">
+                    <span class="icon-warning-sign"></span>
+                    <span style="font-weight: bold">لطفا خطا (ها) را تصحیح کنید</span>
+
+                    <ul data-bind="foreach: errors">
+                        <li>
+                            <span data-bind="text: errorMessage"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+
+            <a class="btn btn-success" data-bind="click: showRegister">
+                <i class="icon-pencil icon-white"></i>
+                ثبت نام
+            </a>
+
+        </div>
+        <div class="section-footer ui-corner-bottom" 
+             data-bind="click: login"
+             style="text-align: center">
+            <a class="btn btn-primary btn-large" style="width: 300px">
+                <i class="icon-lock icon-white"></i>
+                ورود به سیستم
+            </a>
+        </div>
+    </div>
+    <div id="register"  class="section-main ui-corner-all" data-bind="visible: !isSuccessfull()">
+        <div class="section-header ui-corner-top" style="background-color: #e2dede;border-bottom: #C7C7C7 thin solid">
+            <h2 class="page-title">ثبت نام</h2>
+        </div>
+        <div class="section-body">
+            <div class="alert alert-info">
+                <ul>
+                    <li>
+                        نام و نام خانوادگی با توجه به سیستم پرسنلی میباشد
+                    </li>
+                    <li>
+                        نام کاربری را حتما از حروف لاتین استفاده کنید
+                    </li>
+                </ul>
+            </div>
+            
+            <div data-bind="with: registerModel" 
+                 style="margin-bottom: 2em"
+                 class="row-margin-bottom">
+                
+                <div>
+                    <button data-bind="checkboxImage: { checked: $parent.isOrganUser }"></button>
+                    <span>من پرسنل سازمان هستم</span>
+                </div>
+                <div data-bind="visible: $parent.isOrganUser(), hasfocus: $parent.personHasFocus">
+                    <label>نام و نام خانوادگی : </label>
+                    <input   
+                        data-bind="combo: { modelProp: Person, valueProp: PersonID,displayProp: 'FirstName,LastName', allData: false, entityName: 'Person', pluralEntityName: 'People' }" 
+                        />
+                </div>
+                <span data-bind="visible: !$parent.isOrganUser()">
+                    <div>
+                        <label>نام : </label>
+                        <input type="text" data-bind="value: FirstName, hasfocus: $parent.firstNameHasFocus" />
+                    </div>
+
+                    <div>
+                        <label>نام خانوادگی : </label>
+                        <input type="text" data-bind="value: LastName" />
+                    </div>
+                </span>
+                <div>
+                    <label>نام کاربری : </label>
+                    <input type="text" class="leftToRight"  data-bind="value: Username"/>
+                </div>
+                <div>
+                    <label>کلمه عبور : </label>
+                    <input type="password" class="leftToRight"
+                           data-bind="value: Password" />
+                </div>
+                <div>
+                    <label>تایید کلمه عبور : </label>
+                    <input type="password" class="leftToRight"
+                           data-bind="value: ConfirmPassword" />
+                </div>
+                
+                <div class="alert alert-error" data-bind="visible: hasValidationErrors()">
+                    <span class="icon-warning-sign"></span>
+                    <span style="font-weight: bold">لطفا خطا (ها) را تصحیح کنید</span>
+
+                    <ul data-bind="foreach: $data.errors">
+                        <li>
+                            <span data-bind="text: errorMessage"></span>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+            
+            
+            <div class="alert alert-success" data-bind="visible: isSuccessfull()">
+                کاربر گرامی ، مشخصات کاربری شما با موفقیت در سیستم ثبت شد . و شما میبایست منتظر تاییدیه واحد تدارکات باشید .
+            </div>
+
+            <a class="btn btn-primary" data-bind="click: showLogin">
+                <i class="icon-ok icon-white"></i>
+                نام کاربری دارم
+            </a>
+
+        </div>
+        <div class="section-footer ui-corner-bottom" style="text-align: center">
+            <a class="btn btn-success btn-large" 
+               data-bind="click: register"
+               style="width: 300px">
+                <i class="icon-lock icon-white"></i>
+                تکمیل فرآیند ثبت نام
+            </a>
+        </div>
+    </div>
+    <div id="successRegister" data-bind ="visible: isSuccessfull()" class="section-main ui-corner-all">
+       <div class="section-header ui-corner-top" style="background-color: #e2dede;border-bottom: #C7C7C7 thin solid">
+            <h2 class="page-title">تایید فرآیند ثبت نام</h2>
+        </div>
+        <div class="section-body">
+            <div class="alert alert-success" data-bind="visible: isSuccessfull()">
+                کاربر گرامی ، مشخصات کاربری شما با موفقیت در سیستم ثبت شد . لطفا منتظر تایید واحد تدارکات باشید .
+            </div>
+        </div>
+        <div class="section-footer ui-corner-bottom" style="text-align: center">
+            <a class="btn btn-primary btn-large" 
+               data-bind="click: showLogin"
+               style="width: 300px">
+                <i class="icon-lock icon-white"></i>
+                بازگشت به صفحه ورود
+            </a>
+        </div>
+         
+    </div>
+</div>
+

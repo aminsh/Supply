@@ -1,0 +1,59 @@
+﻿<style>
+    .view-single label {
+        width: 120px;
+        text-align: right;
+    }
+
+    .modal-title {
+        font-size: 25px;
+        color: #888888;
+    }
+</style>
+
+<div class="messageBox" style="font-family: tahoma;font-size: 12px;direction: rtl;width: 700px;padding-bottom: 0;margin-top: 3em"
+    data-bind="drag: { options: { handle: '.modal-header', cursor: 'move' } }">
+    <div class="modal-header">
+        <button type="button" class="close pull-left" data-dismiss="modal" aria-hidden="true" title="بستن"
+            data-bind="click: close">&times;</button>
+        <h2 class="modal-title">مدیریت موضوع دسترسی</h2>
+    </div>
+    <div class="modal-body view-single">
+        <table class="table table-hover ">
+                <thead>
+                    <tr>
+                        <th>نام</th>
+                        <th>عنوان</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: subjects">
+                    <tr>
+                        <td data-bind="text: Name"></td>
+                        <td>
+                            <input type="text" data-bind="value: Title" />
+                        </td>
+                        <td style="width: 200px;float: right">
+                            <div style="width: 100%">
+                                <button class="pull-right" data-bind="checkboxImage: { checked: NoNeed }"></button>
+                                <span class="pull-right" style="margin-right: 1em">نیاز به کنترل نیست ؟</span>
+                            </div>
+                            <div style="width: 200px;float: right">
+                                <button class="pull-right" data-bind="checkboxImage: { checked: CanShow }"></button>
+                                <span class="pull-right" style="margin-right: 1em">در لیست نمایش داده شود ؟</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success pull-left" data-bind="click: save" style="font-family: tahoma" >
+            <i class="icon-save"></i>
+            <span>ذخیره</span>
+        </button>
+        <button class="btn pull-left font-black" data-bind="click: close" style="font-family: tahoma" >
+            <i class="icon-remove"></i>
+            <span>انصراف</span>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+D:\Project\SPA\Supply\Web.Test\bin\Debug\Web.Test.dll.config
+D:\Project\SPA\Supply\Web.Test\bin\Debug\Web.Test.dll
+D:\Project\SPA\Supply\Web.Test\bin\Debug\Web.Test.pdb
+D:\Project\SPA\Supply\Web.Test\bin\Debug\BussinessLogic.dll
+D:\Project\SPA\Supply\Web.Test\bin\Debug\DataAccess.dll
+D:\Project\SPA\Supply\Web.Test\bin\Debug\EntityFramework.dll
+D:\Project\SPA\Supply\Web.Test\bin\Debug\Helper.dll
+D:\Project\SPA\Supply\Web.Test\bin\Debug\Model.dll
+D:\Project\SPA\Supply\Web.Test\bin\Debug\Helper.pdb
+D:\Project\SPA\Supply\Web.Test\bin\Debug\BussinessLogic.pdb
+D:\Project\SPA\Supply\Web.Test\bin\Debug\DataAccess.pdb
+D:\Project\SPA\Supply\Web.Test\bin\Debug\Model.pdb
+D:\Project\SPA\Supply\Web.Test\bin\Debug\EntityFramework.xml
+D:\Project\SPA\Supply\Web.Test\obj\Debug\Web.Test.csprojResolveAssemblyReference.cache
+D:\Project\SPA\Supply\Web.Test\obj\Debug\Web.Test.dll
+D:\Project\SPA\Supply\Web.Test\obj\Debug\Web.Test.pdb

@@ -1,0 +1,48 @@
+﻿
+<thead>
+  <tr>
+    <th>شامل خرید ؟</th>
+    <th>شرح کالای درخواستی</th>
+    <th>کالای قطعی</th>
+    <th>مقدار مورد نیاز</th>
+    <th>مقدار تایید شده</th>
+    <th>مقدار قطعی</th>
+</thead>
+                          
+<tbody data-bind="foreach: RequestDetailFoods">
+    <tr>
+        <td>
+            <button data-bind="checkboxImage: { checked: IsOrder }" ></button>
+        </td>
+        <td"
+            style="max-width: 200px">
+            <span data-bind="text: ItemDescription"></span>
+        </td>
+        <td style="width: 300px">
+            <span>
+                <span>
+                    <input  data-bind="combo: { modelProp: ItemFood, valueProp: ItemFoodID, displayProp: 'Title', allData: true, expands: ['Scale'], callbackAfterUpdate: $root.callbackAfterItemUpdate }"/>
+                </span>
+            </span>
+        </td>
+        <td>
+            <span data-bind="text: NeedQty"></span>
+            <span data-bind="text: ScaleDescription"></span>
+        </td>
+        <td>
+            <span data-bind="text: AcceptQty"></span>
+        </td>
+        <td>
+            <input type="text" data-bind="value: Qty" style="width: 70px"/>
+            <span data-bind="with: Scale">
+                <span data-bind="text: Title"></span>
+            </span>
+        </td>
+    </tr>
+</tbody>
+
+
+
+
+
+

@@ -1,0 +1,55 @@
+﻿<div>
+    <!--ko compose: {view: 'requestTicket/header'} --><!--/ko-->
+</div>
+
+<h2 class="page-title" data-bind="text: title"></h2>
+
+<div style="margin-top: 150px">
+    <div data-bind="if: viewController.currentView().name === 'list'">
+              <!--ko compose: {view: 'requestTicket/list'} --><!--/ko-->
+          </div>
+
+    <div data-bind="if: viewController.currentView().name === 'singleRead'">
+        <!--ko compose: {view: 'requestTicket/singleRead'} --><!--/ko-->
+    </div>
+
+    <div data-bind="if: viewController.currentView().name === 'singleEdit'">
+        <!--ko compose: {view: 'requestTicket/singleEdit'} --><!--/ko-->
+    </div>
+</div>
+
+<div data-bind="with: effectiveCost">
+    <!--ko compose: {view: 'effectiveCost'} --><!--/ko-->
+</div>
+    
+<div data-bind="with: smallCost">
+    <!--ko compose: {view: 'smallCost'} --><!--/ko-->
+</div>
+
+
+
+<div data-bind="dialog: { isOpen: canShowCurrentDetailFull, title: 'سایر اطلاعات', minWidth: 700, modal: true, at: 'center center', my: 'center center' }">
+    <div class="row view-single" data-bind="with: currentDetail" style="padding: 2em">
+        <div style="margin-bottom: 1em">
+            <label style="width: 150px">فروشنده : </label>
+            <input  data-bind="combo: { modelProp: Seller, valueProp: SellerID, displayProp: 'Title', allData: true }"/>
+        </div>
+        <div style="margin-bottom: 1em">
+            <label>لغو شده ؟ </label>
+            <button data-bind="checkboxImage: { checked: IsCancel }"></button>
+        </div>
+        <div class="row view-single" data-bind="if: IsCancel()" style="margin-bottom: 1em">
+            <label style="width: 150px">علت ابطال : </label>
+            <textarea data-bind="value: CancelReason" style="width: 70%"></textarea>
+        </div>
+        <div class="row view-single" style="margin-bottom: 1em">
+            <label style="width: 150px">توضیحات : </label>
+            <textarea data-bind="value: Des" style="width: 70%"></textarea>
+        </div>
+    </div>
+</div>
+
+<div data-bind="dialog: { isOpen: canShowCurrentDetailRead, title: '', minWidth: 750, modal: true, at: 'center center', my: 'center center' }">
+    <!--ko compose: {view: 'requestTicket/detailRead'} --><!--/ko-->
+</div>
+ 

@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title></title>
+        <script src="../../Scripts/jquery-1.9.1.js"></script>
+        <script src="../../Scripts/knockout-2.2.1.js"></script>
+        <script src="../../Scripts/jquery-1.9.1.js"></script>
+        <script src="../../Scripts/jquery-ui-1.10.2.js"></script>
+        <script src="../../Scripts/bootstrap.js"></script>
+        <link href="../Content/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
+        <link href="../Content/app.widget.css" rel="stylesheet" />
+        <link href="../Content/bootstrap.css" rel="stylesheet" />
+    <!--<link href="Content/themes/start/jquery-ui-1.10.3.custom.css" rel="stylesheet" />-->
+    </head>
+    <style>
+        .ui-tooltip {
+	padding: 8px;
+	position: absolute;
+	z-index: 9999;
+	max-width: 300px;
+	-webkit-box-shadow: 0 0 5px #aaa;
+	box-shadow: 0 0 5px #aaa;
+}
+body .ui-tooltip {
+	border-width: 2px;
+}
+    </style>
+<body>
+    <script>
+        $(function () {
+            var bootstrapTooltip = $.fn.tooltip.noConflict();
+            $.fn.bstooltip = bootstrapTooltip;
+            
+            $(document).tooltip({
+                position: {
+                    my: "center bottom-20",
+                    at: "center top",
+                    using: function (position, feedback) {
+                        $(this).css(position);
+                        $("<div>")
+                        .addClass("arrow")
+                        .addClass(feedback.vertical)
+                        .addClass(feedback.horizontal)
+                        .appendTo(this);
+                    }
+                }
+            });
+            if (!$ || !$['fn']) throw new Error('jQuery library is required.');
+
+            /**
+            * Private method to recursively render key value pairs into a string
+            *
+            * @param {Object} options Object to render into a string.
+            * @return {string} The string value of the object passed in.
+            */
+            function render(options) {
+                var rendered = [];
+                for (var key in options) {
+                    var val = options[key];
+                    switch (typeof val) {
+                        case 'string': rendered.push(key + ':' + val); break;
+                        case 'object': rendered.push(key + ':{' + render(val) + '}'); break;
+                        case 'function': rendered.push(key + ':' + val.toString()); break;
+                    }
+                }
+                return rendered.join(',');
+            }
+
+            /**
+            * jQuery extension to handle unobtrusive Knockout data binding.
+            *
+            * @param {Object} options Object to render into a string.
+            * @return {Object} A jQuery object.
+            */
+            $['fn']['dataBind'] = $['fn']['dataBind'] || function (options) {
+                return this['each'](function () {
+                    var opts = $.extend({}, $['fn']['dataBind']['defaults'], options);
+                    var attr = render(opts);
+                    if (attr != null && attr != '') {
+                        $(this)['attr']('data-bind', attr);
+                    }
+                });
+            };
+
+
+            var vm = {
+                name : ko.observable('amin')
+            };
+
+            
+            ko.applyBindings(vm);
+
+            //var input2 = $('<input type="text">');
+            //input2.dataBind({ value: 'name' });
+            //$('#wrapper').append(input2);
+            //$('#wrapper').dataBind({ text: 'name' });
+            $('#wrapper').append('<input type="text" data-bind="value : name"/>');
+            $('#input2').dataBind({ value: 'name' });
+            
+            ko.applyBindings(vm);
+            
+            var entity = function () {
+                var doTask1 = function () {
+                    alert('Task 1 ...');
+                },
+                doTask2 = function () {
+                    alert('Task 2 ...');
+                }
+
+                return {
+                    doTast1: doTask1,
+                    doTask2: doTask2
+                };
+            };
+
+            var entity2 = function() {
+                var entity1 = entity();
+                entity1.doTask3 = function () {
+                    alert('Task 3 ...');
+                }
+
+                return entity1;
+            };
+           
+
+            $('#btn').click(function() {
+                var en = new entity2();
+                en.doTask3();
+            });
+            
+        });
+        
+    </script>
+    <input type="text" data-bind="value : name"/>
+    <span data-bind="text: name"></span>
+    <br/>
+    <span id="wrapper"></span>
+    <input type="text" id="input2" title="this is test"/>
+     
+    <input type="button" id ="btn" value="Do"/>
+</body>
+</html>

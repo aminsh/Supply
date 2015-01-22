@@ -1,0 +1,43 @@
+﻿<div class="ui-corner-all" 
+         style="border: 1px #778899;background-color: white;padding: 2em;display: block">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>رسید / حوله</th>
+                    <th>درخواست انبار</th>
+                    <th>تاریخ</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: inventories">
+                <tr>
+                    <td>
+                        <span class="label label-success label-warning"
+                              data-bind="text: $root.inventoryTypes.first(function (it) { return it.name == InventoryType() }).title,
+    css: { 'label-success': InventoryType() == 'Input', 'label-warning': InventoryType() == 'Output' }"></span>
+                    </td>
+                    <td data-bind="text: No"></td>
+                    <td>
+                        <span data-bind="with: RequestGood">
+                            <span data-bind="text: RequestGoodNo"></span>
+                        </span>
+                    </td>
+                    <td data-bind="text: Date"></td>
+                    <td style="text-align: center">
+                        <a class="btn btn-primary"
+                           data-bind="click: $root.read">
+                            <i class="icon-play-circle icon-white"></i>
+                            نمایش
+                        </a>
+                        &nbsp;
+                        <a class="btn btn-success"
+                           data-bind="click: $root.edit">
+                            <i class="icon-edit icon-white"></i>
+                            ویرایش
+                        </a>
+                    </td>      
+                </tr>
+            </tbody>
+        </table>
+    </div>

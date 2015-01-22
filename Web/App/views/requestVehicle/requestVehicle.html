@@ -1,0 +1,285 @@
+﻿<section>
+      <h2 class="page-title" data-bind="text: title"></h2>
+        <!--ko compose: {view: 'layout/standardButtons'} --><!--/ko-->
+    
+    <!--ko compose: {view: 'layout/viewController'} --><!--/ko-->
+
+    <div style="margin: 2em">
+        <button data-bind="checkboxImage: { checked: $root.canShowDoneDateColumn }"></button>
+        <span>نمایش تاریخ انجام</span>
+        &nbsp;
+        <button data-bind="checkboxImage: { checked: $root.canShowCompleteData }"></button>
+        <span>نمایش کامل اطلاعات</span>
+        &nbsp;
+        <button data-bind="checkboxImage: { checked: $root.canShowAssignGroup }"></button>
+        <span>نمایش مقداردهی گروهی</span>
+    </div>
+    
+    <div>
+        <!--ko compose: {view: 'tools/assignGroup'} --><!--/ko-->
+    </div>
+    
+    <div style="margin-top: 2em;margin-bottom: 2em">
+        <a class="btn btn-primary" href="#" data-bind="click: add" style="margin-left: 0.5em">
+            <i class="icon-plus icon-white"></i> جدید 
+        </a>
+        <a class="btn btn-danger" data-bind="click: $root.remove, visible: selectedRequestVehicle()">
+            <i class="icon-trash icon-white"></i>
+            حذف
+        </a>
+    </div>
+
+    <div data-bind="if: viewController.currentView().name === 'list'">
+        <table class="table table-condensed ">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>شماره</th>
+                    <th>تاریخ</th>
+                    <th>قسمت</th>
+                    <th>کارپرداز</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: requestVehicles">
+                <tr class="pointer" data-bind="click: $root.selectRequestVehicle, css: { info: $data == $root.selectedRequestVehicle() }">
+                    <td>
+                        <a title="نمایش جزئیات" data-bind="click: $root.changeShowDetail" style="cursor: pointer">
+                            <i class="icon-plus" data-bind="css: { 'icon-plus': !ShowDetail(), 'icon-minus': ShowDetail() }"></i>
+                        </a>
+                    </td>
+                    <td data-bind="text: No() == 0 ? 'جدید' : No" style="color: #0000ff;font-weight: bold"></td>
+                    <td>
+                        <input type="text" data-bind="value: Date"/>
+                    </td>
+                    <td>
+                        <input  data-bind="combo: { modelProp: Section, valueProp: SectionID, displayProp: 'Title', allData: true }"/>
+                    </td>
+                    <td>
+                        <input  data-bind="combo: { modelProp: PurchasingOfficer, valueProp: PurchasingOfficerID, displayProp: 'Title', allData: true }"/>
+                    </td>
+                </tr>
+                <tr data-bind="if: ShowDetail() && $root.canShowCompleteData()">
+                    <td colspan="5" style="padding: 2em">
+                        <div>
+                            <div class="view-single row" >
+                                <div class="span4">
+                                    <div>
+                                        <label>فوری ؟ : </label>
+                                        <button data-bind="checkboxImage: { checked: IsFast }"></button>
+                                        <br/>
+                                    </div>
+                                    <div>
+                                        <label>تاریخ : </label>
+                                        <input type="text" data-bind="value: Date"/>
+                                    </div>
+                                    <div>
+                                        <label>تاریخ ارائه به کارپرداز : </label>
+                                        <input type="text" data-bind="value: OrderDate"/>
+                                    </div>
+                                    <div>
+                                        <button  class="btn-toggle ui-corner-top " data-bind="css: { 'ui-corner-bottom': !$root.letter.isLetterOpen() }, click: $root.letter.openLetter">
+                                            <i data-bind="css: { 'icon-envelope': !$root.letter.isLetterOpen(), 'icon-remove-circle': $root.letter.isLetterOpen() }"></i> 
+                                            <span data-bind="    text: !$root.letter.isLetterOpen() ? ' نامه ' : ' بستن '"></span>
+                                        </button>
+               
+                                        <div>
+                                            <div class="ui-corner-all popupx" data-bind="with: $root.letter, visible: $root.letter.isLetterOpen()" style="width: 400px">
+                                                <!--ko compose: {view: 'letter'} --><!--/ko-->
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="span4">
+                                    <div>
+                                        <label>وضعیت : </label>
+                                        <input data-bind="enumCombo: { Type: 'RequestStatus', value: Status }" />
+                                    </div>
+                                    <div>
+                                        <label>روش خرید : </label>
+                                        <input data-bind="enumCombo: { Type: 'PurchaseMethod', value: PurchaseMethod }" />
+                                    </div>
+                                    <div>
+                                        <label>دسته بندی :</label>
+                                        <input style="width: 150px"  
+                                               data-bind="combo: { modelProp: UserDefinedCategory, displayProp: 'Title', valueProp: UserDefinedCategoryID, allData: true }"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row view-single">
+                                <label>توضیحات : </label>
+                                <textarea data-bind="value: Des" style="width: 50%"></textarea>
+                            </div>
+                        </div>
+                    
+                    
+                    </td>
+                </tr>
+                <tr  data-bind="visible: $root.hasChanges() && $data.hasValidationErrors()" style="background-color: #FFFFB9">
+                    <td colspan="5">
+                        <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+                    </td>
+                </tr>
+                <tr data-bind="if: ShowDetail()">
+                    <td colspan="5" style="padding: 2em" >
+                        <div>
+                            <a class="btn btn-primary" data-bind="click: $root.addDetail" style="margin-bottom: 2em">
+                                <i class="icon-plus icon-white"></i>
+                                جدید
+                            </a>
+                            &nbsp;
+                            <span data-bind="if: $root.selectedRequestVehicleDetail()">
+                                <a class="btn btn-danger" data-bind="visible: $root.selectedRequestVehicleDetail().RequestVehicle() == $data, click: $root.removeDetail">
+                                    <i class="icon-trash icon-white"></i>
+                                    حذف
+                                </a>
+                            </span>
+                            &nbsp;
+                            <a class="btn" data-bind="visible: $root.selectedRequestVehicleDetail(), click: function (data, event) { $root.calc.init($root.selectedRequestVehicleDetail()) }">
+                                <i class="icon-list-alt"></i>
+                                محاسبه گر
+                            </a>
+
+                            <table class="table table-condensed" style="margin-top: 2em" data-bind="if: RequestDetailVehicles.count()">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>لغو شده ؟</th>
+                                        <th>وسیله نقلیه</th>
+                                        <th>نوع خدمات</th>
+                                        <th>قیمت واحد</th>
+                                        <th>قیمت کل</th>
+                                        <th data-bind="visible: $root.canShowDoneDateColumn()">تاریخ انجام</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach: RequestDetailVehicles">
+                                    <tr style="cursor: pointer" data-bind="click: $root.selectRequestVehicleDetail, css: { info: $data == $root.selectedRequestVehicleDetail() }">
+                                        <td>
+                                            <a title="نمایش جزئیات" data-bind="click: $root.changeShowDetail" style="cursor: pointer">
+                                                <i class="icon-plus" data-bind="css: { 'icon-plus': !ShowDetail(), 'icon-minus': ShowDetail() }"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <button data-bind="checkboxImage: {checked: IsCancel},clickBubble: false"></button>
+                                        </td>
+                                        <td>
+                                            <input  data-bind="combo: { modelProp: Vehicle, valueProp: VehicleID, displayProp: 'No', allData: true, expands: ['Driver'], callbackAfterUpdate: $root.callbackAfterVehicleUpdate }"/>
+                                        </td>
+                                        <td>
+                                            <input  data-bind="combo: { modelProp: ItemVehicle, valueProp: ItemVehicleID, displayProp: 'Title', allData: true, expands: ['Scale'], callbackAfterUpdate: $root.callbackAfterItemVehicleUpdate }"/>
+                                        </td>
+                                        <td>
+                                            <input type="text" data-bind="value: UnitPrice" data-converter="value: float" style="width: 120px"/>
+                                        </td>
+                                        <td data-bind="text: TotalPrice" data-converter="text: float" style="font-size: 14px"></td>
+                                        <td data-bind="visible: $root.canShowDoneDateColumn()">
+                                            <input type="text" data-bind="value: DoneDate"/>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-danger" data-bind="click: $root.removeDetail">
+                                                <i class="icon-trash icon-white"></i>
+                                                حذف
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr data-bind="if: ShowDetail()">
+                                        <td colspan="7" style="padding: 2em" >
+                                            <div>
+                                                <div class="view-single row" >
+                                                    <div class="span4">
+                                                        <div>
+                                                            <label>تاریخ انجام : </label>
+                                                            <input type="text" data-bind="value:DoneDate"/>
+                                                        </div>
+                                                        <div>
+                                                            <label>تعداد : </label>
+                                                            <input type="text" data-bind="value: Qty" data-converter="value: float" style="width: 80px"/>
+                                                            <span data-bind="if: Scale()">
+                                                                <span data-bind="text: Scale().Title()"></span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="span4">
+                                                        <div>
+                                                            <label>راننده : </label>
+                                                            <input  data-bind="combo: { modelProp: Driver, valueProp: DriverID, displayProp: 'Title', allData: true }"/>
+                                                        </div>
+                                                        <div>
+                                                            <label>واحد اندازه گیری : </label>
+                                                            <input  data-bind="combo: { modelProp: Scale, valueProp: ScaleID, displayProp: 'Title', allData: true }"/>
+                                                        </div>
+                                                        <div>
+                                                            <label>فروشنده : </label>
+                                                            <input  data-bind="combo: { modelProp: Seller, valueProp: SellerID, displayProp: 'Title', allData: true }"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="span2">
+                                                        <div class="btn-group-vertical">
+                                                            <a class="btn btn-success" data-bind="click: $root.openEffectiveCostDetail, clickBubble: false">
+                                                                هزینه موثر
+                                                            </a>
+                                                            <a class="btn" data-bind="click: $root.openSmallCostDetail, clickBubble: false">
+                                                                ریز هزینه
+                                                            </a>
+                                                        </div>
+                                                   
+                                                    </div>
+                                                </div>
+                                                <div class="row view-single">
+                                                    <label>توضیحات : </label>
+                                                    <textarea data-bind="value: Des" style="width: 50%"></textarea>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr  data-bind="visible: $root.hasChanges() && $data.hasValidationErrors()" style="background-color: #FFFFB9">
+                                        <td colspan="7">
+                                            <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+                                        </td>
+                                    </tr>
+                                
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>جمع کل : </td>
+                                        <td data-bind="text: TotalPrice" style="font-size: 14px"></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot></tfoot>
+        </table>
+    </div>
+
+    
+    
+    <div data-bind="if: viewController.currentView().name === 'detail'">
+         <!--ko compose: {view: 'requestVehicle/detailView'} --><!--/ko-->
+    </div>
+        
+    <div data-bind="with: requestVehiclepager">
+        <!--ko compose: {view: 'layout/pager'} --><!--/ko-->
+    </div>
+        
+    <div data-bind="with: calc">
+        <!--ko compose: {view: 'tools/unitPriceCalc'} --><!--/ko-->
+    </div>
+    
+    <div data-bind="with: effectiveCost">
+        <!--ko compose: {view: 'effectiveCost'} --><!--/ko-->
+    </div>
+    
+    <div data-bind="with: smallCost">
+        <!--ko compose: {view: 'smallCost'} --><!--/ko-->
+    </div>
+</section>

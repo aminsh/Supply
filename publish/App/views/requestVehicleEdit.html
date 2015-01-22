@@ -1,0 +1,254 @@
+﻿
+<section class="k-rtl">
+    <h2 class="page-title" data-bind="text: title"></h2>
+    <br/>
+
+    <a class="btn btn-inverse" href="#" data-bind="click: goBack"><i class="icon-arrow-right icon-white"></i> بازگشت </a>
+    <br/>
+
+    <!--ko compose: {view: 'layout/standardButtons'} --><!--/ko-->
+
+    <br/>
+
+    <div class="row view-single" data-bind="with: requestVehicle">
+        <div class="row">
+            <div class="span9">
+                <div>
+                    <span style="font-weight: bold;font-size: 14px; color: #0000ff;">شماره درخواست</span>
+                    <span style="font-weight: bold;font-size: 14px; color: #0000ff;" data-bind="text: ID"></span>
+                    <br/><br/>
+                    <label>وضعیت</label>
+                    <input data-bind="enumCombo: { Type: 'RequestStatus', value: Status }" style="width: 100%"/>
+                    <br/><br/>
+                    <input type="checkbox" data-bind="checked: HasOrder"/><span>  سفارش  </span>
+                    <input type="checkbox" data-bind="checked: HasPreInvoice"/><span>  پیش فاکتور  </span>
+                    <input type="checkbox" data-bind="checked: HasPurchaseOrder"/><span>  دستور خرید  </span>
+                    <br/><br/>
+                </div>
+            </div>
+        </div>
+        <div class="span3">
+            <div>
+                <div>
+                    <label>تاریخ درخواست</label>
+                    <input type="text" data-bind="value: Date" data-converter="value: persianDate"/>
+                </div>
+               
+                <br/>
+                <button class="btn-letter ui-corner-top " data-bind="css: { 'ui-corner-bottom': !$root.letter.isLetterOpen() }, click: $root.letter.openLetter">
+                    <i data-bind="css: { 'icon-envelope': !$root.letter.isLetterOpen(), 'icon-remove-circle': $root.letter.isLetterOpen() }"></i> <span data-bind="    text: !$root.letter.isLetterOpen() ? ' نامه ' : ' بستن '"></span>
+                </button>
+               
+                <div>
+                    <div class="ui-corner-bottom ui-corner-left popupx" data-bind="with: $root.letter, visible: $root.letter.isLetterOpen()" style="width: 300px">
+                        <!--ko compose: {view: 'requestVehicle/letterVehicle'} --><!--/ko-->
+                    </div>
+  
+                </div>
+            </div>
+        </div>
+        <div class="span3">
+            <div>
+                <div>
+                    <label>قسمت</label>
+                    <input style="width: 100px"  
+                           data-bind="combo: { modelProp: Section, datacontext: $root.context, displayProp: 'Title', valueProp: SectionID, allData: true, pruralEntityName: 'Sections' }"/>
+                </div>
+                <div>
+                    <label>درخواست کننده</label>
+                    <input style="width: 100px"  
+                           data-bind="combo: { modelProp: Person, datacontext: $root.context, displayProp: 'FirstName,LastName', valueProp: PersonID, allData: true, pruralEntityName: 'People' }"/>
+                </div>
+            </div>
+        </div>
+        <div class="span3">
+            <div data-bind="visible: HasOrder()">
+               <!-- <label style="width: 100px">تاریخ سفارش</label>
+                <input type="text" data-bind="value: OrderDate" data-converter="value: persianDate"/>-->
+                     
+                <label>روش خرید</label>
+                <input data-bind="enumCombo: { Type: 'PurchaseMethod', value: PurchaseMethod }"/>
+                       
+                <label>کارپرداز</label>
+                <input style="width: 100px"  
+                       data-bind="combo: { modelProp: PurchasingOfficer, datacontext: $root.context, displayProp: 'Title', valueProp: PuchasingOfficerID, allData: true, pruralEntityName: 'PurchasingOfficers' }"/>
+            </div>
+        </div>
+    </div>
+    
+    <div data-bind="with: requestVehicle">
+
+        <div data-bind="visible: $root.hasChanges() && $data.hasValidationErrors()" class="row"  style="background-color: #FFFFB9">
+            <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+        </div>
+        <br />
+        <br/>
+        <br/>
+        <a class="btn btn-primary" href="#" data-bind="click: $root.addDetail"><i class="icon-plus icon-white"></i> جدید </a>
+        
+        <table class="table table-hover table-condensed" data-bind="visible: !HasOrder()">
+            <thead>
+                <tr>
+                    <th>شناسه</th>
+                    <th>لغو شده ؟</th>
+                    <th>ردیف</th>
+                    <th>کالا</th>
+                    <th>تعداد/مقدار</th>
+                    <th>تاریخ انجام</th>
+                    <th></th>
+                </tr> 
+            </thead>
+            <tbody data-bind="foreach: RequestDetailVehicles">
+                <tr>
+                    <td data-bind="text: ID" ></td>
+                    <td><input type="checkbox" data-bind="checked: IsCancel" required style="width: 100px"/></td>
+                    <td data-bind="text: Row" ></td>
+                    <td>  
+                        <input style="width: 100px"  
+                               data-bind="combo: { modelProp: ItemVehicle, datacontext: $root.context, displayProp: 'Title', valueProp: ItemVehicleID, allData: true, pruralEntityName: 'ItemVehicles' }"/>
+                        <br/>
+                    </td>
+        
+                    <td><input type="number" data-bind="kendoNumericTextBox: Qty" style="width: 100px"/></td>
+                    <td><input type="text" data-bind="myDatePicker: DoneDate, value: DoneDate" data-converter="value: persianDate"/></td>
+                    <td>
+                        <a class="btn btn-danger" href="#" data-bind="click: $root.removeDetail"><i class="icon-trash icon-white"></i> حذف </a> 
+                    </td>
+                
+                </tr>
+                <tr>
+                    <td colspan="7" style="background-color: #FFFFB9" data-bind="visible: $root.hasChanges() && $data.hasValidationErrors()">
+                        <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+                    </td>
+                </tr>
+            
+            </tbody>
+            <tfoot>
+            
+            </tfoot>
+        </table>
+        <br/><br/>
+        
+        
+        <div data-bind="foreach: RequestDetailVehicles, visible: HasOrder()">
+            <div class="view-list row">
+                <div class="span2">
+                    <div>
+                        <label style="width: 50px">شناسه</label>
+                        <span data-bind="text: ID"></span>  
+                    </div>
+                    <br/>
+                    <div>
+                        <input type="checkbox" data-bind="checked: IsCancel" /><span> لغو شده ؟ </span>
+                    </div>
+                    <p>
+                        <br/>
+                        <label>تاریخ انجام</label>
+                        <input type="text" data-bind="myDatePicker: DoneDate, value: DoneDate" data-converter="value: persianDate"/>
+                    </p>
+                </div>
+                <div class="span3">
+                    <div>
+                        <label style="width: 70px">کالا</label>
+                        <input   
+                            data-bind="combo: { modelProp: ItemVehicle, datacontext: $root.context, displayProp: 'Title', valueProp: ItemVehicleID, allData: true, pruralEntityName: 'ItemVehicles' }"/>
+                    </div>
+                    <div>
+                        <label style="width: 70px">فروشنده</label>
+                        <input  
+                            data-bind="combo: { modelProp: Seller, datacontext: $root.context, displayProp: 'Title', valueProp: SellerID, allData: true, pruralEntityName: 'Sellers' }"/>
+                    </div>
+                </div>
+                <div class="span3">
+                    <div>
+                        <label>تعداد</label>
+                        <input type="number" data-bind="kendoNumericTextBox: Qty" />
+                    </div>
+                    <div>
+                        <label>قیمت واحد</label>
+                        <input type="number" data-bind="kendoNumericTextBox: UnitPrice" />
+                    </div>
+                    <label>قیمت کل</label>
+                    <div style="height: 30px"><span data-bind="text: TotalPrice" data-converter="text: float"></span></div>
+                    
+                    <label>جمع هزینه های موثر</label>
+                    <div style="height: 30px"><span data-bind="text: SumEffectiveCostVehicles" data-converter="text: float"></span></div>
+                    
+                    <label>جمع نهایی</label>
+                    <div style="height: 30px"><span data-bind="text: TotalPriceAndEffectiveCost" data-converter="text: float"></span></div>
+                </div>
+                <div class="span1">
+                    <div class="btn-group-vertical">
+                        <a class="btn btn-primary" href="#" data-bind="click: $root.selectEffectiveCost" style="width: 100px" >هزینه موثر </a>
+                        <a class="btn btn-danger" href="#" data-bind="click: $root.removeDetail"><i class="icon-trash icon-white"></i> حذف </a> 
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row" style="background-color: #FFFFB9" data-bind="visible: $root.hasChanges() && $data.hasValidationErrors()">
+                <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="span5"></div>
+            <div class="span5 view-single pull-left" data-bind="visible: HasOrder() && RequestDetailVehicles.count()" >
+                <label>جمع کل  </label>
+                <span data-bind="text: TotalPriceAndEffectiveCost" data-converter="text: float" style="font-weight: bold"></span>
+            </div>
+        </div>
+        
+        <div data-bind="if: $root.selectedRequestVehicleDetail()">
+            <div data-bind="dialog: { isOpen: $root.isEffectiveCostsOpen, title: 'هزینه های موثر', minWidth: 500 }">
+                <a class="btn btn-primary btn-small" href="#" data-bind="click: $root.addEffectiveCost"><i class="icon-plus icon-white"></i> جدید </a>
+                <br/>
+                <table class="table table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th>نوع هزینه</th>
+                            <th>هزینه</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: $root.selectedRequestVehicleDetail().EffectiveCostVehicles">
+                        <tr>
+                            <td>
+                                <input style="width: 100px" 
+                                       data-bind="combo: { modelProp: CostType, displayProp: 'Title', valueProp: CostTypeID, allData: true }"/>
+                            </td>
+                            <td><input type="number" data-bind="kendoNumericTextBox: Cost" style="width: 100px"/></td>
+                            <td>
+                                <a class="btn btn-danger btn-small" href="#" data-bind="click: $root.removeEffectiveCost"><i class="icon-trash icon-white"></i> حذف </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="background-color: #FFFFB9" data-bind="visible: $root.hasChanges && $data.hasValidationErrors()">
+                                <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td><h6>جمع هزینه : </h6></td>
+                            <td><span data-bind="text: $root.selectedRequestVehicleDetail().SumEffectiveCostVehicles" data-converter="text: float"></span></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    
+  
+</section>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="../Scripts/jquery-1.9.1.js"></script>
+    <script src="../Scripts/knockout-2.2.1.debug.js"></script>
+
+    <script src="../Scripts/q.js"></script>
+    <script src="../Scripts/breeze.debug.js"></script>
+    <script src="../Scripts/helper/helper.ko.js"></script>
+    <script src="../Scripts/helper/ko_context.js"></script>
+    <script src="../Scripts/helper/helper.datacontext.js"></script>
+
+</head>
+<body>
+    <script>
+        $(function() {
+            var vm = {
+                list: ko.observableArray(),
+                list2: ko.observableArray(),
+                data: [{ d: "a" }, { d: "b" }, { d: "c" }],
+                init: function () {
+                    //vm.list(vm.data);
+                    ////vm.list.sync();
+                    //vm.list2(vm.list());
+
+                    vm.context = new helper.datacontext("Stock", "Stocks", vm.list);
+                    var q = vm.context.query();
+                    vm.context.executeQuery(q).then(function() {
+                        vm.list2(vm.list());
+                    });
+                },
+                reject: function() {
+                    //vm.list.reject();
+                    vm.list(vm.list2());
+                },
+                remove: function(item) {
+                    vm.list.remove(item);
+                },
+                add: function() {
+                    //vm.list.push({ d: "d" });
+                },
+                context: null
+            };
+
+            //vm.init();
+            ko.applyBindings(vm);
+        });
+    </script>
+    <input type="button" value="Click to show" data-bind="click: init"/>
+    <input type="button" value="Click to reject" data-bind="click: reject"/>
+    <input type="button" value="Click to add" data-bind="click: add"/>
+    <h1>List</h1>
+    
+    <ul data-bind="foreach: list">
+        <li>
+            <span data-bind="text: Title"></span>
+            <a href="#" data-bind="click: $root.remove">X</a>
+        </li>
+    </ul>
+    
+    <h1>List2</h1>
+    
+    <ul data-bind="foreach: list2">
+        <li data-bind="text: Title"></li>
+    </ul>
+    
+   <!-- <h1>Backup</h1>
+    
+    <ul data-bind="foreach: list.backupArray">
+        <li data-bind="text: d"></li>
+    </ul>-->
+</body>
+</html>

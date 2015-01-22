@@ -1,0 +1,172 @@
+﻿ <div class="wrapper shadow">
+     <div data-bind="click: $root.changeShowMaster"  
+         class="panel-header ui-corner-top bold gray pointer">
+            <i class="icon-white" data-bind="css: { 'icon-plus': !$root.canShowMaster(), 'icon-minus': $root.canShowMaster() }"></i>
+            بخش اصلی
+        </div>
+     <div class="panel-body"
+          data-bind="visible: $root.canShowMaster()">
+            <div class="view-box">
+                <div class="row">
+                    <div class="span12" data-bind="if: !entityAspect.entityState.isAdded()">
+                        <label>
+                            ایجاد شده توسط 
+                            <span data-bind="text: CreatedByUser().FirstName() + ' ' + CreatedByUser().LastName()"></span>
+                            در تاریخ
+                            <span data-bind="text: CreatedOnDate"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span3">
+                        <div>
+                            <label>شماره</label>
+                            <span data-bind="text: No"></span>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <div>
+                            <label>تاریخ</label>
+                            <input type="text" data-bind="value: Date"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span4">
+                        <div>
+                            <label>قسمت</label>
+                            <input data-bind="combo: { modelProp: Section, valueProp: SectionID, displayProp: 'Title', allData: true }"/>
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <div>
+                            <label data-bind="visible: InventoryType() == 'Input'">تحویل گیرنده</label>
+                            <label data-bind="visible: InventoryType() == 'Output'">تحویل دهنده</label>
+                            <input  data-bind="combo: { modelProp: Person, valueProp: PersonID, displayProp: 'FirstName,LastName', allData: true }"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="span3">
+                        <div>
+                            <label>وضعیت</label>
+                            <input data-bind="enumCombo: { Type: 'InventoryStatus', value: Status }" style="width: 120px"/>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <div data-bind="if: InventoryType() == 'Input', visible: InventoryType() == 'Input'">
+                            <label>نوع رسید</label>
+                            <input data-bind="enumCombo: { Type: 'InputType', value: InputType }" style="width: 120px"/>
+                        </div>
+                        <div data-bind="if: InventoryType() == 'Output', visible: InventoryType() == 'Output'">
+                            <label>نوع رسید</label>
+                            <input data-bind="enumCombo: { Type: 'OutputType', value: OutputType }" style="width: 120px"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span12">
+                        <div>
+                            <label>توضیحات</label>
+                            <textarea data-bind="value: Des" style="width: 90%"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div data-bind="visible: $root.hasChanges() && $data.hasValidationErrors()" class="row"  style="background-color: #FFFFB9;width: 100%">
+                    <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+ <div class="wrapper shadow">
+     <div data-bind="click: $root.changeShowDetail" 
+          class="panel-header ui-corner-top bold green pointer">
+         <i class="icon-white" data-bind="css: { 'icon-plus': !$root.canShowDetail(), 'icon-minus': $root.canShowDetail() }"></i>
+         بخش کالا
+     </div>
+
+     <div class="panel-body" data-bind="visible: $root.canShowDetail()">
+         <div style="padding-top: 1em;padding-bottom: 1em">
+             <div class="pull-right">
+                       <a class="btn btn-primary"
+                          data-bind="click: $root.addDetail">
+                           <i class="icon-plus icon-white"></i>
+                           جدید
+                       </a>
+                   </div>
+             <div class="pull-left">
+                 <button data-bind="checkboxImage: { checked: $root.canShowCurrentDetailFull }"></button>
+                 نمایش کامل اطلاعات
+             </div>
+         </div>
+         <table class="table table-hover" data-bind="visible: $data[InventoryType() + 'Details'].any()">
+             <thead>
+                 <tr>
+                     <th>#</th>
+                     <th>کالا</th>
+                     <th>مقدار</th>
+                     <th>درخواست خرید</th>
+                     <th></th>
+                 </tr>
+             </thead>
+             <tbody data-bind="foreach: $data[InventoryType() + 'Details']">
+                 <tr class="pointer"
+                     data-bind="click: $root.selectDetail">
+                     <td data-bind="text: Row"></td>
+                     <td>
+                          <input  data-bind="combo: { modelProp: ItemGood, valueProp: ItemGoodID, displayProp: 'No,Title', allData: true, expands: ['Scale'] }"/>
+                     </td>
+                     <td>
+                         <input type="text" data-bind="value: Qty" data-converter="value: float" style="width: 50px"/>
+                         <span data-bind="with: ItemGood">
+                             <span data-bind="with: Scale">
+                                 <span data-bind="text: Title"></span>
+                             </span>
+                         </span>
+                     </td>
+                     <td></td>
+                     <td>
+                         <span class="toolbox">
+                             <span>
+                                 <a class="btn btn-danger" data-bind="click: $root.removeDetail, clickBubble: false" title="حذف">
+                                     <i class="icon-trash icon-white"></i>
+                                 </a>
+                             </span>
+                         </span>
+
+                     </td>
+
+                 </tr>
+                 <tr>
+                     <td class="more-info"
+                         data-bind="fadeVisible: $data == $root.currentDetail() && $root.canShowCurrentDetailFull()"
+                         colspan="5">
+                         <div class="ui-corner-all view-single" style="padding: 2em;border: 3px #c4e3f3 solid">
+                             <div class="row">
+                                 <div class="span5">
+                                     <div>
+                                         <label>توضیحات : </label>
+                                         <textarea data-bind="value: Des"></textarea>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </td> 
+                 </tr>
+                 <tr>
+                     <td style="background-color: #FFFFB9" 
+                         data-bind="visible: $root.hasChanges && $data.hasValidationErrors()"
+                         colspan="5">
+                         <!--ko compose: {view: 'layout/validationSummary'} --><!--/ko-->
+                     </td>
+                 </tr>
+             </tbody>
+         </table>
+         <div data-bind="visible: !$data[InventoryType() + 'Details'].any()">
+             اطلاعاتی جهت نمایش وجود ندارد
+         </div>
+     </div>
+    </div>
+    

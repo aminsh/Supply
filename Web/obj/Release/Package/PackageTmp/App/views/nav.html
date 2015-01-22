@@ -1,0 +1,73 @@
+﻿<!--class="navbar navbar-fixed-top"-->
+<nav class="navbar-fixed-top">
+
+    <div id="main-header">
+        <div id="header">
+            <div class="profile text-left">
+                <div class="nav pull-right top-menu">
+                    <div class="dropdown">
+                        <div id="wrapper_menu"><!-- BEGIN MENU WRAPPER -->
+                            <ul class="p-menu"><!-- BEGIN MENU -->
+                                <li>
+                                    <a class="p-drop">
+                                        <img src="Content/images/anonymousUser.jpg" alt="user-img" class="img-rounded" style="height:40px; width:40px; float:left"/> 
+                                        <div data-bind="with: currentUser"
+                                            style="width:130px; float:left; padding-top:12px; text-align:center">
+                                             <span data-bind="text: FullName"></span>
+                                        </div>
+                                    </a><!-- Begin 1 column Item -->
+                                    <div class="p-dropdown_1column"><!-- Begin 1 column container -->
+                                        <ul>
+                                            <li><a href="#" class="text-center">پروفایل</a></li> 
+                                            <li><a href="#" class="text-center">تنظیمات</a></li>               
+                                        </ul><!--End 1 column container -->
+                                        <a href="#" class="logout" data-bind="click: logoff">خروج</a>               
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+            <div class="menu">
+                <ul class="ts-menu">
+                    <li class=" img-rounded"><a href="#">صفحه اصلی</a></li>
+                    <li><a href="#">اطلاعات پایه</a>
+                        <ul class="ts-submenu">
+                            <li><a href="#/itemGood">کالا</a></li>        
+                            <li><a href="#/itemService">خدمات</a></li>        
+                            <li><a href="#/itemFood">میوه وشیرینی</a></li>        
+                            <li><a href="#/itemVehicle">نقلیه</a></li> 
+                            <hr class="hr-line"/>       
+                            <li><a href="#/everyone">اشخاص</a></li>        
+                            <li><a href="#/purchasingOfficer">کارپرداز</a></li>        
+                            <li><a href="#/stock">انبار</a></li>        
+                            <li><a href="#/section">معاونت/قسمت</a></li>        
+                            <li><a href="#/seller">فروشنده</a></li>        
+                            <li><a href="#/driver">راننده</a></li>        
+                            <li><a href="#/vehicle">وسیله نقلیه</a></li> 
+                            <hr class="hr-line"/>       
+                            <li><a href="#/costType">نوع هزینه</a></li>        
+                            <li><a href="#/vehicleType">نوع وسیله نقلیه</a></li>        
+                            <li><a href="#/scale">واحد اندازه گیری</a></li>        
+                            <li><a href="#/userDefinedCategory">دسته بندی سفارش</a></li>        
+                        </ul> 
+                    </li>  
+                    <li><a href="#">گزارشات</a>
+                        <ul class="ts-submenu">
+                            <li><a href="#">مرور درخواست</a></li> 
+                        </ul>       
+                    </li>        
+                    <li><a href="#">تنظیمات</a>
+                        <ul class="ts-submenu">
+                            <li><a href="#/defaultSetting">پیش فرض</a></li> 
+                            <li><a href="#/period">دوره</a></li> 
+                            <li><a href="#/security/main">مدیریت امنیت</a></li> 
+                        </ul>       
+                    </li>    
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</nav>

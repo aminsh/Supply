@@ -1,0 +1,29 @@
+﻿<style>
+  .table th , .table td {
+      text-align: right
+  }
+</style>
+<section class="section-main">
+    
+    <a class="btn btn-primary"
+        data-bind="click: init">
+        <i class="icon-refresh icon-white"></i>
+        بروز رسانی
+    </a>
+    
+    <!--<span data-bind="foreach: viewController.viewTypes">
+        <a data-bind="click: $parent.changeView,text: title"></a> |
+    </span>-->
+    
+    <div class="view-single visible-desktop ui-corner-all" style="background-color: white;margin-top: 50px;padding: 2em;width: 90%" >
+        
+        <div data-bind="visible: viewController.currentView().name === 'newStep'">
+            <!--ko compose: {view: 'requestStepTmp/newSteps'} --><!--/ko-->
+        </div>
+        
+        <div data-bind="visible: viewController.currentView().name === 'myStep'">
+            <!--ko compose: {view: 'requestStepTmp/mySteps'} --><!--/ko-->
+        </div>
+    </div>
+
+</section>

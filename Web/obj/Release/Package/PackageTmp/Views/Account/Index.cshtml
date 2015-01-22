@@ -1,0 +1,190 @@
+﻿@using System.Web
+@using System.Web.Optimization
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ورود به سیستم</title>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        @* for no-cache *@
+        <meta http-equiv="no-cache">
+        <meta http-equiv="Expires" content="-1">
+        <meta http-equiv="Cache-Control" content="no-cache">
+
+        @Styles.Render("~/Content/css")
+        <script type="text/javascript">
+            if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+                var msViewportStyle = document.createElement("style");
+                var mq = "@@-ms-viewport{width:auto!important}";
+                msViewportStyle.appendChild(document.createTextNode(mq));
+                document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+            }
+
+        </script>
+
+
+<style>
+            html {
+                background: url(/content/images/login-bg.png)  
+            }
+
+            body {
+                padding: 0 auto;
+                max-width: 100%;
+            }
+
+            .btn {
+                font-family: tahoma
+            }
+
+            .modal-footer .btn{
+                width: 100px;
+                height: 30px;
+                margin-left: 5px
+            }
+
+            
+            h2.page-title {
+                font-size: 25px
+            }
+            .custom-combobox {
+                width: 90%
+            }
+            .tile {
+                width: 300px;
+                height: 150px;
+            }
+
+            .view-single label {
+                display: inline-block;
+                width: 100px;
+                height: 20px;
+                padding-left: 10px;
+                text-align: right;
+                font-style: normal;
+                font-weight: bold;
+            }
+
+            .section-main {
+                background-color: #EFEFEF;
+                
+                margin-top: 15%;
+                margin-left: 30%;
+                margin-right: 30%
+            }
+            .section-header {
+                border-bottom: 1px solid #E2DEDE;
+                padding: 15px;
+                overflow-y: auto;
+            }
+            .section-footer {
+                border-top: 1px solid #E2DEDE;
+                padding: 15px;
+                overflow-y: auto;
+            }
+
+            .section-body {
+                padding: 15px;
+                overflow-y: auto;
+            }
+
+            .section-body label {
+                font-weight: bold
+            }
+
+            .section-body input {
+                width: 95%
+            }
+            .section-body input {
+                background-color: white
+            }
+            .main {
+                margin-top: 50px;
+            }
+
+            #selectRequest,
+            #requstEntry,
+            #trackRequest {
+                display: none
+            }
+
+            .leftToRight {
+                direction: ltr
+            }
+
+            .overlay {
+                width: 100%;
+                height: 100%;
+                
+            }
+        </style>
+    </head>
+    
+
+    <body>
+       @Scripts.Render("~/scripts/vendor")
+        
+        <script>
+            $(function() {
+                $('#username').focus();
+
+                var vm = {
+                    
+                };
+
+                vm.goTo = function() {
+                    window.location = window.location;
+                };
+
+                ko.applyBindings(vm);
+            });
+        </script>
+
+        @Html.Partial("_header")
+        
+            <div class="main">
+            <div id="section"  class="section-main ui-corner-all">
+                <div class="section-header ui-corner-top">
+                    <h2 class="page-title">ورود به سیستم</h2>
+                </div>
+                <div class="section-body">
+                    <div class="alert alert-success">
+                        نام کاربری و کلمه عبور خود را ثبت کنید
+                    </div>
+
+                    <form data-bind="submit: goTo">
+                        <label>نام کاربری</label>
+                        <input id="username" type="text" class="autofocus leftToRight" placeholder="نام کاربری" />
+                    </form>
+
+                    <div style="margin-top: 1em">
+                        <label>کلمه عبور</label>
+                        <input type="password" class="leftToRight" placeholder="کلمه عبور"/>
+                    </div>
+                </div>
+                <div class="section-footer ui-corner-bottom" style="text-align: center">
+                    
+                    
+                    <a class="btn btn-success btn-block" data-bind="click: goTo">
+                        ثبت نام
+                    </a>
+                    &nbsp;
+                    <a class="btn btn-primary btn-block">
+                        <i class="ui-icon-unlocked"></i>
+                         ورود
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        
+        
+    </body>
+</html>
+

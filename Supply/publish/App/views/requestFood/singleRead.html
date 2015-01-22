@@ -1,0 +1,170 @@
+﻿<div>
+    <span class="badge pointer" data-bind="click: changeShowMaster" 
+        style="padding-top: 0.5em;padding-bottom: 0.5em;padding-left: 1em;padding-right: 1em;width: 100%">
+        <i class="icon-white" data-bind="css: { 'icon-plus': !canShowMaster(), 'icon-minus': canShowMaster() }"></i>
+        بخش درخواست
+    </span>
+    <div class="labelBold ui-corner-all" data-bind="with: current,visible: canShowMaster()" style="background-color: #DADAE0; padding: 2em">
+        <div class="row" style="font-weight: bold">
+            صادر شده توسط 
+            <span data-bind="text: CreatedByUser().FirstName() + ' ' + CreatedByUser().LastName()"></span>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="span3" style="width: 100px">
+                <div>
+                    <label>شماره : </label>
+                    <span data-bind="text: No"></span>
+                </div>
+            </div>
+            
+            <div class="span3" style="width: 100px">
+                <div>
+                    <label>تاریخ : </label>
+                    <span data-bind="text: Date"></span>
+                </div>
+            </div>
+            <div class="span3">
+                <label>نامه (ها)</label>
+                <br/>
+                <span class="badge badge-info pointer" data-bind="click: $root.letter.openLetter" >
+                    <i class="icon-white" 
+                       data-bind="css: { 'icon-plus': !$root.letter.isLetterOpen(), 'icon-minus': $root.letter.isLetterOpen() }"></i>
+                </span>
+                <span data-bind="if: $root.letter.isLetterOpen()">
+                    <ul data-bind="foreach: LetterRequestFoods, visible: LetterRequestFoods.count()">
+                        <li>
+                            <span data-bind="text: No"></span>
+                            &nbsp; &lArr; &nbsp;
+                            <span data-bind="text: Date" ></span>
+                        </li>
+                    </ul>
+                </span>
+               
+            </div>
+            <div class="span3">
+                <div data-bind="with: PerformerSection">
+                    <label>اقدام کننده: </label>
+                    <span data-bind="text: Title"></span>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div>
+                <div class="span3">
+                    <div data-bind="with: Section">
+                        <label>قسمت : </label>
+                        <span data-bind="text: Title"></span>
+                    </div>
+                </div>
+                <div class="span3">
+                    <div data-bind="with: ConsumerSection">
+                        <label>محل مصرف : </label>
+                        <span data-bind="text: Title"></span>
+                    </div>
+                </div>
+                <div class="span3">
+                    <div data-bind="with: Person">
+                        <label>درخواست دهنده : </label>
+                        <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="span3">
+                <div data-bind="with: PurchasingOfficer">
+                    <label>کارپرداز : </label>
+                    <span data-bind="text: Title"></span>
+                </div>
+            </div>
+            <div class="span3">
+                <label>تاریخ ارائه به کارپرداز : </label>
+                <span data-bind="text: OrderDate"></span>
+            </div>
+            <div class="span3">
+                <div>
+                    <label data-bind="text: IsFast() ? 'درخواست فوری' : ''"></label>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="span3">
+                <div>
+                    <label>وضعیت درخواست : </label>
+                    <span data-bind="enumDisplay: { value: Status }"></span>
+                </div>
+            </div>
+            <div class="span3">
+                <div>
+                    <label>روش خرید : </label>
+                    <span data-bind="enumDisplay: { value: PurchaseMethod }"></span>
+                </div>
+            </div>
+            <div class="span3">
+                <div data-bind="with: UserDefinedCategory">
+                    <label>دسته بندی : </label>
+                    <span data-bind="text: Title"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span class="badge badge-success pointer" data-bind="click: changeShowDetail" 
+          style="padding-top: 0.5em;padding-bottom: 0.5em;padding-left: 1em;padding-right: 1em;width: 100%">
+        <i class="icon-white" data-bind="css: { 'icon-plus': !canShowDetail(), 'icon-minus': canShowDetail() }"></i>
+        بخش کالا
+    </span>
+
+    <div class="view-single ui-corner-all" data-bind="with: current, visible: canShowDetail()" 
+        style="background-color: rgb(234, 255, 234); padding: 2em">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>کالا</th>
+                    <th>تعداد</th>
+                    <th>قیمت واحد</th>
+                    <th>قیمت کل</th>
+                    <th>تاریخ انجام</th>
+                    <th>شرح</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: RequestDetailFoods">
+                <tr>
+                    <td data-bind="text: Row"></td>
+                    <td data-bind="with: ItemFood">
+                        <span data-bind="text: Title"></span>
+                    </td>
+                    <td data-bind="text: Qty"></td>
+                    <td data-bind="text: UnitPrice"></td>
+                    <td data-bind="text: TotalPriceTemp" data-converter="text: float"></td>
+                    <td data-bind="text: DoneDate"></td>
+                    <td data-bind="text: Des"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td data-bind="text: TotalPriceTemp" data-converter="text: float"></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    
+    <span class="badge badge-warning pointer" data-bind="click: changeShowFinance" 
+          style="padding-top: 0.5em;padding-bottom: 0.5em;padding-left: 1em;padding-right: 1em;width: 100%">
+        <i class="icon-white" data-bind="css: { 'icon-plus': !canShowFinance(), 'icon-minus': canShowFinance() }"></i>
+        بخش مالی
+    </span>
+    <div class="view-single ui-corner-all" data-bind="with: current, visible: canShowFinance()" style="background-color: rgb(255, 255, 193); padding: 2em">
+        این بخش هنوز پیاده سازی نشده است
+    </div>
+</div>

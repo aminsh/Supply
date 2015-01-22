@@ -1,0 +1,102 @@
+﻿<tr data-bind="if: ['Order', 'PurchasingOfficer', 'OrderDone', 'InventoryInput', 'InventoryOutput', 'Delivered'].contains($parent.Status()),
+    css: { info: IsOrder(), light: IsOrder() && isNullOrEmpty(DoneDate()) ,cancel: IsCancel()}">
+    <td>
+        <span data-bind="css: { 'icon-dollar': IsOrder() }"></span>
+    </td>
+    <td data-bind="visible: ['Good', 'Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+        <span data-bind="if: ['Good', 'Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+            <span data-bind="if: $parent.RequestType() === 'Good'">
+                <span data-bind="with: ItemGood">
+                    <span data-bind="text: No() + ' ' + Title()"></span>
+                </span>
+            </span>
+            <span data-bind="ifnot: $parent.RequestType() === 'Good'">
+                <span data-bind="with: $data['Item' + $parent.RequestType()]">
+                    <span data-bind="text: Title()"></span>
+                </span>
+            </span>
+        </span>
+    </td>
+    <td data-bind="visible: ['Good','Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+        <span data-bind="if: $parent.RequestType() === 'Good'">
+            <span data-bind="text: Qty"></span>
+            <span data-bind="with: ItemGood">
+                <span data-bind="with: Scale">
+                    <span data-bind="text: Title"></span>
+                </span>
+            </span>
+        </span>
+
+        <span data-bind="if: ['Food', 'Service', 'Vehicle'].contains($parent.RequestType())">
+            <span data-bind="with: Scale">
+                <span data-bind="text: Title"></span>
+            </span>
+        </span>
+    </td>
+    <td data-bind="visible: $parent.RequestType() === 'Good' &&
+    ['InventoryInput', 'InventoryOutput', 'Delivered'].contains($parent.Status()),
+    if: $parent.RequestType() === 'Good'">
+        <span data-bind="with: InputDetail">
+            <span data-bind="with: Input">
+                <span data-bind="text: No"></span>
+            </span>
+        </span>
+    </td>
+    <td data-bind="visible: $parent.RequestType() === 'Good' &&
+    ['Order', 'PurchasingOfficer', 'OrderDone', 'InventoryInput'].contains($parent.Status())"
+        style="text-align: center;width: 100px" >
+        <span data-bind="if: $parent.RequestType() === 'Good'">
+            <span data-bind="if: InventoryQty() == -1">
+                <i class="icon-question-sign"></i>
+            </span>
+            <span data-bind="if: InventoryQty() == -2">
+                <img src="../../../../../Content/images/loading-small.gif" style="width: 20px; height: 20px" />
+            </span>
+
+            <span data-bind="if: InventoryQty() >= 0">
+                <span data-bind="text: InventoryQty"></span>
+                <a class="pointer" 
+                   data-bind="click: $root.getInventoryQty"
+                   title="شمارش مجدد">
+                    <i class="icon-repeat"></i>
+                </a>
+            </span>
+        </span>
+    </td>
+    <td data-bind="visible: $parent.RequestType() === 'Good' &&
+    ['InventoryOutput', 'Delivered'].contains($parent.Status()),
+    if: $parent.RequestType() === 'Good'">
+        <span data-bind="with: OutputDetail">
+            <span data-bind="with: Output">
+                <span data-bind="text: No"></span>
+            </span>
+        </span>
+    </td>
+     <td data-bind="visible: $parent.RequestType() === 'Ticket'">
+        <span data-bind="if: $parent.RequestType() === 'Ticket'">
+            <span data-bind="with: Passenger">
+                <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+            </span>
+        </span>
+    </td>
+    <td data-bind="visible: $parent.RequestType() === 'Ticket'">
+        <span data-bind="if: $parent.RequestType() === 'Ticket'">
+            <span data-bind="text: GoOnDate"></span>
+        </span>
+    </td>
+    <td data-bind="visible: $parent.RequestType() === 'Ticket'">
+        <span data-bind="if: $parent.RequestType() === 'Ticket'">
+            <span data-bind="text: ReturnDate"></span>
+        </span>
+    </td>
+    <td data-bind="visible: $parent.RequestType() === 'Ticket'">
+        <span data-bind="if: $parent.RequestType() === 'Ticket'">
+            <span data-bind="text: Origin"></span>
+        </span>
+    </td>
+    <td data-bind="visible: $parent.RequestType() === 'Ticket'">
+        <span data-bind="if: $parent.RequestType() === 'Ticket'">
+            <span data-bind="text: Destination"></span>
+        </span>
+    </td>
+</tr>

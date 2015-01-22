@@ -1,0 +1,274 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+     <script src="../Scripts/jquery-1.9.1.min.js"></script>
+    <script src="../Scripts/knockout-2.2.1.js"></script>
+    <script src="../Scripts/kendo/2013.1.319/jquery.min.js"></script>
+    <script src="../Scripts/kendo/2013.1.319/kendo.web.min.js"></script>
+    <script src="../Scripts/knockout-kendo.js"></script>
+    <script src="../Scripts/helper/helper.datacontext.js"></script>
+   <!-- <script src="../Scripts/datajs-1.0.3.js"></script>
+    <script src="../Scripts/jaydata.js"></script>
+    <script src="../Scripts/jaydatamodules/kendo.js"></script>-->
+    <script src="../Scripts/q.js"></script>
+    <script src="../Scripts/breeze.debug.js"></script>
+
+    <link href="../Content/kendo/2013.1.319/kendo.common.min.css" rel="stylesheet" />
+    <link href="../Content/kendo/2013.1.319/kendo.default.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script>
+        $(function () {
+
+            //$.ajax("http://localhost:1557/api/Item/Items?$filter=ParentID%20eq%20null&$expand=Children",
+            //    {
+            //        dataType: "json",
+            //        contentType: "application/json",
+            //        cache: false,
+            //        type: "GET",
+            //        success: function(data) {
+            //            var d = data;
+                        
+            //            var ds = new kendo.data.HierarchicalDataSource({
+            //                            data: d,
+            //                            //transport: {
+            //                            //    read: {
+            //                            //        url: "http://localhost:1557/api/Item/Items?$filter=ParentID%20eq%20null&$expand=Children",
+            //                            //        dataType: "application/json"
+            //                            //    }
+            //                            //},
+            //                            schema: {
+            //                                model: {
+            //                                    id: "ID",
+
+            //                                    children: "Children"
+            //                                }
+            //                            }
+            //                        });
+
+            //                        $("#treeview").kendoTreeView({
+            //                            dataSource: ds,
+            //                            dataTextField: ["Title", "Title"]
+            //                        });
+            //        }
+            //});
+            var mngr = new breeze.EntityManager("/api/Item/");
+            var query = breeze.EntityQuery.from("Items").where("ParentID", "==", null).expand("Children");
+
+            mngr.executeQuery(query)
+                .then(function (data) {
+                    var d = ko.utils.unwrapObservable(data.results);
+                    var ds = new kendo.data.HierarchicalDataSource({
+                        data: data.results,
+                        //transport: {
+                        //    read: {
+                        //        url: "http://localhost:1557/api/Item/Items?$filter=ParentID%20eq%20null&$expand=Children",
+                        //        dataType: "application/json"
+                        //    }
+                        //},
+                        schema: {
+                            model: {
+                                id: "ID",
+
+                                children: "Children"
+                            }
+                        }
+                    });
+
+                    $("#treeview").kendoTreeView({
+                        dataSource: ds,
+                        dataTextField: ["Title", "Title"]
+                    });
+                })
+                .fail(function () {
+
+            });
+            //var ds = new kendo.data.HierarchicalDataSource({
+            //    data: [
+            //             { text: "Furniture", items: [
+            //                 { text: "Tables & Chairs" },
+            //                 { text: "Sofas" },
+            //                 { text: "Occasional Furniture" }
+            //             ] },
+            //             { text: "Decor", items: [
+            //                 { text: "Bed Linen" },
+            //                 { text: "Curtains & Blinds" },
+            //                 { text: "Carpets" }
+            //             ] }
+            //    ],
+
+            //    //transport: {
+            //    //    read: {
+            //    //        url: "http://localhost:1557/api/Item/Items?$filter=ParentID%20eq%20null&$expand=Children",
+            //    //        dataType: "application/json"
+            //    //    }
+            //    //},
+            //    schema: {
+            //        model: {
+            //            id: "ID",
+                        
+            //            children: "items"
+            //        }
+            //    }
+            //});
+
+            //$("#treeview").kendoTreeView({
+            //    dataSource: ds,
+            //    dataTextField: ["text", "text"]
+            //});
+
+
+            var askerSource = new kendo.data.DataSource({
+                type: "application/json",
+                transport: {
+                    read: {
+                        url: "/breeze/Asker/Askers",
+                        dataType: "json"
+                    }
+                },
+                //schema: {
+                //    data:function(data) {
+                //        return data["results"];
+                //    }
+                //}
+            });
+
+            //jay data
+
+            
+            var vm = function () {
+                var items = ko.observableArray(["item1", "item2", "item3"]),
+                    item = ko.observable()
+                    
+
+                return {
+                    items: items,
+                    item: item
+                };
+            };
+
+            ko.applyBindings(new vm());
+
+            $('#btnRun').click(function () {
+                $('#ddlAsker').kendoDropDownList({
+                    dataTextField: "Title",
+                    dataValueField: "ID",
+                    
+                });
+            });
+
+
+
+
+        });
+
+    </script>
+    <h1>Tree</h1>
+    <div id="treeview" class="demo-section"></div>
+
+    <h1>Kendo dropdown</h1>
+    <input data-bind="kendoDropDownList: { dataSource: {}, dataTextField: 'Title', dataValueField: 'ID', value: item }" />
+    <br/>
+    <input data-bind="kendoDropDownList: {
+    data: {}, minLength: 3, dataTextField: 'Title', dataValueField: 'ID', dataSource: {
+        type: 'application/json',
+        serverFiltering: true,
+        serverPaging: true,
+        pageSize: 20,
+        transport: {
+            read: '/api/Asker/Askers'
+        }
+    }, value: item
+}" />
+    <br/>
+    <input data-bind="kendoComboBox: {
+    data: {}, minLength: 3, dataTextField: 'Title', dataValueField: 'ID',
+    filter: 'contains',
+    dataSource: {
+        type: 'application/json',
+        serverFiltering: true,
+        serverPaging: true,
+        pageSize: 20,
+        transport: {
+            read: {
+                    url: '/api/Asker/Askers'
+        },
+            parameterMap: function (options, operation) {
+                        var paramMap = kendo.data.transports.odata.parameterMap(options);
+                        delete paramMap.$inlinecount; 
+                        delete paramMap.$format;
+
+                        return paramMap;
+                    }
+        },
+    }, value: item
+}" />
+    <!--$(document).ready(function() {
+                    $("#products").kendoComboBox({
+                        placeholder: "Select product",
+                        dataTextField: "ProductName",
+                        dataValueField: "ProductID",
+                        filter: "contains",
+                        autoBind: false,
+                        minLength: 3,
+                        dataSource: {
+                            type: "odata",
+                            serverFiltering: true,
+                            transport: {
+                                read: {
+                                    url: "http://demos.kendoui.com/service/Northwind.svc/Products",
+                                }
+                            }
+                        }
+                    });
+                });-->
+
+    <input id="ddlAsker" data-bind="value: item"/><input type="button" id="btnRun"/>
+    <br/>
+    IItem : <span data-bind="text: item"></span>
+    <br/>
+    <input data-bind="kendoAutoComplete: {
+data: {}, minLength: 3, dataTextField: 'Title', dataSource: {
+    type: 'application/json',
+    serverFiltering: true,
+    serverPaging: true,
+    pageSize: 20,
+    transport: {
+        read: '/api/Asker/Askers'
+    }
+}, value: item
+}" />
+    <br/>
+    <label for="fullname" class="required">Your Name</label>
+    <input type="text" id="fullname" name="fullname" class="k-textbox" placeholder="Full name" required validationMessage="Please enter {0}" />
+    
+    <label for="search" class="required">Movie</label>
+    <input type="search" id="search" name="search" required validationMessage="Please select movie"/><span class="k-invalid-msg" data-for="search"></span>
+    
+    <input data-bind="kendoComboBox: {
+    data: {}, minLength: 3, dataTextField: 'FullName', dataValueField: 'ID',
+    filter: 'contains',
+    dataSource: {
+        type: 'odata',
+        serverFiltering: true,
+        serverPaging: true,
+        pageSize: 20,
+        transport: {
+            read: {
+                url: '/api/HR/People'
+            },
+            parameterMap: function (options, operation) {
+                var paramMap = kendo.data.transports.odata.parameterMap(options);
+                delete paramMap.$inlinecount;
+                delete paramMap.$format;
+                delete paramMap.$callback;
+
+                return paramMap;
+            }
+        },
+    }, value: item
+}" />
+
+</body>
+</html>

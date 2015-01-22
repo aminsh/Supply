@@ -1,0 +1,10 @@
+D:\Project\Silverlight\SuppliesSystem\Model\bin\Debug\Model.dll
+D:\Project\Silverlight\SuppliesSystem\Model\bin\Debug\Model.pdb
+D:\Project\Silverlight\SuppliesSystem\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache
+D:\Project\Silverlight\SuppliesSystem\Model\obj\Debug\Model.dll
+D:\Project\Silverlight\SuppliesSystem\Model\obj\Debug\Model.pdb
+D:\Project\SPA\Supply\Model\bin\Debug\Model.dll
+D:\Project\SPA\Supply\Model\bin\Debug\Model.pdb
+D:\Project\SPA\Supply\Model\obj\Debug\Model.dll
+D:\Project\SPA\Supply\Model\obj\Debug\Model.pdb
+D:\Project\SPA\Supply\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache

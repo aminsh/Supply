@@ -1,0 +1,23 @@
+﻿<form data-bind="submit: load">
+    <div style="background-color: gainsboro">
+        <div  class="pagination"   data-bind="visible: !alldata()">
+            <ul data-bind="foreach: pages">
+                <li data-bind="css: { active: page == $parent.currentPage(), disabled: page == 'Prev' && $parent.currentPage() == 1 }">
+                    <a href="#" data-bind="text: text, click: $parent.load"></a>
+                </li>
+           
+            </ul> 
+            <span style="float: left;color: #005580;font-size: 10px">
+                <span style="height: 100%; font-size: 12px">صفحه جاری </span>
+                <span data-bind="text: currentPage"></span>
+
+                <select style="width: 100px; margin-left: 1em; margin-right: 2em;" data-bind="options: pageSizeOptions,value: pageSize" title="انداز هر صفحه">
+                          
+                </select>
+             
+                <input type="text" style="border-color: gainsboro; width:30px; height: 12px; text-align: center" data-bind="value: currentPage" title="شماره صفحه"/>
+               
+            </span>   
+        </div>
+    </div>
+</form>

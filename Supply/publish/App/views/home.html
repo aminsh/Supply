@@ -1,0 +1,63 @@
+﻿<section>
+    <div class="right-side text-center" dir="rtl">
+        <form class="" dir="rtl">
+            <input type="button" value="go" class="search-go img-rounded" />
+            <input type="text" class="search search-bar form-control" placeholder="جستجو..." >
+        </form>
+        <div class="clearfix"></div>
+        <div class="right-current img-rounded text-right" dir="rtl">
+            <h4>دوره جاری: </h4>
+            <h4>انبار فعال:</h4>
+        </div>       
+		<div class="right-profile img-rounded">
+        	<img alt="profile-img" src="Content/images/anonymousUser.jpg" class="user-img img-circle"/>
+            <h2 data-bind="text: currentUser().FullName"></h2>
+            <h4> زمان ورود: </h4>
+            <h4>آخرین ورود: </h4>
+        </div>
+        <div class="right-date img-rounded">
+        	<img alt="date-time" src="Content/images/date-time.png">
+        	<h3> امروز</h3>
+            <h4 data-bind="text: (new Date).toPersian()"></h4>
+            <!--<h5>15:00:00</h5>-->
+        </div>
+    </div>
+    
+    <div id="main">
+        <ul class="main-top list-unstyled list-inline text-right">
+            <li class="img-rounded">
+                <a href="#" class="sale text-center img-rounded">رسید/ حواله</a>
+            </li>
+            <li class="img-rounded">
+                <a href="#" class="order text-center img-rounded">درخواست خرید</a>
+            </li>
+        </ul>
+
+        <div class="main-bottom">
+            <section class="panel">
+                <table class="table table-hover" >
+        <tbody data-bind="foreach: totalRequests">
+            <tr class="pointer"
+                data-bind="click: $root.goToConfirm">
+                <td>
+                    <a class=" ui-corner-all">
+                        <i data-bind="css: $root.getRequestTotal(Name())"></i>
+                    </a>
+                </td>
+                <td data-bind="text: Title"></td>
+                <td style="text-align: left">
+                    <span class="badge badge-success" data-bind="text: Count, visible: Count() != 0"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+            </section>
+        </div>
+        <div class="clearfix"></div>
+        
+
+    </div>
+    
+    
+
+</section>
