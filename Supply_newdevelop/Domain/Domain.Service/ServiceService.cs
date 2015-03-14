@@ -37,5 +37,11 @@ namespace Domain
             entity.Des = data.des;
             entity.Price = data.price;
         }
+
+        public void Remove(int id)
+        {
+            var entity = _serviceRepository.FindById(id);
+            _serviceRepository.Delete(entity);
+        }
     }
 }
