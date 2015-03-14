@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Data
+namespace Domain
 {
-    public class Class1
+    public class RequestGoodService
     {
+        public void Create()
+        {
+
+        }
     }
 }
