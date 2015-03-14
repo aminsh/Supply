@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Model
 {
-    public class Class1
+    class OrderTicket
     {
     }
 }
