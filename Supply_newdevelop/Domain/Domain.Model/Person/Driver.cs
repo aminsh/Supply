@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Model
 {
-    class OrderVehicle
+    public class Driver : Person
     {
+        public int Id { get; set; }
     }
 }

@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Model
 {
-    class OrderTicketDetail
+    public class Person
     {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }

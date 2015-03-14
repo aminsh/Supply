@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Model
 {
-    class OrderServiceDetail
+    public class PurchasingOfficer
     {
+        public virtual Employee Employee { get; set; }
+        public string Title { get; set; }
     }
 }

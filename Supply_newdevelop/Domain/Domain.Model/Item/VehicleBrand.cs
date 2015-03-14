@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Model
 {
-    class OrderTicket
+    public class VehicleBrand : EntityBase
     {
+        public string Title { get; set; }
     }
 }

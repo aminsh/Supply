@@ -39,16 +39,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Item\VehicleBrand.cs" />
+    <Compile Include="Order\CostDetail.cs" />
+    <Compile Include="Order\ExtraCost.cs" />
+    <Compile Include="Order\Letter.cs" />
+    <Compile Include="Person\Driver.cs" />
+    <Compile Include="Person\Employee.cs" />
     <Compile Include="EntityBase.cs" />
+    <Compile Include="Person\Everyone.cs" />
     <Compile Include="Item\Food.cs" />
     <Compile Include="Item\Good.cs" />
     <Compile Include="Item\IItem.cs" />
-    <Compile Include="OrderGood.cs" />
-    <Compile Include="OrderGoodDetail.cs" />
+    <Compile Include="Order\OrderFood.cs" />
+    <Compile Include="Order\OrderFoodDetail.cs" />
+    <Compile Include="Order\OrderGood.cs" />
+    <Compile Include="Order\OrderGoodDetail.cs" />
+    <Compile Include="Order\OrderService.cs" />
+    <Compile Include="Order\OrderServiceDetail.cs" />
+    <Compile Include="Order\OrderTicket.cs" />
+    <Compile Include="Order\OrderTicketDetail.cs" />
+    <Compile Include="Order\OrderVehicle.cs" />
+    <Compile Include="Order\OrderVehicleDetail.cs" />
+    <Compile Include="Person\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Item\Scale.cs" />
     <Compile Include="Item\Service.cs" />
     <Compile Include="Item\Vehicle.cs" />
+    <Compile Include="PurchasingOfficer.cs" />
+    <Compile Include="Section.cs" />
     <Compile Include="Seller.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
