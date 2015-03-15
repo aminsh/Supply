@@ -46,12 +46,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="AppDbContext.cs" />
+    <Compile Include="EntityFrameworkRepository.cs" />
+    <Compile Include="EntityFrameworkUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\Domain.Model\Domain.Model.csproj">
+      <Project>{4a0ca074-a548-4d72-9b75-80f07354fde0}</Project>
+      <Name>Domain.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataAccess.Data\DataAccess.Data.csproj">
+      <Project>{5093299F-91B5-4937-8162-D1A96634735F}</Project>
+      <Name>DataAccess.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

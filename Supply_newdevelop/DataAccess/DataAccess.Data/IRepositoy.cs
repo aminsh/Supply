@@ -9,7 +9,8 @@ namespace Domain.Data
         void Add(TEntity entity);
         void Modify(TEntity entity);
         void Delete(TEntity entity);
-        TEntity FindById(int id);
+        void DeleteById(object id);
+        TEntity FindById(object id);
         TEntity Find(Expression<Func<TEntity, bool>> expression);
         IQueryable<TEntity> Query();
     }

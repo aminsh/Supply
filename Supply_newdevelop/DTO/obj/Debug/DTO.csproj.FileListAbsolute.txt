@@ -1,0 +1,5 @@
+C:\Own\Supply\Supply_newdevelop\DTO\bin\Debug\DTO.dll
+C:\Own\Supply\Supply_newdevelop\DTO\bin\Debug\DTO.pdb
+C:\Own\Supply\Supply_newdevelop\DTO\obj\Debug\DTO.csprojResolveAssemblyReference.cache
+C:\Own\Supply\Supply_newdevelop\DTO\obj\Debug\DTO.dll
+C:\Own\Supply\Supply_newdevelop\DTO\obj\Debug\DTO.pdb

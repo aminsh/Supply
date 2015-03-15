@@ -1,0 +1,14 @@
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\bin\Debug\DataAccess.EntityFramework.dll.config
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\bin\Debug\DataAccess.EntityFramework.dll
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\bin\Debug\DataAccess.EntityFramework.pdb
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\bin\Debug\DataAccess.Data.dll
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\bin\Debug\Domain.Model.dll
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\bin\Debug\EntityFramework.dll
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\bin\Debug\EntityFramework.SqlServer.dll
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\bin\Debug\Domain.Model.pdb
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\bin\Debug\DataAccess.Data.pdb
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\bin\Debug\EntityFramework.xml
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\bin\Debug\EntityFramework.SqlServer.xml
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\obj\Debug\DataAccess.EntityFramework.csprojResolveAssemblyReference.cache
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\obj\Debug\DataAccess.EntityFramework.dll
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\obj\Debug\DataAccess.EntityFramework.pdb

@@ -1,0 +1,11 @@
+C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\obj\Debug\Domain.Service.csprojResolveAssemblyReference.cache
+C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Domain.Service.dll
+C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Domain.Service.pdb
+C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\DataAccess.Data.dll
+C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Domain.Model.dll
+C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\DTO.dll
+C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\DataAccess.Data.pdb
+C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\DTO.pdb
+C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Domain.Model.pdb
+C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\obj\Debug\Domain.Service.dll
+C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\obj\Debug\Domain.Service.pdb
