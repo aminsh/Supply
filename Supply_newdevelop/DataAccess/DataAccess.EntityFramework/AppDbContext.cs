@@ -40,6 +40,10 @@ namespace DataAccess.EntityFramework
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Service> Services { get; set; }
+        public DbSet<Food> Foods { get; set; }
+        public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<VehicleBrand> VehicleBrands { get; set; }
     }
 
     public class MigrationManager<TDbContext> : DbMigrationsConfiguration<TDbContext>

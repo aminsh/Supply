@@ -39,11 +39,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OrderGoodService.cs" />
+    <Compile Include="FoodService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceService.cs" />
+    <Compile Include="VehicleService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\Core.csproj">
+      <Project>{6AFAB4D8-36E0-4382-B33A-876E73DCD39B}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\DataAccess\DataAccess.Data\DataAccess.Data.csproj">
       <Project>{5093299f-91b5-4937-8162-d1a96634735f}</Project>
       <Name>DataAccess.Data</Name>
