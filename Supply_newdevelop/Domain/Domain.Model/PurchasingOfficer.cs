@@ -8,6 +8,7 @@ namespace Domain.Model
 {
     public class PurchasingOfficer
     {
+        public string Id { get; set; }
         public virtual Employee Employee { get; set; }
         public string Title { get; set; }
     }

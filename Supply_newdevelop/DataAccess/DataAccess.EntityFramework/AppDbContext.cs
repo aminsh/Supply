@@ -44,6 +44,9 @@ namespace DataAccess.EntityFramework
         public DbSet<Food> Foods { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<VehicleBrand> VehicleBrands { get; set; }
+        public DbSet<PurchasingOfficer> PurchasingOfficers { get; set; }
+        public DbSet<OrderFood> OrderFoods { get; set; }
+        public DbSet<OrderGood> OrderGoods { get; set; }
     }
 
     public class MigrationManager<TDbContext> : DbMigrationsConfiguration<TDbContext>
