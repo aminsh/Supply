@@ -12,3 +12,13 @@ C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\bin\Debug\
 C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\obj\Debug\DataAccess.EntityFramework.csprojResolveAssemblyReference.cache
 C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\obj\Debug\DataAccess.EntityFramework.dll
 C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\obj\Debug\DataAccess.EntityFramework.pdb
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\bin\Debug\Core.dll
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\bin\Debug\System.Web.Http.dll
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\bin\Debug\Microsoft.Practices.Unity.dll
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\bin\Debug\System.Net.Http.Formatting.dll
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\bin\Debug\Newtonsoft.Json.dll
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\bin\Debug\Core.pdb
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\bin\Debug\System.Web.Http.xml
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\bin\Debug\Microsoft.Practices.Unity.xml
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\bin\Debug\System.Net.Http.Formatting.xml
+C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.EntityFramework\bin\Debug\Newtonsoft.Json.xml

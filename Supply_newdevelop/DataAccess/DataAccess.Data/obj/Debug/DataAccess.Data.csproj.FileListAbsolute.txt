@@ -1,5 +1,4 @@
 C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.Data\bin\Debug\DataAccess.Data.dll
 C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.Data\bin\Debug\DataAccess.Data.pdb
-C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.Data\obj\Debug\DataAccess.Data.csprojResolveAssemblyReference.cache
 C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.Data\obj\Debug\DataAccess.Data.dll
 C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.Data\obj\Debug\DataAccess.Data.pdb

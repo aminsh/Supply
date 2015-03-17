@@ -9,3 +9,13 @@ C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\DTO.pdb
 C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Domain.Model.pdb
 C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\obj\Debug\Domain.Service.dll
 C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\obj\Debug\Domain.Service.pdb
+C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Core.dll
+C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\System.Web.Http.dll
+C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Microsoft.Practices.Unity.dll
+C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\System.Net.Http.Formatting.dll
+C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Newtonsoft.Json.dll
+C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Core.pdb
+C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\System.Web.Http.xml
+C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Microsoft.Practices.Unity.xml
+C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\System.Net.Http.Formatting.xml
+C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Newtonsoft.Json.xml

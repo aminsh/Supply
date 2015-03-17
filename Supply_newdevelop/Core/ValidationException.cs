@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+// ReSharper disable InconsistentNaming
 namespace Core
 {
     public class ValidationException : Exception
     {
-        public IList<Error> Errors { get; set; }
+        public object validationErrors { get; set; }
     }
 }

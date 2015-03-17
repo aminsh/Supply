@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Core;
 using Domain.Data;
 using Domain.Model;
@@ -13,11 +9,13 @@ namespace Domain
     public class FoodService
     {
         private readonly IRepository<Food> _footRepository;
+        private readonly IRepository<OrderFood> _orderFoodRepository;
         private readonly IResult _result;
 
         public FoodService(IUnitOfWork unitOfWork, IResult result)
         {
             _footRepository = unitOfWork.GetRepository<Food>();
+            _orderFoodRepository = unitOfWork.GetRepository<OrderFood>();
             _result = result;
         }
 
@@ -43,6 +41,13 @@ namespace Domain
 
         public void Remove(int id)
         {
+            if (_orderFoodRepository.Query()
+                .SelectMany(of => of.Details).Any(d => d.Food.Id == id))
+                _result.Errors.Add(new Error
+                {
+                    Message = "نوع کالای انتخاب شده در سفارش استفاده شده ، امکان خذف آن وجود ندارد"
+                });
+
             var entity = _footRepository.FindById(id);
             _footRepository.Delete(entity);
         }

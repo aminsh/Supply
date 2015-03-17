@@ -9,7 +9,7 @@ using Domain.Model;
 using Domain.Model.Order;
 using DTO;
 
-namespace Domain.Service
+namespace Domain
 {
     public class OrderFoodService
     {

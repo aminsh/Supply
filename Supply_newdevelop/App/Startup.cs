@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web.Http;
+using App.Config;
+using App.Utility;
+using Core;
 using Microsoft.Owin;
 using Owin;
 
@@ -15,10 +18,10 @@ namespace App
             var config = new HttpConfiguration();
 
             config.MapHttpAttributeRoutes();
-
-            //Ioc.Register();
-            //config.DependencyResolver = new UnityResolver(DependencyManager.Container);
-
+            
+            Ioc.Register();
+            config.DependencyResolver = new UnityResolver(DependencyManager.Container);
+            
             app.UseWebApi(config);
             app.UseWelcomePage("/Index");
         }
