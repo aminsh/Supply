@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="FoodService.cs" />
     <Compile Include="OrderFoodService.cs" />
+    <Compile Include="OrderGoodService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceService.cs" />
     <Compile Include="VehicleService.cs" />

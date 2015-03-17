@@ -6,8 +6,21 @@ using System.Threading.Tasks;
 
 namespace Domain.Model
 {
-    public class EntityBase
+    public interface IEntity
+    {
+        bool IsDeleted { get; set; }
+    }
+    public class EntityBase : IEntity
     {
         public int Id { get; set; }
+        public bool IsDeleted { get; set; }
+    }
+
+    public static class EntityExtension
+    {
+        public static void SetDelete(this IEntity entity)
+        {
+            entity.IsDeleted = true;
+        }
     }
 }

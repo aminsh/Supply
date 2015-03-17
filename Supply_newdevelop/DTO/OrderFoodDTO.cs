@@ -16,4 +16,12 @@ namespace DTO
         public DateTime date { get; set; }
     }
 
+    public class AddDetailToOrderFood
+    {
+        public int id { get; set; }
+        public int foodId { get; set; }
+        public double qty { get; set; }
+        public double price { get; set; }
+    }
+
 }

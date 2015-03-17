@@ -5,6 +5,7 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
+using Core;
 using Domain.Model;
 
 namespace DataAccess.EntityFramework
@@ -29,6 +30,14 @@ namespace DataAccess.EntityFramework
 
         public override int SaveChanges()
         {
+            ChangeTracker.Entries().Where(entry => entry.Entity is IEntity)
+               .Select(entry => entry.Entity.Cast<IEntity>())
+               .ToList()
+               .ForEach(e =>
+               {
+                   if (e.IsDeleted)
+                       Entry(e).State = EntityState.Deleted;
+               });
             try
             {
                 return base.SaveChanges();
