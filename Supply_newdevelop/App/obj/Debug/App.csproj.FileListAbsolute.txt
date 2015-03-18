@@ -41,3 +41,5 @@ C:\Own\Supply\Supply_newdevelop\App\bin\Microsoft.Practices.Unity.xml
 C:\Own\Supply\Supply_newdevelop\App\bin\Microsoft.Practices.Unity.Configuration.xml
 C:\Own\Supply\Supply_newdevelop\App\bin\Microsoft.Practices.Unity.RegistrationByConvention.xml
 C:\Own\Supply\Supply_newdevelop\App\bin\EntityFramework.xml
+C:\Own\Supply\Supply_newdevelop\App\bin\DataAccess.Query.dll
+C:\Own\Supply\Supply_newdevelop\App\bin\DataAccess.Query.pdb

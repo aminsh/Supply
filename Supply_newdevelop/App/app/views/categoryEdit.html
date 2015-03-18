@@ -1,0 +1,88 @@
+<style>
+    .items-ctrl {
+        white-space: nowrap;
+        display: block;
+        /*color: #577c25;*/
+        /*font-size: 12px;*/
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+    }
+</style>
+
+<content title="{{title}}">
+    <form name="form">
+        <a class="btn btn-success" ng-click="save(form)" ng-disabled="form.$invalid">
+            <i class="glyphicon glyphicon-floppy-disk"></i>
+            {{'SAVE' | translate}}
+        </a>
+        <a class="btn btn-danger" ng-click="save(form)" >
+            <i class="glyphicon glyphicon-trash"></i>
+            {{'REMOVE' | translate}}
+        </a>
+        <a class="btn btn-primary" ng-click="addProduct(category)" >
+            <i class="glyphicon glyphicon-plus"></i>
+            {{'NEW PRODUCT' | translate}}
+        </a>
+
+        <div class="row" style="padding: 5px">
+            <div class="col-md-3 col-sm-3 col-xs-3">
+                <img ng-src="{{category.image.smallUrl}}" ng-click="selectImage(category)" data-target=""
+                     style="width: 100%;height: 100%" alt="..." title="Click here to change image">
+            </div>
+            <div class="col-md-9 col-sm-9 col-xs-9">
+                <label class="control-label" >{{'NAME' | translate}}</label>
+                <div class="form-group" ng-class="{ 'has-error' : form.name.$invalid && !form.name.$pristine }">
+                    <input class="form-control" name="name" ng-model="category.name" type="text" required>
+                    <p ng-show="form.name.$invalid && !form.name.$pristine">
+                        <span class="label label-danger">{{'NAME IS REQUIRED' | translate}}</span>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        <div class="container-fluid row" style="padding-right: 100px">
+            <div class="row" style="padding: 5px" ng-repeat="p in category.products">
+                <form name="form">
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <img src="app/content/images/noPic.jpg"  style="width: 100%;height: 100%" alt="...">
+                    </div>
+                    <div class="col-md-8 col-sm-8 col-xs-8">
+                        <div class="form-group">
+                            <label>{{'TITLE' | translate}}</label>
+                            <input type="text" class="form-control" ng-model="p.name" type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label>{{'PRICE' | translate}}</label>
+                            <input type="number" class="form-control" ng-model="p.price" type="text" required>
+                        </div>
+
+                        <div class="items-ctrl">
+                            <a class="btn btn-default">
+                                <i class="glyphicon glyphicon-trash" ng-click="removeProduct(cat,p)"></i>
+                                {{'REMOVE' | translate}}
+                            </a>
+
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </form>
+</content>
+
+
+<modal options="modalOptions">
+    <modalbody>
+        <imageuploader key="category.image.key" afterupload="afterUploadAction(image)"></imageuploader>
+        <div ng-if="selectedImage.BigUrl != ''">
+            <img ng-src="{{selectedImage.BigUrl}}"  data-target=""  alt="..." style="width: 100%; height: 100%">
+        </div>
+
+    </modalbody>
+    <modalfooter>
+        <a ng-click="modalOptions.hide()"class="btn btn-default">{{'CANCEL' | translate}}</a>
+        <a ng-click="assignImageToCategory(currentCategory,selectedImage)" class="btn btn-primary">{{'CONFIRM' | translate}}</a>
+    </modalfooter>
+</modal>

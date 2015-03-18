@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Model
 {
-    public class Person
+    public class Person : EntityBase
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

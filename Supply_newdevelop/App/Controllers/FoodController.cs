@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Http;
 using App.Utility;
 using Core;
+using DataAccess.Query;
 using Domain;
 using DTO;
 
@@ -27,9 +28,7 @@ namespace App.Controllers
         [Route("")]
         public HttpResponseMessage Get()
         {
-           //return Request.CreateResponse(new {name="amin"});
-            _result.Errors.Add(new Error{Message = "you cannt do in"});
-            return Request.ToResponse();
+            return Request.CreateResponse(new FoodQuery().Foods());
         }
         [Route("")]
         public HttpResponseMessage Post(CreateServiceDTO food)

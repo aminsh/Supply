@@ -1,0 +1,39 @@
+<style>
+    .items-ctrl {
+        white-space: nowrap;
+        display: block;
+        /*color: #577c25;*/
+        /*font-size: 12px;*/
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+    }
+</style>
+<content title="{{title}}">
+    <a class="btn btn-primary" href="#/Category/New" >
+        <i class="glyphicon glyphicon-plus"></i>
+        {{'NEW' | translate}}
+    </a>
+
+    <div ng-repeat="cat in categories" class="container-fluid">
+        <div class="row" style="padding: 5px">
+            <div class="col-md-3 col-sm-3 col-xs-3">
+                <img ng-src="{{cat.image.smallUrl}}" ng-click="selectImage(cat)" data-target="" style="width: 100%;height: 100%" alt="...">
+            </div>
+            <div class="col-md-9 col-sm-9 col-xs-9">
+                <label class="control-label" >{{cat.name}}</label>
+
+                <div class="items-ctrl">
+                    <a class="btn btn-default" href="{{'#/Category/Edit/' + cat.id}}">
+                        <i class="glyphicon glyphicon-pencil"></i>
+                        {{'SHOW' | translate}}
+                    </a>
+                    <a class="btn btn-default" ng-click="removeCategory(cat)">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        {{'REMOVE' | translate}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</content>

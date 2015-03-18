@@ -1,0 +1,37 @@
+﻿<div data-ng-controller="shell">
+
+    <img src="app/content/images/backgroud/blue_bg.jpg"
+         style="position: fixed;left: 0;top: 0;opacity: .8;width: 100%;height: 100%">
+    <div style="position: relative">
+        <nav class="navbar navbar-inverse" role="navigation">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-9">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">
+                        <i class="glyphicon glyphicon-home"></i>
+                    </a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#/aboutUs">درباره ما</a></li>
+                        <li><a href="#/Foods">میوه و شیرینی</a></li>
+                        <li><a href="#/productList">محصولات</a></li>
+                        <li><a href="#/ProductManagement">مدیریت محصولات</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <div ng-view class="shuffle-animation" >
+            Loading ....
+        </div>
+    </div>
+
+</div>

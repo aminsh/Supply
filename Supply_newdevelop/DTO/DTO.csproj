@@ -42,6 +42,7 @@
     <Compile Include="OrderDTO.cs" />
     <Compile Include="OrderFoodDTO.cs" />
     <Compile Include="OrderGoodDTO.cs" />
+    <Compile Include="ServiceView.cs" />
     <Compile Include="VehicleDTO.cs" />
     <Compile Include="ServiceDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
