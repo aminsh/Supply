@@ -57,7 +57,7 @@ define(['app'],function(app){
             remove: function(id){
                 var deferred = $q.defer();
 
-                $http.delete('/api/foods/', id)
+                $http.delete('/api/foods/' + id)
                     .success(function(){
                         deferred.resolve();
                     })

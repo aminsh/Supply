@@ -12,7 +12,11 @@ define(['app'],function(app){
             'CANCEL': 'انصراف',
             'SELECT IMAGE': 'انتخاب عکس',
             'NAME': 'نام',
-            'NAME IS REQUIRED': 'نام اجباری است'
+            'DES': 'توضیحات',
+            'SCALE': 'واحد اندازه گیری',
+            'NAME IS REQUIRED': 'نام اجباری است',
+            'TITLE IS REQUIRED': 'عنوان اجباری است',
+            'SCALE IS REQUIRED': 'مقیاس اجباری است'
         });
 
         $translateProvider.translations('de', {

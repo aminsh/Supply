@@ -1,4 +1,5 @@
 ﻿using System;
+using Kendo.DynamicLinq;
 using Microsoft.Practices.Unity;
 
 namespace Core

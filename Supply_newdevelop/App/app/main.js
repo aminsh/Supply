@@ -15,7 +15,9 @@
         'helper-window': 'lib/helper/helper.window',
         'helper_array': 'lib/helper/helper.array',
         'bootstrap': 'lib/external/bootstrap-rtl',
-        'domReady': 'lib/helper/domReady'
+        'domReady': 'lib/helper/domReady',
+        'kendo': 'lib/external/kendo.all.min',
+        'kendo-jquery': 'lib/external/jquery.min'
     },
     shim: {
         'jQuery': {
@@ -66,7 +68,12 @@
         'domReady': {
             exports: 'domReady',
             deps: ['jQuery']
+        },
+        'kendo': {
+            exports: 'kendo',
+            deps: ['kendo-jquery']
         }
+
     }
 });
 
@@ -84,6 +91,7 @@ require([
     'controllers/shellController',
     'bootstrap',
     'directives/content',
+    'kendo',
     'domReady!'
 ],
 function() {

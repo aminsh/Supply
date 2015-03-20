@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="KeyValueView.cs" />
     <Compile Include="OrderDTO.cs" />
     <Compile Include="OrderFoodDTO.cs" />
     <Compile Include="OrderGoodDTO.cs" />

@@ -11,5 +11,6 @@ namespace Domain.Model
         public string Title { get; set; }
         public string Des { get; set; }
         public double Price { get; set; }
+        public virtual Scale Scale { get; set; }
     }
 }

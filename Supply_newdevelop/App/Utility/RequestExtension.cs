@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.UI.WebControls;
 using Core;
 using Domain.Data;
+using Kendo.DynamicLinq;
+using Newtonsoft.Json;
 
 namespace App.Utility
 {
@@ -29,6 +31,21 @@ namespace App.Utility
             });
 
             return request.CreateResponse(HttpStatusCode.BadRequest, errors);
+        }
+
+        
+        public static DataSourceRequest ToDataSourceRequest(this HttpRequestMessage request)
+        {
+            try
+            {
+                return JsonConvert.DeserializeObject<DataSourceRequest>(
+                    request.RequestUri.ParseQueryString().GetKey(0)
+                    );
+            }
+            catch (Exception e)
+            {
+                return new DataSourceRequest();
+            }
         }
     }
 }

@@ -3,3 +3,8 @@ C:\Own\Supply\Supply_newdevelop\DTO\bin\Debug\DTO.pdb
 C:\Own\Supply\Supply_newdevelop\DTO\obj\Debug\DTO.csprojResolveAssemblyReference.cache
 C:\Own\Supply\Supply_newdevelop\DTO\obj\Debug\DTO.dll
 C:\Own\Supply\Supply_newdevelop\DTO\obj\Debug\DTO.pdb
+D:\Project\github repository\Supply\Supply_newdevelop\DTO\bin\Debug\DTO.dll
+D:\Project\github repository\Supply\Supply_newdevelop\DTO\bin\Debug\DTO.pdb
+D:\Project\github repository\Supply\Supply_newdevelop\DTO\obj\Debug\DTO.csprojResolveAssemblyReference.cache
+D:\Project\github repository\Supply\Supply_newdevelop\DTO\obj\Debug\DTO.dll
+D:\Project\github repository\Supply\Supply_newdevelop\DTO\obj\Debug\DTO.pdb

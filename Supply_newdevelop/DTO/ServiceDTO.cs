@@ -7,6 +7,7 @@ namespace DTO
         public string title { get; set; }
         public string des { get; set; }
         public double price { get; set; }
+        public int scaleId { get; set; }
     }
 
     public class UpdateServiceDTO
@@ -15,5 +16,6 @@ namespace DTO
         public string title { get; set; }
         public string des { get; set; }
         public double price { get; set; }
+        public int scaleId { get; set; }
     }
 }

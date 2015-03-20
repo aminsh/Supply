@@ -1,0 +1,45 @@
+<content title="{{title}}">
+    <form name="form">
+        <a class="btn btn-success" ng-click="save(form)" ng-disabled="form.$invalid">
+            <i class="glyphicon glyphicon-floppy-disk"></i>
+            {{'SAVE' | translate}}
+        </a>
+        <a class="btn btn-default" ng-click="remove()" >
+            <i class="glyphicon glyphicon-trash"></i>
+            {{'REMOVE' | translate}}
+        </a>
+
+        <div class="row" style="padding: 5px">
+                <div class="form-group" ng-class="{ 'has-error' : form.title.$invalid && !form.title.$pristine }">
+                    <label class="control-label" >{{'TITLE' | translate}}</label>
+                    <input class="form-control" name="title" ng-model="food.title" type="text" required>
+                    <p ng-show="form.title.$invalid && !form.title.$pristine">
+                        <span class="label label-danger">{{'TITLE IS REQUIRED' | translate}}</span>
+                    </p>
+                </div>
+            <div class="form-group" ng-class="{ 'has-error' : form.price.$invalid && !form.price.$pristine }">
+                <label class="control-label" >{{'PRICE' | translate}}</label>
+                <input class="form-control" name="price" ng-model="food.price" type="text" required>
+                <p ng-show="form.price.$invalid && !form.price.$pristine">
+                    <span class="label label-danger">{{'TITLE IS REQUIRED' | translate}}</span>
+                </p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : form.scaleId.$invalid && !form.scaleId.$pristine }">
+                <label class="control-label" >{{'SCALE' | translate}}</label>
+                <combo url="/api/scales" valueprop="id" displayprop="title" placeholder="انتخاب واحد اندازگیری ..."
+                       model="food.scaleId" required></combo>
+                <p ng-show="form.scaleId.$invalid && !form.scaleId.$pristine">
+                    <span class="label label-danger">{{'SCALE IS REQUIRED' | translate}}</span>
+                </p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : form.des.$invalid && !form.des.$pristine }">
+                <label class="control-label" >{{'DES' | translate}}</label>
+                <textarea class="form-control" ng-model="food.des" name="des"></textarea>
+                <p ng-show="form.des.$invalid && !form.des.$pristine">
+
+                </p>
+            </div>
+        </div>
+
+    </form>
+</content>

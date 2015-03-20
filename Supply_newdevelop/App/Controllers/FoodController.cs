@@ -10,6 +10,7 @@ using Core;
 using DataAccess.Query;
 using Domain;
 using DTO;
+using Kendo.DynamicLinq;
 
 namespace App.Controllers
 {
@@ -26,10 +27,17 @@ namespace App.Controllers
         }
 
         [Route("")]
-        public HttpResponseMessage Get()
+        public DataSourceResult Get(HttpRequestMessage request)
         {
-            return Request.CreateResponse(new FoodQuery().Foods());
+            return new FoodQuery().Foods(request.ToDataSourceRequest());
         }
+
+        [Route("{id}")]
+        public ServiceView GetById(int id)
+        {
+            return new FoodQuery().Food(id);
+        }
+            
         [Route("")]
         public HttpResponseMessage Post(CreateServiceDTO food)
         {

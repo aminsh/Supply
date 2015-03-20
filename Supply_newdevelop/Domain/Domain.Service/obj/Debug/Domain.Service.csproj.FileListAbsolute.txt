@@ -19,3 +19,26 @@ C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\System.Web.Http.
 C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Microsoft.Practices.Unity.xml
 C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\System.Net.Http.Formatting.xml
 C:\Own\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Newtonsoft.Json.xml
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Domain.Service.dll
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Domain.Service.pdb
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Core.dll
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\DataAccess.Data.dll
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Domain.Model.dll
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\DTO.dll
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\System.Web.Http.dll
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Microsoft.Practices.Unity.dll
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\System.Net.Http.Formatting.dll
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Newtonsoft.Json.dll
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Core.pdb
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\DataAccess.Data.pdb
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\DTO.pdb
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Domain.Model.pdb
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\System.Web.Http.xml
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Microsoft.Practices.Unity.xml
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\System.Net.Http.Formatting.xml
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Newtonsoft.Json.xml
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\obj\Debug\Domain.Service.csprojResolveAssemblyReference.cache
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\obj\Debug\Domain.Service.dll
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\obj\Debug\Domain.Service.pdb
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\Kendo.DynamicLinq.dll
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Service\bin\Debug\System.Linq.Dynamic.dll

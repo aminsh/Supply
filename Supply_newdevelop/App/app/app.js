@@ -14,11 +14,16 @@
     
     app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $location) {
         $rootScope.$on('$routeChangeStart', function (evt, next, current) {
+            //debugger;
             //if (evt.currentScope.hasOwnProperty('canDeacivate'))
             //    evt.defaultPrevented = evt.currentScope.canDeacivate();
 
             //if (next.$$route.originalPath == '/aboutUs');
             //evt.defaultPrevented = true;
+        });
+
+        $rootScope.$on('$routeChangeSuccess', function (evt, next, current) {
+           //debugger;
         });
     }]);
 

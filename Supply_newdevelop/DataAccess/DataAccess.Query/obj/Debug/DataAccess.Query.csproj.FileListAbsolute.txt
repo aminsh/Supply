@@ -26,3 +26,33 @@ C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\Newtonsoft
 C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\obj\Debug\DataAccess.Query.csprojResolveAssemblyReference.cache
 C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\obj\Debug\DataAccess.Query.dll
 C:\Own\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\obj\Debug\DataAccess.Query.pdb
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\DataAccess.Query.dll.config
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\DataAccess.Query.dll
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\DataAccess.Query.pdb
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\DataAccess.EntityFramework.dll
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\Domain.Model.dll
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\DTO.dll
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\EntityFramework.dll
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\EntityFramework.SqlServer.dll
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\DataAccess.Data.dll
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\Core.dll
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\System.Web.Http.dll
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\Microsoft.Practices.Unity.dll
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\System.Net.Http.Formatting.dll
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\Newtonsoft.Json.dll
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\Domain.Model.pdb
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\DTO.pdb
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\DataAccess.EntityFramework.pdb
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\EntityFramework.xml
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\EntityFramework.SqlServer.xml
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\DataAccess.Data.pdb
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\Core.pdb
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\System.Web.Http.xml
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\Microsoft.Practices.Unity.xml
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\System.Net.Http.Formatting.xml
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\Newtonsoft.Json.xml
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\obj\Debug\DataAccess.Query.csprojResolveAssemblyReference.cache
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\obj\Debug\DataAccess.Query.dll
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\obj\Debug\DataAccess.Query.pdb
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\Kendo.DynamicLinq.dll
+D:\Project\github repository\Supply\Supply_newdevelop\DataAccess\DataAccess.Query\bin\Debug\System.Linq.Dynamic.dll

@@ -10,22 +10,27 @@ namespace Domain
     {
         private readonly IRepository<Food> _footRepository;
         private readonly IRepository<OrderFood> _orderFoodRepository;
+        private readonly IRepository<Scale> _scaleRepository; 
         private readonly IResult _result;
 
         public FoodService(IUnitOfWork unitOfWork, IResult result)
         {
             _footRepository = unitOfWork.GetRepository<Food>();
             _orderFoodRepository = unitOfWork.GetRepository<OrderFood>();
+            _scaleRepository = unitOfWork.GetRepository<Scale>();
             _result = result;
         }
 
         public void Create(CreateServiceDTO data)
         {
+            var scale = _scaleRepository.FindById(data.scaleId);
+
             var entity = new Food
             {
                 Title = data.title,
                 Des = data.des,
-                Price = data.price
+                Price = data.price,
+                Scale = scale
             };
 
             _footRepository.Add(entity);
@@ -33,10 +38,13 @@ namespace Domain
 
         public void Update(UpdateServiceDTO data)
         {
+            var scale = _scaleRepository.FindById(data.scaleId);
+
             var entity = _footRepository.FindById(data.id);
             entity.Title = data.title;
             entity.Des = data.des;
             entity.Price = data.price;
+            entity.Scale = scale;
         }
 
         public void Remove(int id)

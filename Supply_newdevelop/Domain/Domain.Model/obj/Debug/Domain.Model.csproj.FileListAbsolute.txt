@@ -2,3 +2,8 @@ C:\Own\Supply\Supply_newdevelop\Domain\Domain.Model\bin\Debug\Domain.Model.dll
 C:\Own\Supply\Supply_newdevelop\Domain\Domain.Model\bin\Debug\Domain.Model.pdb
 C:\Own\Supply\Supply_newdevelop\Domain\Domain.Model\obj\Debug\Domain.Model.dll
 C:\Own\Supply\Supply_newdevelop\Domain\Domain.Model\obj\Debug\Domain.Model.pdb
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Model\bin\Debug\Domain.Model.dll
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Model\bin\Debug\Domain.Model.pdb
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Model\obj\Debug\Domain.Model.csprojResolveAssemblyReference.cache
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Model\obj\Debug\Domain.Model.dll
+D:\Project\github repository\Supply\Supply_newdevelop\Domain\Domain.Model\obj\Debug\Domain.Model.pdb
