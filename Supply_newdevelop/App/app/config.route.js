@@ -76,12 +76,25 @@
                 }
             },
             {
-                url: '/contactUs',
+                url: '/OrderFoods/New',
                 config: {
-                    name: 'contactUs',
-                    templateUrl: 'app/template/aboutUs/contactUs.html',
-                    controller: 'app/template/aboutUs/contactUs',
-                    title: 'About us',
+                    name: 'orderFoodNew',
+                    templateUrl: 'app/views/orderFoodNew.html',
+                    controller: 'app/views/orderFoodNew',
+                    title: 'New Order Food',
+                    settings: {
+                        nav: 1,
+                        content: '<i class="fa fa-dashboard"></i> Dashboard'
+                    }
+                }
+            },
+            {
+                url: '/OrderFoods/Edit/:id',
+                config: {
+                    name: 'orderFoodEdit',
+                    templateUrl: 'app/views/orderFoodEdit.html',
+                    controller: 'app/views/orderFoodEdit',
+                    title: 'Edit Order Food',
                     settings: {
                         nav: 1,
                         content: '<i class="fa fa-dashboard"></i> Dashboard'

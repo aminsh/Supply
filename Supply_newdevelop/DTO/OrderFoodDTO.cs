@@ -7,13 +7,21 @@ namespace DTO
 {
     public class CreateOrderFoodDTO
     {
-        public DateTime date { get; set; }
+        public string date { get; set; }
+        public int sectionId { get; set; }
+        public int consumerId { get; set; }
+        public int? requesterId { get; set; }
+        public string purchaseMethod { get; set; }
     }
 
     public class UpdateOrderFoodDTO
     {
         public int id { get; set; }
-        public DateTime date { get; set; }
+        public string date { get; set; }
+        public int sectionId { get; set; }
+        public int consumerId { get; set; }
+        public int requester { get; set; }
+        public string perchaseMethod { get; set; }
     }
 
     public class AddDetailToOrderFood

@@ -23,78 +23,94 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="editFood.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/editFood.html">
+      <file leaf-file-name="orderFoodNewController.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controllers/orderFoodNewController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="23" selection-start="1816" selection-end="1816" vertical-scroll-proportion="-17.384615" vertical-offset="244" max-vertical-offset="1200">
+            <state line="19" column="10" selection-start="579" selection-end="579" vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="646">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="orderFoodEditController.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controllers/orderFoodEditController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="23" selection-start="179" selection-end="179" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="714">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="orderFoodEdit.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/orderFoodEdit.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="69" column="0" selection-start="3544" selection-end="3544" vertical-scroll-proportion="0.0" vertical-offset="427" max-vertical-offset="1275">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.route.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config.route.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="87" column="21" selection-start="3235" selection-end="3235" vertical-scroll-proportion="0.0" vertical-offset="969" max-vertical-offset="2771">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="orderFoodService.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/service/rest/orderFoodService.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="48" column="49" selection-start="1609" selection-end="1609" vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="2431">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="categoryEdit.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/categoryEdit.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="22" selection-start="269" selection-end="269" vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="1581">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dropdownlist.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/directives/dropdownlist.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="27" selection-start="156" selection-end="156" vertical-scroll-proportion="-0.12128147" vertical-offset="174" max-vertical-offset="1088">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="orderFoodNew.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/orderFoodNew.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="58" column="145" selection-start="3243" selection-end="3257" vertical-scroll-proportion="0.0" vertical-offset="425" max-vertical-offset="1513">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="datepicker.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/directives/datepicker.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="0" selection-start="460" selection-end="460" vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="714">
               <folding>
-                <element signature="n#style#0;n#div#0;n#form#0;n#content#0;n#!!top" expanded="true" />
+                <marker date="1427111223837" expanded="true" signature="236:248" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.translate.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config.translate.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="30" selection-start="682" selection-end="699" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="700">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="foodList.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/foodList.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="28" selection-start="268" selection-end="268" vertical-scroll-proportion="-8.653846" vertical-offset="0" max-vertical-offset="425">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="foodService.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/service/rest/foodService.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="59" column="45" selection-start="1860" selection-end="1860" vertical-scroll-proportion="0.0" vertical-offset="425" max-vertical-offset="1326">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="foodListController.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controllers/foodListController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="57" selection-start="619" selection-end="619" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1457">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="grid.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/directives/grid.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="62" selection-start="1626" selection-end="1626" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="1660">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="combo.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="combo.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/directives/combo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="31" selection-start="721" selection-end="721" vertical-scroll-proportion="0.5034325" vertical-offset="0" max-vertical-offset="1276">
+            <state line="18" column="44" selection-start="575" selection-end="575" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="1207">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="editFoodController.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controllers/editFoodController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="26" selection-start="220" selection-end="220" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1608">
-              <folding>
-                <marker date="1426878619383" expanded="true" signature="7:71" placeholder="[...]" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -109,20 +125,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/controllers/homeController.js" />
+        <option value="$PROJECT_DIR$/directives/dropdown.js" />
+        <option value="$PROJECT_DIR$/service/enum.js" />
         <option value="$PROJECT_DIR$/views/shell.html" />
-        <option value="$PROJECT_DIR$/config.route.js" />
-        <option value="$PROJECT_DIR$/controllers/editFood.js" />
-        <option value="$PROJECT_DIR$/main.js" />
-        <option value="$PROJECT_DIR$/app.js" />
-        <option value="$PROJECT_DIR$/service/rest/foodService.js" />
-        <option value="$PROJECT_DIR$/views/foodList.html" />
-        <option value="$PROJECT_DIR$/controllers/foodListController.js" />
-        <option value="$PROJECT_DIR$/config.translate.js" />
+        <option value="$PROJECT_DIR$/directives/window.js" />
         <option value="$PROJECT_DIR$/controllers/editFoodController.js" />
-        <option value="$PROJECT_DIR$/views/editFood.html" />
-        <option value="$PROJECT_DIR$/directives/grid.js" />
+        <option value="$PROJECT_DIR$/main.js" />
+        <option value="$PROJECT_DIR$/directives/dropdownlist.js" />
+        <option value="$PROJECT_DIR$/config.translate.js" />
+        <option value="$PROJECT_DIR$/directives/datepicker.js" />
         <option value="$PROJECT_DIR$/directives/combo.js" />
+        <option value="$PROJECT_DIR$/service/rest/orderFoodService.js" />
+        <option value="$PROJECT_DIR$/views/orderFoodNew.html" />
+        <option value="$PROJECT_DIR$/views/orderFoodEdit.html" />
+        <option value="$PROJECT_DIR$/controllers/orderFoodNewController.js" />
+        <option value="$PROJECT_DIR$/config.route.js" />
+        <option value="$PROJECT_DIR$/controllers/orderFoodEditController.js" />
       </list>
     </option>
   </component>
@@ -158,6 +176,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -200,38 +219,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rest" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="directives" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -246,45 +233,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="bower_components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="kendo-ui-core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bower_components" />
+              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../nodejs/eShop" />
+    <property name="FullScreen" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Project\github repository\Supply\Supply_newdevelop\App\app\views" />
+      <recent name="D:\Project\github repository\Supply\Supply_newdevelop\App\app\controllers" />
+      <recent name="D:\Project\github repository\Supply\Supply_newdevelop\App\app\lib\external\datepickertools" />
       <recent name="D:\Project\github repository\Supply\Supply_newdevelop\App\app\content\kendo" />
       <recent name="D:\Project\github repository\Supply\Supply_newdevelop\App\app\lib\external" />
-      <recent name="D:\Project\github repository\Supply\Supply_newdevelop\App\app\content" />
-      <recent name="C:\Own\Supply\Supply_newdevelop\App\app" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Project\github repository\Supply\Supply_newdevelop\App\app\content\kendo" />
@@ -333,14 +303,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16657881" sideWeight="0.67" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16657881" sideWeight="0.67" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -349,6 +318,7 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -366,120 +336,104 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/content/kendo/kendo.common.min.css">
+    <entry file="file://$PROJECT_DIR$/lib/external/datetools/kendo.core.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="861">
-          <folding />
-        </state>
+        <state line="1" column="46" selection-start="31" selection-end="49" vertical-scroll-proportion="0.019744484" vertical-offset="0" max-vertical-offset="58480" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/content/kendo/kendo.rtl.min.css">
+    <entry file="file://$PROJECT_DIR$/bower_components/kendo-ui-core/src/js/kendo.core.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="861">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/kendo/kendo.default.min.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="861">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="70159" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="40" selection-start="835" selection-end="835" vertical-scroll-proportion="0.3707094" vertical-offset="0" max-vertical-offset="1926">
+        <state line="84" column="50" selection-start="2905" selection-end="2905" vertical-scroll-proportion="0.0" vertical-offset="1069" max-vertical-offset="2023" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/editFoodController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="23" selection-start="51" selection-end="70" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1156" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.translate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="59" selection-start="1069" selection-end="1069" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="731" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/editFood.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="22" selection-start="470" selection-end="982" vertical-scroll-proportion="-11.769231" vertical-offset="0" max-vertical-offset="850" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/directives/datepicker.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="0" selection-start="460" selection-end="460" vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="1050">
+          <folding>
+            <marker date="1427111223837" expanded="true" signature="236:248" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/directives/combo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="44" selection-start="575" selection-end="575" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1207">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/rest/orderFoodService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="49" selection-start="1609" selection-end="1609" vertical-scroll-proportion="0.0" vertical-offset="803" max-vertical-offset="3432">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/categoryEdit.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="11" selection-start="250" selection-end="3132" vertical-scroll-proportion="0.2606132" vertical-offset="0" max-vertical-offset="848">
-          <folding>
-            <element signature="tag#form#0;tag#content#0" expanded="false" />
-          </folding>
+        <state line="13" column="22" selection-start="269" selection-end="269" vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="1581">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/orderFoodNew.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="58" column="145" selection-start="3243" selection-end="3257" vertical-scroll-proportion="0.0" vertical-offset="425" max-vertical-offset="1513">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/orderFoodEdit.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="69" column="0" selection-start="3544" selection-end="3544" vertical-scroll-proportion="0.0" vertical-offset="427" max-vertical-offset="1275">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/orderFoodNewController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="10" selection-start="579" selection-end="579" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="836">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config.route.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="35" selection-start="1942" selection-end="1950" vertical-scroll-proportion="0.0" vertical-offset="606" max-vertical-offset="2550">
+        <state line="87" column="21" selection-start="3235" selection-end="3235" vertical-scroll-proportion="0.0" vertical-offset="969" max-vertical-offset="2771">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/categoryEditController.js">
+    <entry file="file://$PROJECT_DIR$/controllers/orderFoodEditController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="31" selection-start="55" selection-end="82" vertical-scroll-proportion="0.0389016" vertical-offset="0" max-vertical-offset="2040">
+        <state line="6" column="23" selection-start="179" selection-end="179" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1008">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
+    <entry file="file://$PROJECT_DIR$/directives/dropdownlist.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="13" selection-start="877" selection-end="877" vertical-scroll-proportion="0.6864989" vertical-offset="0" max-vertical-offset="936">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/rest/foodService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="45" selection-start="1860" selection-end="1860" vertical-scroll-proportion="0.0" vertical-offset="425" max-vertical-offset="1326">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/foodListController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="57" selection-start="619" selection-end="619" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1457">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/editFoodController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="26" selection-start="220" selection-end="220" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1608">
-          <folding>
-            <marker date="1426878619383" expanded="true" signature="7:71" placeholder="[...]" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config.translate.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="30" selection-start="682" selection-end="699" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="700">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/foodList.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="28" selection-start="268" selection-end="268" vertical-scroll-proportion="-8.653846" vertical-offset="0" max-vertical-offset="425">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/editFood.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="23" selection-start="1816" selection-end="1816" vertical-scroll-proportion="-17.384615" vertical-offset="244" max-vertical-offset="1200">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#form#0;n#content#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/directives/grid.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="62" selection-start="1626" selection-end="1626" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="1660">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/directives/combo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="31" selection-start="721" selection-end="721" vertical-scroll-proportion="0.5034325" vertical-offset="0" max-vertical-offset="1276">
+        <state line="4" column="27" selection-start="156" selection-end="156" vertical-scroll-proportion="-0.12128147" vertical-offset="174" max-vertical-offset="1088">
           <folding />
         </state>
       </provider>

@@ -8,7 +8,6 @@ namespace Domain.Model
 {
     public class Employee : Person
     {
-        public string Id { get; set; }
         public string Position { get; set; }
         public string Department { get; set; }
         public virtual Section Section { get; set; }

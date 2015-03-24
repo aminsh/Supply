@@ -1,5 +1,6 @@
 ﻿using Core;
 using DataAccess.EntityFramework;
+using Domain;
 using Domain.Data;
 using Microsoft.Practices.Unity;
 
@@ -15,8 +16,8 @@ namespace App.Config
             DependencyManager.Register<IUnitOfWork, EntityFrameworkUnitOfWork>(Lifetime.PerRequest);
             DependencyManager.Register<IResult, Result>(Lifetime.PerRequest);
 
-            //DependencyManager.Register<CategoryService, CategoryService>(Lifetime.Singletone);
-            //DependencyManager.Register<ImageService, ImageService>(Lifetime.Singletone);
+            DependencyManager.Register<FoodService, FoodService>(Lifetime.NewInstance);
+            DependencyManager.Register<OrderFoodService, OrderFoodService>(Lifetime.NewInstance);
         }
     }
 }

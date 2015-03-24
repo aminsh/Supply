@@ -6,6 +6,7 @@ namespace DataAccess.EntityFramework
     public class EntityFrameworkUnitOfWork : IUnitOfWork
     {
         private readonly DbContext _context;
+        public string temp { get; set; }
         public EntityFrameworkUnitOfWork()
         {
             _context = new AppDbContext();

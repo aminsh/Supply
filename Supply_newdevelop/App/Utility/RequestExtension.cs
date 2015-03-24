@@ -14,14 +14,14 @@ namespace App.Utility
 {
     public static class RequestExtension
     {
-        public static HttpResponseMessage ToResponse(this HttpRequestMessage request)
+        public static HttpResponseMessage ToResponse(this HttpRequestMessage request, object data = null)
         {
             var result = DependencyManager.Resolve<IResult>();
             if (result.IsValid)
             {
                 var unitOfWork = DependencyManager.Resolve<IUnitOfWork>();
                 unitOfWork.Commit();
-                return request.CreateResponse();
+                return request.CreateResponse(data);
             }
 
             var errors = result.Errors.Select(err => new

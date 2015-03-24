@@ -8,13 +8,13 @@ namespace DTO
     {
         public int id { get; set; }
         public int officerId { get; set; }
-        public DateTime date { get; set; }
+        public string date { get; set; }
     }
 
     public class OrderCloseDTO
     {
         public int id { get; set; }
-        public DateTime date { get; set; }
+        public string date { get; set; }
     }
 
     public class OrderCancelDTO

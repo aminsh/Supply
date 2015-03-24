@@ -1,0 +1,83 @@
+<content title="{{title}}">
+    <form name="form">
+        <a class="btn btn-success" ng-click="save(form)" ng-disabled="form.$invalid">
+            <i class="glyphicon glyphicon-floppy-disk"></i>
+            {{'SAVE' | translate}}
+        </a>
+        <a class="btn btn-default" ng-click="remove()" >
+            <i class="glyphicon glyphicon-trash"></i>
+            {{'REMOVE' | translate}}
+        </a>
+
+        <div class="row" style="padding: 5px">
+            <div class="form-group" ng-class="{ 'has-error' : form.date.$invalid && !form.date.$pristine }">
+                <label class="control-label" >{{'DATE' | translate}}</label>
+                <div>
+                    <datepicker model="orderFood.date"  name="date" required ></datepicker>
+                </div>
+                <p ng-show="form.date.$invalid && !form.date.$pristine">
+                    <span class="label label-danger">{{'DATE IS REQUIRED' | translate}}</span>
+                </p>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error' : form.sectionId.$invalid && !form.sectionId.$pristine }">
+                <label class="control-label" >{{'SECTION' | translate}}</label>
+                <div>
+                    <combo url="/api/sections" valueprop="id" displayprop="title" placeholder="..."
+                           model="orderFood.sectionId" name="sectionId" width="400px" required ></combo>
+                </div>
+                <p ng-show="form.sectionId.$invalid && !form.sectionId.$pristine">
+                    <span class="label label-danger">{{'SECTION IS REQUIRED' | translate}}</span>
+                </p>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error' : form.consumerId.$invalid && !form.consumerId.$pristine }">
+                <label class="control-label" >{{'CONSUMER' | translate}}</label>
+               <div>
+                   <combo url="/api/sections" valueprop="id" displayprop="title" placeholder="..."
+                          model="orderFood.consumerId" name="consumerId" width="400px" required></combo>
+               </div>
+                <p ng-show="form.consumerId.$invalid && !form.consumerId.$pristine">
+                    <span class="label label-danger">{{'CONSUMER IS REQUIRED' | translate}}</span>
+                </p>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error' : form.requesterId.$invalid && !form.requesterId.$pristine }">
+                <label class="control-label" >{{'REQUESTER' | translate}}</label>
+                <div>
+                    <combo url="/api/employees" valueprop="id" displayprop="title" placeholder="..."
+                           model="orderFood.requesterId" width="400px" ></combo>
+                </div>
+                <p ng-show="form.requesterId.$invalid && !form.requesterId.$pristine">
+
+                </p>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error' : form.title.$invalid && !form.title.$pristine }">
+                <label class="control-label" >{{'PURCHASEMETHOD' | translate}}</label>
+                <div>
+                    <dropdownlist valueprop="key" displayprop="value" data="purchaseMethod" name="purchaseMethod" model="orderFood.purchaseMethod" required/>
+                </div>
+
+                <p ng-show="form.title.$invalid && !form.title.$pristine">
+                    <span class="label label-danger">{{'TITLE IS REQUIRED' | translate}}</span>
+                </p>
+            </div>
+        </div>
+    </form>
+</content>
+
+<!--<modal options="winOption">
+    <modalbody>
+        <h1>{{orderFood.date}}</h1>
+        <datepicker model="orderFood.date"></datepicker>
+        <datepicker model="orderFood.date"></datepicker>
+
+    </modalbody>
+    <modalfooter>
+        <a ng-click="modalOptions.hide()"class="btn btn-default">{{'CANCEL' | translate}}</a>
+        <a ng-click="assignImageToCategory(currentCategory,selectedImage)" class="btn btn-primary">{{'CONFIRM' | translate}}</a>
+    </modalfooter>
+</modal>-->
+
+

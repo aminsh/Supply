@@ -2,16 +2,24 @@ define(['app'],function(app){
     app.register.directive('combo', function(){
         return {
           restrict: 'E',
-          template: '<div></div>',
+          replace: true,
+          template: '<input ng-model="model" />',
           scope: {
               url: '@',
               valueprop: '@',
               displayprop: '@',
               placeholder: '@',
+              width: '@',
               model: '='
           },
           link: function(scope, element, attrs){
-              var combo = $(element).kendoComboBox({
+
+              var input = $(element);
+              input.css('width', attrs.width);
+              input.css('display', 'block');
+//              element.append(input);
+
+              var combo = input.kendoComboBox({
                   placeholder: attrs.placeholder,
                   dataTextField: attrs.displayprop,
                   dataValueField: attrs.valueprop,
@@ -31,7 +39,6 @@ define(['app'],function(app){
                       },
                       schema:{
                           parse: function(response){
-                              debugger;
                               return response.Data;
                           }
                       }
@@ -40,6 +47,12 @@ define(['app'],function(app){
                       var dataItem = this.dataItem(e.item.index());
                       scope.model = dataItem[attrs.valueprop];
                       scope.$apply();
+                  },
+                  change: function(e){
+                      if(isNullOrEmpty(combo.value())){
+                          scope.model = null;
+                          scope.$apply();
+                      }
                   }
               }).data("kendoComboBox");
 

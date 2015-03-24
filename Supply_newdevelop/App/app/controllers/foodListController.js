@@ -7,6 +7,7 @@ define(['app',
         $scope.columns = [
             {name: 'title', title: 'عنوان'},
             {name: 'price', title: 'قیمت'},
+            {name: 'scale', title: 'واحد اندازه گیری'},
         ];
 
         $scope.commands = [

@@ -42,6 +42,7 @@
     <Compile Include="KeyValueView.cs" />
     <Compile Include="OrderDTO.cs" />
     <Compile Include="OrderFoodDTO.cs" />
+    <Compile Include="OrderFoodView.cs" />
     <Compile Include="OrderGoodDTO.cs" />
     <Compile Include="ServiceView.cs" />
     <Compile Include="VehicleDTO.cs" />

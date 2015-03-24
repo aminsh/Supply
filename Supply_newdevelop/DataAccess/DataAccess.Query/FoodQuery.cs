@@ -28,7 +28,8 @@ namespace DataAccess.Query
                 {
                     id = f.Id,
                     title = f.Title,
-                    price = f.Price
+                    price = f.Price,
+                    scale = f.Scale.Title
                 });
         }
 

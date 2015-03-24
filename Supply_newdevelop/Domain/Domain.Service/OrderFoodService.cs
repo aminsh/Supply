@@ -14,29 +14,46 @@ namespace Domain
     public class OrderFoodService
     {
         private readonly IRepository<OrderFood> _orderFoodRepository;
-        private readonly IRepository<Food> _foodRepository; 
+        private readonly IRepository<Food> _foodRepository;
+        private readonly IRepository<Section> _sectionRepository;
+        private readonly IRepository<Employee> _employeeRepository; 
         private readonly IRepository<PurchasingOfficer> _officeRepository;
         private readonly IRepository<CostType> _costTypeRepository; 
         private readonly IResult _result;
 
         public OrderFoodService(IUnitOfWork unitOfWork, IResult result)
         {
+            unitOfWork.GetType().GetProperty("temp").SetValue(unitOfWork, "orderService");
+
             _orderFoodRepository = unitOfWork.GetRepository<OrderFood>();
             _officeRepository = unitOfWork.GetRepository<PurchasingOfficer>();
             _foodRepository = unitOfWork.GetRepository<Food>();
             _costTypeRepository = unitOfWork.GetRepository<CostType>();
+            _sectionRepository = unitOfWork.GetRepository<Section>();
+            _employeeRepository = unitOfWork.GetRepository<Employee>();
+
             _result = result;
         }
 
-        public void Create(CreateOrderFoodDTO data)
+        public OrderFood Create(CreateOrderFoodDTO data)
         {
+            var section = _sectionRepository.FindById(data.sectionId);
+            var consumer = _sectionRepository.FindById(data.consumerId);
+            Employee requester = null;
+            if(data.requesterId != null)
+                requester = _employeeRepository.FindById(data.requesterId);
+
             // assign period
             var entity = new OrderFood
             {
-                Date = data.date
+                Date = data.date,
+                Section = section,
+                ConsumerSection = consumer,
+                Requester = requester,
             };
 
             _orderFoodRepository.Add(entity);
+            return entity;
         }
 
         public void Update(UpdateOrderFoodDTO data)

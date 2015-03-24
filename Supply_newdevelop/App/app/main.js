@@ -17,7 +17,13 @@
         'bootstrap': 'lib/external/bootstrap-rtl',
         'domReady': 'lib/helper/domReady',
         'kendo': 'lib/external/kendo.all.min',
-        'kendo-jquery': 'lib/external/jquery.min'
+        'kendo-jquery': 'lib/external/jquery.min',
+        'date-fa-Ir': 'lib/external/datetools/fa-IR',
+        'date-JalaliDate': 'lib/external/datetools/JalaliDate',
+        'date-core': 'lib/external/datetools/kendo.core',
+        'date-calendar': 'lib/external/datetools/kendo.calendar',
+        'date-datepicker': 'lib/external/datetools/kendo.datepicker',
+        'date-popup': 'lib/external/datetools/kendo.popup'
     },
     shim: {
         'jQuery': {
@@ -72,7 +78,13 @@
         'kendo': {
             exports: 'kendo',
             deps: ['kendo-jquery']
-        }
+        },
+        'date-JalaliDate': {exports: 'date-JalaliDate'},
+        'date-core':{exports: 'date-core'},
+        'date-calendar': {exports: 'date-calendar', deps: ['date-core']},
+        'date-popup': {exports: 'date-popup', deps: ['date-core']},
+        'date-datepicker': {exports: 'date-datepicker', deps: ['date-calendar','date-popup']},
+        'date-fa-Ir': {exports: 'date-fa-Ir', deps: ['date-calendar','date-JalaliDate' ]}
 
     }
 });

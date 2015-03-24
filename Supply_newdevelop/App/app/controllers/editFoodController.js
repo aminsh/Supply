@@ -1,6 +1,7 @@
 define(['app',
     'service/rest/foodService',
-    'directives/combo'
+    'directives/combo',
+
 ], function(app){
     app.register.controller('editFoodController', function($scope, $routeParams, foodService, $location){
         $scope.title = '';

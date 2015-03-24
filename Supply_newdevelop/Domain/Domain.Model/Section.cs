@@ -8,7 +8,7 @@ namespace Domain.Model
 {
     public class Section 
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Title { get; set; }
         public ICollection<Section> Children { get; set; }
     }
