@@ -17,13 +17,13 @@
         'bootstrap': 'lib/external/bootstrap-rtl',
         'domReady': 'lib/helper/domReady',
         'kendo': 'lib/external/kendo.all.min',
-        'kendo-jquery': 'lib/external/jquery.min',
         'date-fa-Ir': 'lib/external/datetools/fa-IR',
         'date-JalaliDate': 'lib/external/datetools/JalaliDate',
         'date-core': 'lib/external/datetools/kendo.core',
         'date-calendar': 'lib/external/datetools/kendo.calendar',
         'date-datepicker': 'lib/external/datetools/kendo.datepicker',
-        'date-popup': 'lib/external/datetools/kendo.popup'
+        'date-popup': 'lib/external/datetools/kendo.popup',
+        'ocModal': 'lib/external/ocModal'
     },
     shim: {
         'jQuery': {
@@ -75,10 +75,7 @@
             exports: 'domReady',
             deps: ['jQuery']
         },
-        'kendo': {
-            exports: 'kendo',
-            deps: ['kendo-jquery']
-        },
+        'kendo':{exports: 'kendo'},
         'date-JalaliDate': {exports: 'date-JalaliDate'},
         'date-core':{exports: 'date-core'},
         'date-calendar': {exports: 'date-calendar', deps: ['date-core']},
@@ -103,7 +100,8 @@ require([
     'controllers/shellController',
     'bootstrap',
     'directives/content',
-    'kendo',
+    'directives/numeric',
+//    'kendo',
     'domReady!'
 ],
 function() {

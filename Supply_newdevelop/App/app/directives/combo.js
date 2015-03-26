@@ -1,4 +1,4 @@
-define(['app'],function(app){
+define(['app', 'kendo'],function(app){
     app.register.directive('combo', function(){
         return {
           restrict: 'E',
@@ -10,14 +10,17 @@ define(['app'],function(app){
               displayprop: '@',
               placeholder: '@',
               width: '@',
-              model: '='
+              model: '=',
+              select: '&'
           },
           link: function(scope, element, attrs){
 
               var input = $(element);
               input.css('width', attrs.width);
               input.css('display', 'block');
-//              element.append(input);
+
+              console.log('...');
+              console.log(input.kendoComboBox);
 
               var combo = input.kendoComboBox({
                   placeholder: attrs.placeholder,
@@ -47,6 +50,10 @@ define(['app'],function(app){
                       var dataItem = this.dataItem(e.item.index());
                       scope.model = dataItem[attrs.valueprop];
                       scope.$apply();
+
+                      if(!isNullOrEmpty(scope.select)){
+                          scope.select({item: dataItem});
+                      }
                   },
                   change: function(e){
                       if(isNullOrEmpty(combo.value())){

@@ -34,11 +34,18 @@ namespace App.Controllers
             return Request.CreateResponse(new OrderFoodQuery().OrderFood(id));
         }
 
-        [Route("{int}/details")]
+        [Route("{id}/details")]
         [HttpGet]
         public DataSourceResult Details(int id)
         {
             return new OrderFoodQuery().Details(id, Request.ToDataSourceRequest());
+        }
+
+        [Route("{id}/details/{detailId}")]
+        [HttpGet]
+        public HttpResponseMessage GetDetailById(int id, int detailId)
+        {
+            return Request.CreateResponse(new OrderFoodQuery().GetDetailById(id, detailId));
         }
 
         [Route("")]
@@ -78,6 +85,24 @@ namespace App.Controllers
         {
             data.id = id;
             _orderFoodService.AddDetail(data);
+            return Request.ToResponse();
+        }
+
+        [Route("{id}/details/{detailId}")]
+        [HttpPut]
+        public HttpResponseMessage AddDetail(int id,int detailId ,UpdateDetailToOrderFood data)
+        {
+            data.id = id;
+            data.detailId = detailId;
+            _orderFoodService.UpdateDetail(data);
+            return Request.ToResponse();
+        }
+
+        [Route("{id}/details/{detailId}")]
+        [HttpDelete]
+        public HttpResponseMessage RemoveDetail(int id, int detailId)
+        {
+            _orderFoodService.DeleteDetail(id, detailId);
             return Request.ToResponse();
         }
 

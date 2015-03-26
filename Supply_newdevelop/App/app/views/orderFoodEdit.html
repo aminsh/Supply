@@ -9,6 +9,26 @@
             {{'REMOVE' | translate}}
         </a>
 
+        <a class="btn btn-primary" ng-click="assignOfficer()" >
+            <!--<i class="glyphicon glyphicon-trash"></i>-->
+            {{'ASSIGNOFFICER' | translate}}
+        </a>
+
+        <a class="btn btn-primary" ng-click="close()" >
+            <!--<i class="glyphicon gly"></i>-->
+            {{'CLOSE' | translate}}
+        </a>
+
+        <a class="btn btn-primary" ng-click="addDetail()">
+            <i class="glyphicon glyphicon-plus"></i>
+            {{'ADDDETAIL' | translate}}
+        </a>
+
+        <a class="btn btn-primary" ng-click="openModal()">
+            <i class="glyphicon glyphicon-plus"></i>
+            {{'ADDDETAIL' | translate}}
+        </a>
+
         <div class="row" style="padding: 5px">
             <div class="form-group" ng-class="{ 'has-error' : form.date.$invalid && !form.date.$pristine }">
                 <label class="control-label" >{{'DATE' | translate}}</label>
@@ -66,4 +86,57 @@
         </div>
     </form>
 </content>
+
+<content ng-if="orderLoaded" title="ردیف ها">
+
+    <grid readUrl="{{'/api/orderFoods/' + orderFood.id + '/details'}}"
+          columns="detailColumns"
+          commands="detailCommands"
+          option="gridDetailOption">
+    </grid>
+</content>
+
+
+<modal options="winOption" title="{{winOption.title}}" >
+    <modalbody>
+        <form name="form" ng-if="currentDetail != null">
+            <div class="form-group" ng-class="{ 'has-error' : form.foodId.$invalid && !form.foodId.$pristine }">
+                <label class="control-label" >{{'FOOD' | translate}}</label>
+                <div>
+                    <combo url="/api/foods" valueprop="id" displayprop="title" placeholder="..."
+                           name="foodId"
+                           model="currentDetail.foodId" select="afterFoodSelect(item)"
+                           width="400px" required></combo>
+                </div>
+                <p ng-show="form.foodId.$invalid && !form.foodId.$pristine">
+                    <span class="label label-danger">{{'FOOD IS REQUIRED' | translate}}</span>
+                </p>
+            </div>
+        </form>
+        <div class="form-group" ng-class="{ 'has-error' : form.qty.$invalid && !form.qty.$pristine }">
+            <label class="control-label" >{{'QTY' | translate}}</label>
+            <div>
+                <numeric model="currentDetail.qty" name="qty" required/>
+            </div>
+            <p ng-show="form.qty.$invalid && !form.qty.$pristine">
+                <span class="label label-danger">{{'QTY IS REQUIRED' | translate}}</span>
+            </p>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : form.price.$invalid && !form.price.$pristine }">
+            <label class="control-label" >{{'PRICE' | translate}}</label>
+            <div>
+                <numeric model="currentDetail.price" isprice="true" name="price" required/>
+            </div>
+            <p ng-show="form.price.$invalid && !form.price.$pristine">
+                <span class="label label-danger">{{'PRICE IS REQUIRED' | translate}}</span>
+            </p>
+        </div>
+    </modalbody>
+    <modalfooter>
+        <a ng-click="cancelDetail()"class="btn btn-default">{{'CANCEL' | translate}}</a>
+        <a ng-click="saveDetail()" class="btn btn-primary">{{'SAVE' | translate}}</a>
+    </modalfooter>
+</modal>
+
+
 

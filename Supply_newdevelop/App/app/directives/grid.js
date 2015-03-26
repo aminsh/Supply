@@ -1,4 +1,4 @@
-define(['app'], function(app){
+define(['app', 'kendo'], function(app){
     app.register.directive('grid', function(){
         return {
             restrict: 'E',
@@ -14,7 +14,10 @@ define(['app'], function(app){
                var cols = scope.columns.select(function(col){
                    return {
                        field: col.name,
-                       title: col.title
+                       title: col.title,
+                       width: col.width,
+                       format: col.format,
+                       template: col.template
                    }
                });
 

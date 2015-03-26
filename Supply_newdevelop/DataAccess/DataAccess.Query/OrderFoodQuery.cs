@@ -58,9 +58,25 @@ namespace DataAccess.Query
                     id = d.Id,
                     row = d.Row,
                     food = new ServiceView { id = d.Food.Id, title = d.Food.Title, price = d.Food.Price},
-                    price = d.Price,
+                    scale = d.Food.Scale.Title,
+                    price = d.Price * d.Qty,
                     qty = d.Qty
                 });
+        }
+
+        public OrderFoodDetailView GetDetailById(int id, int detailId)
+        {
+            var detail = _context.Set<OrderFood>().Find(id).Details.First(d => d.Id == detailId);
+
+            return new OrderFoodDetailView
+            {
+                id = detail.Id,
+                row = detail.Row,
+                food = new ServiceView { id = detail.Food.Id, title = detail.Food.Title, price = detail.Food.Price },
+                scale = detail.Food.Scale.Title,
+                price = detail.Price * detail.Qty,
+                qty = detail.Qty
+            };
         }
     }
 }

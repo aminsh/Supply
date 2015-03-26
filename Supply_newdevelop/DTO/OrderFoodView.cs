@@ -28,6 +28,7 @@ namespace DTO
         public int row { get; set; }
         public ServiceView food { get; set; }
         public double qty { get; set; }
+        public string scale { get; set; }
         public double price { get; set; }
     }
 }

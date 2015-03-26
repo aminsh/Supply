@@ -10,8 +10,11 @@ define(['app'],function(app){
             },
             transclude: true,
             link: function(scope, element, attrs){
-                debugger;
-
+                $(element).modal({
+                    keyboard: false,
+                    backdrop: 'static',
+                    show: false
+                });
                 if(isNullOrEmpty(scope.options))
                     return;
 
@@ -25,9 +28,9 @@ define(['app'],function(app){
                     scope.options.isOpen = false;
                 }
 
-                scope.$apply('options.isOpen', function(a,b){
-                    debugger;
-                });
+//                scope.$apply('options.isOpen', function(a,b){
+//                    debugger;
+//                });
             }
         }
     });

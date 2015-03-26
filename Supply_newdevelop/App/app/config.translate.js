@@ -19,12 +19,23 @@ define(['app'],function(app){
             'SECTION': 'قسمت',
             'CONSUMER': 'مصرف کننده',
             'REQUESTER': 'درخواست دهنده',
+            'QTY': 'مقدار',
+
             'NAME IS REQUIRED': 'نام اجباری است',
             'TITLE IS REQUIRED': 'عنوان اجباری است',
             'SCALE IS REQUIRED': 'مقیاس اجباری است',
             'DATE IS REQUIRED': 'تاریخ اجباری است',
             'SECTION IS REQUIRED': 'قسمت اجباری است',
-            'CONSUMER IS REQUIRED': 'مصرف کننده اجباری است'
+            'CONSUMER IS REQUIRED': 'مصرف کننده اجباری است',
+            'FOOD IS REQUIRED': 'میوه و شیرینی اجباری است',
+            'QTY IS REQUIRED': 'مقدار اجباری است',
+            'PRICE IS REQUIRED': 'قیمت اجباری است',
+
+            'FOOD': 'میوه و شیرینی',
+
+            'ASSIGNOFFICER': 'انتخاب کارپرداز',
+            'CLOSE': 'بستن',
+            'ADDDETAIL': 'ردیف جدید'
         });
 
         $translateProvider.translations('de', {

@@ -101,7 +101,12 @@ namespace Domain
             if (_result.Errors.Any())
                 return;
 
-            var row = entity.Details.Max(d => d.Row) + 1;
+
+            var row = 1;
+
+            if(entity.Details.Any())
+                row = entity.Details.Max(d => d.Row) + 1;
+
             var food = _foodRepository.FindById(data.foodId);
 
             var detail = new OrderFoodDetail
@@ -116,6 +121,49 @@ namespace Domain
 
         }
 
+        public void UpdateDetail(UpdateDetailToOrderFood data)
+        {
+            var entity = _orderFoodRepository.FindById(data.id);
+
+            if (entity.IsClosed)
+                _result.Errors.Add(new Error { Message = "سفارش جاری به اتمام رسیده" });
+            if (entity.IsClosed)
+                _result.Errors.Add(new Error { Message = "سفارش جاری قبلا انجام شده است" });
+            if (_result.Errors.Any())
+                return;
+
+            var detail = entity.Details.FirstOrDefault(d => d.Id == data.detailId);
+
+            if (detail == null)
+            {
+                 _result.Errors.Add(new Error { Message = "ردیف جاری قبلا پیدا نشد" });
+                return;
+            }
+               
+            if (data.foodId != detail.Food.Id)
+            {
+                var food = _foodRepository.FindById(data.foodId);
+                detail.Food = food;
+            }
+
+            detail.Qty = data.qty;
+            detail.Price = data.price;
+        }
+
+        public void DeleteDetail(int id, int detailId)
+        {
+            var entity = _orderFoodRepository.FindById(id);
+
+            if (entity.IsClosed)
+                _result.Errors.Add(new Error { Message = "سفارش جاری به اتمام رسیده" });
+            if (entity.IsClosed)
+                _result.Errors.Add(new Error { Message = "سفارش جاری قبلا انجام شده است" });
+            if (_result.Errors.Any())
+                return;
+
+            var detail = entity.Details.FirstOrDefault(d => d.Id == detailId);
+            detail.SetDelete();
+        }
         public void UpdateExtraCostToDetail(UpdateExtraCostDTO data)
         {
             var detail = _orderFoodRepository

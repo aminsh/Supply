@@ -40,6 +40,19 @@ define(['app'],function(app){
 
                 return deferred.promise;
             },
+            getDetailById: function(id, detailId){
+                var deferred = $q.defer();
+
+                $http.get('/api/orderFoods/' + id + '/details/' + detailId)
+                    .success(function(data){
+                        deferred.resolve(data);
+                    })
+                    .error(function(error){
+                        deferred.reject(error);
+                    });
+
+                return deferred.promise;
+            },
             post: function(orderFood){
                 var deferred = $q.defer();
 
@@ -96,11 +109,37 @@ define(['app'],function(app){
             addDetail: function(id , data){
                 var deferred = $q.defer();
 
-                $http.put('/api/orderFoods/' + id + '/detail', data)
+                $http.post('/api/orderFoods/' + id + '/details', data)
                     .success(function(){
                         deferred.resolve();
                     })
                     .error(function(error){
+                        deferred.reject(error);
+                    });
+
+                return deferred.promise;
+            },
+            updateDetail: function(id ,detailId,data){
+                var deferred = $q.defer();
+
+                $http.put('/api/orderFoods/' + id + '/details/' + detailId, data)
+                    .success(function(){
+                        deferred.resolve();
+                    })
+                    .error(function(error){
+                        deferred.reject(error);
+                    });
+
+                return deferred.promise;
+            },
+            removeDetail: function(id ,detailId){
+                var deferred = $q.defer();
+
+                $http.delete('/api/orderFoods/' + id + '/details/' + detailId)
+                    .then(function(){
+                        deferred.resolve();
+                    })
+                    .catch(function(){
                         deferred.reject(error);
                     });
 

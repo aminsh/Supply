@@ -32,4 +32,13 @@ namespace DTO
         public double price { get; set; }
     }
 
+    public class UpdateDetailToOrderFood
+    {
+        public int id { get; set; }
+        public int detailId { get; set; }
+        public int foodId { get; set; }
+        public double qty { get; set; }
+        public double price { get; set; }
+    }
+
 }
