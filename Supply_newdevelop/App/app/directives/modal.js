@@ -6,15 +6,23 @@ define(['app'],function(app){
             templateUrl: 'app/directives/templates/modal-template.html',
             scope:{
                 options: '=',
-                title: '@'
+                title: '@',
+                width: '@'
             },
             transclude: true,
             link: function(scope, element, attrs){
-                $(element).modal({
+                var option = {
                     keyboard: false,
                     backdrop: 'static',
                     show: false
-                });
+                };
+
+                if(!isNullOrEmpty(attrs.width)){
+                    $(element).find('.modal-dialog').css('width', attrs.width);
+                }
+
+
+                $(element).modal(option);
                 if(isNullOrEmpty(scope.options))
                     return;
 

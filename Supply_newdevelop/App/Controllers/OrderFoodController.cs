@@ -41,6 +41,13 @@ namespace App.Controllers
             return new OrderFoodQuery().Details(id, Request.ToDataSourceRequest());
         }
 
+        [Route("{id}/letters")]
+        [HttpGet]
+        public IEnumerable<LetterView> Letters(int id)
+        {
+            return new OrderFoodQuery().Letters(id);
+        }
+
         [Route("{id}/details/{detailId}")]
         [HttpGet]
         public HttpResponseMessage GetDetailById(int id, int detailId)
@@ -106,6 +113,21 @@ namespace App.Controllers
             return Request.ToResponse();
         }
 
+        [Route("{id}/letters")]
+        [HttpPut]
+        public HttpResponseMessage UpdateLetters(int id, IEnumerable<OrderUpdateLetterDTO> letter)
+        {
+            _orderFoodService.UpdateLetter(id , letter);
+            return Request.ToResponse();
+        }
+
+        [Route("{id}/details/{detailId}/extraCost")]
+        [HttpGet]
+        public HttpResponseMessage GetExtraCost(int id, int detailId)
+        {
+            return Request.CreateResponse(new OrderFoodQuery().ExtraCosts(id, detailId));
+        }
+
         [Route("{id}/details/{detailId}/extraCost")]
         [HttpPut]
         public HttpResponseMessage UpdateExtraCost(int id, int detailId, IEnumerable<ExtraConstDTO> extraConst)
@@ -113,6 +135,13 @@ namespace App.Controllers
             var updateExtraCost = new UpdateExtraCostDTO {id = id, detailId = detailId, extraConst = extraConst};
             _orderFoodService.UpdateExtraCostToDetail(updateExtraCost);
             return Request.ToResponse();
+        }
+
+        [Route("{id}/details/{detailId}/costDetail")]
+        [HttpGet]
+        public HttpResponseMessage GetCostDetail(int id, int detailId)
+        {
+            return Request.CreateResponse(new OrderFoodQuery().CostDetail(id, detailId));
         }
 
         [Route("{id}/details/{detailId}/costDetail")]

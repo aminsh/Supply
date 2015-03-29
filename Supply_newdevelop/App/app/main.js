@@ -75,7 +75,7 @@
             exports: 'domReady',
             deps: ['jQuery']
         },
-        'kendo':{exports: 'kendo'},
+        'kendo':{exports: 'kendo', deps:['jQuery']},
         'date-JalaliDate': {exports: 'date-JalaliDate'},
         'date-core':{exports: 'date-core'},
         'date-calendar': {exports: 'date-calendar', deps: ['date-core']},

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Core;
 using DataAccess.EntityFramework;
 using Domain.Model;
+using Domain.Model.Order;
 using DTO;
 using Kendo.DynamicLinq;
 
@@ -27,6 +28,17 @@ namespace DataAccess.Query
                 {
                     id = scale.Id,
                     title = scale.Title
+                });
+        }
+
+        public DataSourceResult CostTypes(DataSourceRequest request)
+        {
+            return _context.Set<CostType>()
+                .ToDataSourceResult(request, type => new 
+                {
+                    id = type.Id,
+                    title = type.Title,
+                    nature = type.NatureCost == NatureCost.Positive ? 1 : -1
                 });
         }
     }

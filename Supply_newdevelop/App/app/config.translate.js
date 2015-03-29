@@ -20,6 +20,11 @@ define(['app'],function(app){
             'CONSUMER': 'مصرف کننده',
             'REQUESTER': 'درخواست دهنده',
             'QTY': 'مقدار',
+            'LETTER': 'نامه',
+            'OFFICER': 'کارپرداز',
+            'EXTRACOST': 'هزینه اضافه',
+            'COSTDETAIL': 'ریز هزینه',
+            'COST': 'هزینه',
 
             'NAME IS REQUIRED': 'نام اجباری است',
             'TITLE IS REQUIRED': 'عنوان اجباری است',
@@ -30,6 +35,7 @@ define(['app'],function(app){
             'FOOD IS REQUIRED': 'میوه و شیرینی اجباری است',
             'QTY IS REQUIRED': 'مقدار اجباری است',
             'PRICE IS REQUIRED': 'قیمت اجباری است',
+            'OFFICER IS REQUIRED': 'کارپرداز اجباری است',
 
             'FOOD': 'میوه و شیرینی',
 

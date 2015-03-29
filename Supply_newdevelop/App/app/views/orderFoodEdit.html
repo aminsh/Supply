@@ -9,7 +9,7 @@
             {{'REMOVE' | translate}}
         </a>
 
-        <a class="btn btn-primary" ng-click="assignOfficer()" >
+        <a class="btn btn-primary" ng-click="openOfficer()" >
             <!--<i class="glyphicon glyphicon-trash"></i>-->
             {{'ASSIGNOFFICER' | translate}}
         </a>
@@ -19,76 +19,87 @@
             {{'CLOSE' | translate}}
         </a>
 
-        <a class="btn btn-primary" ng-click="addDetail()">
-            <i class="glyphicon glyphicon-plus"></i>
-            {{'ADDDETAIL' | translate}}
+        <a class="btn btn-primary" ng-click="openLetter()">
+            <!--<i class="glyphicon glyphicon-plus"></i>-->
+            {{'LETTER' | translate}}
         </a>
-
-        <a class="btn btn-primary" ng-click="openModal()">
-            <i class="glyphicon glyphicon-plus"></i>
-            {{'ADDDETAIL' | translate}}
-        </a>
-
         <div class="row" style="padding: 5px">
-            <div class="form-group" ng-class="{ 'has-error' : form.date.$invalid && !form.date.$pristine }">
-                <label class="control-label" >{{'DATE' | translate}}</label>
-                <div>
-                    <datepicker model="orderFood.date"  name="date" required ></datepicker>
-                </div>
-                <p ng-show="form.date.$invalid && !form.date.$pristine">
-                    <span class="label label-danger">{{'DATE IS REQUIRED' | translate}}</span>
-                </p>
-            </div>
-
-            <div class="form-group" ng-class="{ 'has-error' : form.sectionId.$invalid && !form.sectionId.$pristine }">
-                <label class="control-label" >{{'SECTION' | translate}}</label>
-                <div>
-                    <combo url="/api/sections" valueprop="id" displayprop="title" placeholder="..."
-                           model="orderFood.sectionId" name="sectionId" width="400px" required ></combo>
-                </div>
-                <p ng-show="form.sectionId.$invalid && !form.sectionId.$pristine">
-                    <span class="label label-danger">{{'SECTION IS REQUIRED' | translate}}</span>
-                </p>
-            </div>
-
-            <div class="form-group" ng-class="{ 'has-error' : form.consumerId.$invalid && !form.consumerId.$pristine }">
-                <label class="control-label" >{{'CONSUMER' | translate}}</label>
-               <div>
-                   <combo url="/api/sections" valueprop="id" displayprop="title" placeholder="..."
-                          model="orderFood.consumerId" name="consumerId" width="400px" required></combo>
-               </div>
-                <p ng-show="form.consumerId.$invalid && !form.consumerId.$pristine">
-                    <span class="label label-danger">{{'CONSUMER IS REQUIRED' | translate}}</span>
-                </p>
-            </div>
-
-            <div class="form-group" ng-class="{ 'has-error' : form.requesterId.$invalid && !form.requesterId.$pristine }">
-                <label class="control-label" >{{'REQUESTER' | translate}}</label>
-                <div>
-                    <combo url="/api/employees" valueprop="id" displayprop="title" placeholder="..."
-                           model="orderFood.requesterId" width="400px" ></combo>
-                </div>
-                <p ng-show="form.requesterId.$invalid && !form.requesterId.$pristine">
-
-                </p>
-            </div>
-
-            <div class="form-group" ng-class="{ 'has-error' : form.title.$invalid && !form.title.$pristine }">
-                <label class="control-label" >{{'PURCHASEMETHOD' | translate}}</label>
-                <div>
-                    <dropdownlist valueprop="key" displayprop="value" data="purchaseMethod" name="purchaseMethod" model="orderFood.purchaseMethod" required/>
+            <div class="col-md-6">
+                <div class="form-group" ng-class="{ 'has-error' : form.date.$invalid && !form.date.$pristine }">
+                    <label class="control-label" >{{'DATE' | translate}}</label>
+                    <div>
+                        <datepicker model="orderFood.date"  name="date" required ></datepicker>
+                    </div>
+                    <p ng-show="form.date.$invalid && !form.date.$pristine">
+                        <span class="label label-danger">{{'DATE IS REQUIRED' | translate}}</span>
+                    </p>
                 </div>
 
-                <p ng-show="form.title.$invalid && !form.title.$pristine">
-                    <span class="label label-danger">{{'TITLE IS REQUIRED' | translate}}</span>
-                </p>
+                <div class="form-group" ng-class="{ 'has-error' : form.sectionId.$invalid && !form.sectionId.$pristine }">
+                    <label class="control-label" >{{'SECTION' | translate}}</label>
+                    <div>
+                        <combo url="/api/sections" valueprop="id" displayprop="title" placeholder="..."
+                               model="orderFood.sectionId" name="sectionId" width="400px" required ></combo>
+                    </div>
+                    <p ng-show="form.sectionId.$invalid && !form.sectionId.$pristine">
+                        <span class="label label-danger">{{'SECTION IS REQUIRED' | translate}}</span>
+                    </p>
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-error' : form.consumerId.$invalid && !form.consumerId.$pristine }">
+                    <label class="control-label" >{{'CONSUMER' | translate}}</label>
+                   <div>
+                       <combo url="/api/sections" valueprop="id" displayprop="title" placeholder="..."
+                              model="orderFood.consumerId" name="consumerId" width="400px" required></combo>
+                   </div>
+                    <p ng-show="form.consumerId.$invalid && !form.consumerId.$pristine">
+                        <span class="label label-danger">{{'CONSUMER IS REQUIRED' | translate}}</span>
+                    </p>
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-error' : form.requesterId.$invalid && !form.requesterId.$pristine }">
+                    <label class="control-label" >{{'REQUESTER' | translate}}</label>
+                    <div>
+                        <combo url="/api/employees" valueprop="id" displayprop="title" placeholder="..."
+                               model="orderFood.requesterId" width="400px" ></combo>
+                    </div>
+                    <p ng-show="form.requesterId.$invalid && !form.requesterId.$pristine">
+
+                    </p>
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-error' : form.title.$invalid && !form.title.$pristine }">
+                    <label class="control-label" >{{'PURCHASEMETHOD' | translate}}</label>
+                    <div>
+                        <dropdownlist valueprop="key" displayprop="value" data="purchaseMethod" name="purchaseMethod" model="orderFood.purchaseMethod" required/>
+                    </div>
+
+                    <p ng-show="form.title.$invalid && !form.title.$pristine">
+                        <span class="label label-danger">{{'TITLE IS REQUIRED' | translate}}</span>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-info">
+                        {{'OFFICER' | translate}} :
+                        {{orderFood.officer}}
+                    </li>
+                    <li class="list-group-item">
+تاریخ انتخاب کارپرداز :
+                        {{orderFood.assignedToOfficerOn}}
+                    </li>
+                </ul>
             </div>
         </div>
     </form>
 </content>
 
 <content ng-if="orderLoaded" title="ردیف ها">
-
+    <a class="btn btn-primary" ng-click="addDetail()">
+        <i class="glyphicon glyphicon-plus"></i>
+        {{'ADDDETAIL' | translate}}
+    </a>
     <grid readUrl="{{'/api/orderFoods/' + orderFood.id + '/details'}}"
           columns="detailColumns"
           commands="detailCommands"
@@ -135,6 +146,159 @@
     <modalfooter>
         <a ng-click="cancelDetail()"class="btn btn-default">{{'CANCEL' | translate}}</a>
         <a ng-click="saveDetail()" class="btn btn-primary">{{'SAVE' | translate}}</a>
+    </modalfooter>
+</modal>
+
+<modal options="letterOption" title="{{'LETTER' | translate}}" width="700px">
+    <modalbody>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>شماره</th>
+                <th>تاریخ</th>
+                <th>اقدام کننده</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="letter in letters">
+                <td>
+                    <input type="text" ng-model="letter.number" class="form-control" style="width: 120px">
+                </td>
+                <td>
+                    <datepicker model="letter.date"></datepicker>
+                </td>
+                <td>
+                    <combo url="/api/sections" valueprop="id" displayprop="title" placeholder="..."
+                           model="letter.performerId" name="performerId" width="200px" required></combo>
+                </td>
+                <td>
+                    <a class="btn btn-default btn-sm" ng-click="removeLetter(letter)">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        {{'REMOVE'| translate}}
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </modalbody>
+    <modalfooter>
+        <a class="btn btn-success" ng-click="saveLetters()" ng-disabled="form.$invalid">
+            <i class="glyphicon glyphicon-floppy-disk"></i>
+            {{'SAVE' | translate}}
+        </a>
+        <a class="btn btn-primary pull-right" ng-click="addLetter()">
+            <i class="glyphicon glyphicon-plus"></i>
+            {{'NEW' | translate}}
+        </a>
+    </modalfooter>
+</modal>
+
+<modal options="officerOption" title="ارائه به کارپرداز">
+    <modalbody>
+        <form name="form">
+            <div class="form-group" ng-class="{ 'has-error' : form.foodId.$invalid && !form.foodId.$pristine }">
+                <label class="control-label" >{{'OFFICER' | translate}}</label>
+                <div>
+                    <combo url="/api/officers" valueprop="id" displayprop="title" placeholder="..."
+                           name="officerId"
+                           model="officer.officerId"
+                           width="400px" required></combo>
+                </div>
+                <p ng-show="form.officerId.$invalid && !form.officerId.$pristine">
+                    <span class="label label-danger">{{'OFFICER IS REQUIRED' | translate}}</span>
+                </p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : form.foodId.$invalid && !form.foodId.$pristine }">
+                <label class="control-label" >{{'OFFICER' | translate}}</label>
+                <div>
+                    <datepicker model="officer.date"  name="date" required ></datepicker>
+                </div>
+                <p ng-show="form.date.$invalid && !form.date.$pristine">
+                    <span class="label label-danger">{{'DATE IS REQUIRED' | translate}}</span>
+                </p>
+            </div>
+        </form>
+    </modalbody>
+    <modalfooter>
+        <a class="btn btn-success" ng-click="saveOfficer()">
+            <i class="glyphicon glyphicon-floppy-disk"></i>
+            {{'SAVE' | translate}}
+        </a>
+    </modalfooter>
+</modal>
+
+<modal options="extraCostOption" title="{{'EXTRACOST' | translate}}" >
+    <modalbody>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>نوع هزینه</th>
+                <th>هزینه</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="ex in extraCost">
+                <td>
+                    <combo url="/api/costTypes" valueprop="id" displayprop="title" placeholder="..."
+                           model="ex.costTypeId" name="costTypeId" width="200px" required></combo>
+                </td>
+                <td>
+                   <numeric model="ex.cost" name="cost" isprice="true"></numeric>
+                </td>
+                <td>
+                    <a class="btn btn-default btn-sm" ng-click="removeExtraCost(ex)">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        {{'REMOVE'| translate}}
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </modalbody>
+    <modalfooter>
+        <a class="btn btn-success" ng-click="saveExtraCost()" ng-disabled="form.$invalid">
+            <i class="glyphicon glyphicon-floppy-disk"></i>
+            {{'SAVE' | translate}}
+        </a>
+        <a class="btn btn-primary pull-right" ng-click="addExtraCost()">
+            <i class="glyphicon glyphicon-plus"></i>
+            {{'NEW' | translate}}
+        </a>
+    </modalfooter>
+</modal>
+
+<modal options="costDetailOption" title="{{'COSTDETAIL' | translate}}" >
+    <modalbody>
+        <div ng-repeat="cd in costDetail" >
+            <div class="row">
+                <label class="control-label">{{'DES'| translate}}</label>
+                <textarea class="form-control" ng-model="cd.des" name="des" required></textarea>
+            </div>
+            <div class="row" style="margin-top: 3px;border-bottom: 1px solid lightgray;padding-bottom: 10px">
+                <div class="col-md-6">
+                    <label class="control-label">{{'COST'| translate}}</label>
+                    <numeric model="cd.cost" name="cost" isprice="true"></numeric>
+                </div>
+                <div class="col-md-6">
+                    <a class="btn btn-default btn-sm" ng-click="removeCostDetail(cd)">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        {{'REMOVE'| translate}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </modalbody>
+    <modalfooter>
+        <a class="btn btn-success" ng-click="saveCostDetail()" ng-disabled="form.$invalid">
+            <i class="glyphicon glyphicon-floppy-disk"></i>
+            {{'SAVE' | translate}}
+        </a>
+        <a class="btn btn-primary pull-right" ng-click="addCostDetail()">
+            <i class="glyphicon glyphicon-plus"></i>
+            {{'NEW' | translate}}
+        </a>
     </modalfooter>
 </modal>
 

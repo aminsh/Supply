@@ -40,6 +40,19 @@ define(['app'],function(app){
 
                 return deferred.promise;
             },
+            letters: function(id){
+                var deferred = $q.defer();
+
+                $http.get('/api/orderFoods/' + id + '/letters')
+                    .success(function(data){
+                        deferred.resolve(data);
+                    })
+                    .error(function(error){
+                        deferred.reject(error);
+                    });
+
+                return deferred.promise;
+            },
             getDetailById: function(id, detailId){
                 var deferred = $q.defer();
 
@@ -83,7 +96,7 @@ define(['app'],function(app){
             assignOfficer: function(id , data){
                 var deferred = $q.defer();
 
-                $http.post('/api/orderFoods/' + id + 'assignOfficer', data)
+                $http.put('/api/orderFoods/' + id + '/assignOfficer', data)
                     .success(function(){
                         deferred.resolve();
                     })
@@ -145,12 +158,51 @@ define(['app'],function(app){
 
                 return deferred.promise;
             },
+            updateLetters: function(id, letters){
+                var deferred = $q.defer();
+
+                $http.put('/api/orderFoods/' + id + '/letters/', letters)
+                    .success(function(){
+                        deferred.resolve();
+                    })
+                    .error(function(error){
+                        deferred.reject(error);
+                    });
+
+                return deferred.promise;
+            },
+            getExtraCost: function(id, detailId){
+                var deferred = $q.defer();
+
+                $http.get('/api/orderFoods/' + id + '/details/' + detailId + '/extraCost')
+                    .success(function(data){
+                        deferred.resolve(data);
+                    })
+                    .error(function(error){
+                        deferred.reject(error);
+                    });
+
+                return deferred.promise;
+            },
             updateExtraCost: function(id ,detailId ,  data){
                 var deferred = $q.defer();
 
                 $http.put('/api/orderFoods/' + id + '/details/' + detailId + '/extraCost', data)
                     .success(function(){
                         deferred.resolve();
+                    })
+                    .error(function(error){
+                        deferred.reject(error);
+                    });
+
+                return deferred.promise;
+            },
+            getCostDetail: function(id, detailId){
+                var deferred = $q.defer();
+
+                $http.get('/api/orderFoods/' + id + '/details/' + detailId + '/costDetail')
+                    .success(function(data){
+                        deferred.resolve(data);
                     })
                     .error(function(error){
                         deferred.reject(error);

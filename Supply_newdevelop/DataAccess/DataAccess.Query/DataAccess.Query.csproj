@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="EmployeeQuery.cs" />
     <Compile Include="FoodQuery.cs" />
+    <Compile Include="OfficerQuery.cs" />
     <Compile Include="OrderFoodQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BasicInfo.cs" />

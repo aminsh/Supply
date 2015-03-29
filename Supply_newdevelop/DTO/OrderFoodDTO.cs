@@ -24,6 +24,7 @@ namespace DTO
         public string perchaseMethod { get; set; }
     }
 
+    
     public class AddDetailToOrderFood
     {
         public int id { get; set; }

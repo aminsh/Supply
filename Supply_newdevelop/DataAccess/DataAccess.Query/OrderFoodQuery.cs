@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Core;
 using DataAccess.EntityFramework;
 using Domain.Model;
+using Domain.Model.Order;
 using DTO;
 using Kendo.DynamicLinq;
 
@@ -77,6 +78,43 @@ namespace DataAccess.Query
                 price = detail.Price * detail.Qty,
                 qty = detail.Qty
             };
+        }
+
+        public IEnumerable<LetterView> Letters(int id)
+        {
+            var orderFood = _context.Set<OrderFood>().Find(id);
+
+            return orderFood.Letters.ToList().Select(l => new LetterView
+            {
+                number = l.Number,
+                date = l.Date,
+                performer = l.Performer == null ? string.Empty : l.Performer.Title,
+                performerId = l.Performer == null ? (int?) null : l.Performer.Id
+            });
+        }
+
+        public IEnumerable<object> ExtraCosts(int id, int detailId)
+        {
+            var detail = _context.Set<OrderFood>().Find(id).Details.First(d => d.Id == detailId);
+
+            return detail.ExtraCosts.ToList().Select(e => new
+            {
+                cost = e.Cost,
+                costTypeId = e.CostType.Id,
+                costType = e.CostType.Title,
+                nature = e.CostType.NatureCost == NatureCost.Positive ? 1 : -1
+            });
+        }
+
+        public IEnumerable<object> CostDetail(int id, int detailId)
+        {
+            var detail = _context.Set<OrderFood>().Find(id).Details.First(d => d.Id == detailId);
+
+            return detail.CostDetails.ToList().Select(c => new
+            {
+                des = c.Des,
+                cost = c.Cost
+            });
         }
     }
 }

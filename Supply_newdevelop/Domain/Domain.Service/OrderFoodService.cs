@@ -90,6 +90,27 @@ namespace Domain
             entity.ClosedDate = data.date;
         }
 
+        public void UpdateLetter(int id, IEnumerable<OrderUpdateLetterDTO> letters)
+        {
+            var order = _orderFoodRepository.FindById(id);
+
+
+            order.Letters.ToList().ForEach(l => l.SetDelete());
+
+            letters.ToList().ForEach(l =>
+            {
+                var performer = _sectionRepository.FindById(l.performerId);
+                var letter = new Letter
+                {
+                    Date = l.date,
+                    Number = l.number,
+                    Performer = performer
+                };
+
+                order.Letters.Add(letter);
+            });
+        }
+
         public void AddDetail(AddDetailToOrderFood data)
         {
             var entity = _orderFoodRepository.FindById(data.id);

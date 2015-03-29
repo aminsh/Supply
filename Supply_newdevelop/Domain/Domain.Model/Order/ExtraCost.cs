@@ -15,5 +15,11 @@ namespace Domain.Model.Order
     public class CostType : EntityBase
     {
         public string Title { get; set; }
+        public NatureCost NatureCost { get; set; }
+    }
+
+    public enum NatureCost
+    {
+        Positive, Negative
     }
 }

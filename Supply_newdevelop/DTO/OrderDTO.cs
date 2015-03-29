@@ -7,7 +7,7 @@ namespace DTO
     public class OrderAssignOfficerDTO
     {
         public int id { get; set; }
-        public int officerId { get; set; }
+        public string officerId { get; set; }
         public string date { get; set; }
     }
 
@@ -21,6 +21,13 @@ namespace DTO
     {
         public int id { get; set; }
         public string cause { get; set; }
+    }
+
+    public class OrderUpdateLetterDTO
+    {
+        public string number { get; set; }
+        public string date { get; set; }
+        public int performerId { get; set; }
     }
 
     public class ExtraConstDTO
