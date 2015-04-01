@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DateTimeExtension.cs" />
     <Compile Include="DependencyManager.cs" />
     <Compile Include="KendoExtension.cs" />
     <Compile Include="ObjectExtention.cs" />

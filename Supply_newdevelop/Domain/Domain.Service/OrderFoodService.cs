@@ -50,6 +50,8 @@ namespace Domain
                 Section = section,
                 ConsumerSection = consumer,
                 Requester = requester,
+                CreatedBy = null,
+                CreatedOn = DateTime.Now.ToPersian()
             };
 
             _orderFoodRepository.Add(entity);

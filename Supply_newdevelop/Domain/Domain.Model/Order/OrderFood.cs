@@ -22,6 +22,8 @@ namespace Domain.Model
         public string AssignedToOfficerOn { get; set; }
         public virtual ICollection<OrderFoodDetail> Details { get; set; }
         public virtual ICollection<Letter> Letters { get; set; }
+        public virtual  User CreatedBy { get; set; }
+        public string CreatedOn { get; set; }
     }
 
     public enum PurchaseMethod
